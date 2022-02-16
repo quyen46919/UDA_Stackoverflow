@@ -1,0 +1,9 @@
+@import 'assets/scss/mixins';
+
+.App {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden!important;
+
+  @include ScrollBarCustom();
+}

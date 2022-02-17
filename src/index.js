@@ -30,6 +30,15 @@ const theme = createTheme({
         button: {
             textTransform: 'initial'
         }
+    },
+    breakpoints: {
+        values: {
+            mobile: 0,
+            tablet: 640,
+            laptop: 1024,
+            desktop: 1280,
+            bigScreen: 1536
+        }
     }
 });
 

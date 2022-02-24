@@ -20,6 +20,8 @@ function App() {
                     <Route path="/" component={HomePage} exact/>
                     <Route path="/login" component={LoginPage} exact/>
                     <Route path="/logup" component={LogupPage} exact/>
+                    {/* tại vì Headder m chưa làm nên t để ra đâu để check UI đã */}
+                    <Route path="/question" component={QuestionPage} exact/>
                     <Route path="/" render={() =>
                         // nottableUser ? (
                         <>

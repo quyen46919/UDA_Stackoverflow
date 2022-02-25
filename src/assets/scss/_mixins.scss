@@ -45,14 +45,14 @@
 }
 
 
-@mixin ScrollBarCustom() {
+@mixin customScrollBar() {
     &::-webkit-scrollbar{
-        -webkit-appearance: none;
-        width: 6px;
+        -webkit-appearance: none!important;
+        width: 6px!important;
     }
     &::-webkit-scrollbar-thumb{
-        background: rgb(214, 214, 214);
-        border-radius: 5px;
+        background: rgb(214, 214, 214)!important;
+        border-radius: 5px!important;
     }
 }
 

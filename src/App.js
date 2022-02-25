@@ -1,3 +1,4 @@
+import Footer from 'components/Footer';
 import Header from 'components/Header';
 import EmptyPage from 'pages/EmptyPage';
 import HomePage from 'pages/HomePage';
@@ -29,6 +30,7 @@ function App() {
                                 <Route path="/profile" component={ProfilePage} exact/>
                                 <Route component={EmptyPage}/>
                             </Switch>
+                            <Footer/>
                         </>
                         // ) : ( <Redirect to="/account"/> )
                     }

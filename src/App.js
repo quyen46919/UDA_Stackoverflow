@@ -1,9 +1,11 @@
 import Footer from 'components/Footer';
 import Header from 'components/Header';
 import EmptyPage from 'pages/EmptyPage';
+import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import HomePage from 'pages/HomePage';
 import LoginPage from 'pages/LoginPage';
 import LogupPage from 'pages/LogupPage';
+import ResetPasswordPage from 'pages/ResetPasswordPage';
 import {
     BrowserRouter as Router, Route, Switch
 } from 'react-router-dom';
@@ -21,6 +23,8 @@ function App() {
                     <Route path="/" component={HomePage} exact/>
                     <Route path="/login" component={LoginPage} exact/>
                     <Route path="/logup" component={LogupPage} exact/>
+                    <Route path="/forgot-password" component={ForgotPasswordPage} exact/>
+                    <Route path="/reset-password" component={ResetPasswordPage} exact/>
                     <Route path="/" render={() =>
                         // nottableUser ? (
                         <>

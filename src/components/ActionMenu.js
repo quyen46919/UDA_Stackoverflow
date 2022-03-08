@@ -16,8 +16,10 @@ function ActionMenu() {
     return (
         <Box
             sx={{
-                width: '160px',
-                display: 'flex',
+                minWidth: '200px',
+                display:{
+                    xs: 'none', sm: 'flex'
+                },
                 height: '70%',
                 flexDirection: 'column',
                 flexWrap: 'nowrap',

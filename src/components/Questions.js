@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
+import { grey } from '@mui/material/colors';
 
 Questions.propTypes = {
     info: PropTypes.object.isRequired
@@ -24,8 +25,8 @@ function Questions(props) {
                 justifyContent: 'center',
                 alignItems: 'flex-start',
                 gap: 4,
-                paddingTop: 4,
-                paddingBottom: 4,
+                pt: 2.5,
+                pb: 2.5,
                 backgroundColor: 'white',
                 borderRadius: 2
             }}
@@ -55,7 +56,7 @@ function Questions(props) {
                     justifyContent: 'flex-start',
                     alignItems: 'flex-start',
                     '& a':{ textDecoration: 'none' },
-                    paddingRight: 5
+                    pr: 5.5
                 }}
             >
                 <Link to='#'>
@@ -70,7 +71,7 @@ function Questions(props) {
                             fontSize: 21,
                             color: '#077fd0',
                             'line-height': 'normal',
-                            marginBottom: 0,
+                            marginBottom: '3px',
                             textDecoration: 'none'
                         }}
                         variant="subtitle1" gutterBottom component="div">{title}
@@ -84,22 +85,22 @@ function Questions(props) {
                         '-webkit-box-orient': 'vertical',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
-                        marginBottom: '5px',
-                        fontSize: 19,
-                        color: '#757575'
+                        marginBottom: '10px',
+                        fontSize: 18,
+                        color: grey[500]
                     }}
                     variant="body2" gutterBottom>{des}</Typography>
                 <Box>
 
                     <Stack direction="row" spacing={1}>
-                        <Chip label="javascript" sx={{ backgroundColor: '#f6ea8c', color: 'white' }} onClick={handleClick} />
-                        <Chip label="java" sx={{ backgroundColor: '#c69145', color: 'white' }} onClick={handleClick} />
-                        <Chip label="c++" sx={{ backgroundColor: '#fa8bac', color: 'white' }} onClick={handleClick} />
-                        <Chip label="c#" sx={{ backgroundColor: '#27b20a', color: 'white' }} onClick={handleClick} />
-                        <Chip label="c" sx={{ backgroundColor: '#6e6767', color: 'white' }} onClick={handleClick} />
-                        <Chip label="python" sx={{ backgroundColor: '#408ed0', color: 'white' }} onClick={handleClick} />
-                        <Chip label="shell" sx={{ backgroundColor: '#a0e871', color: 'white' }} onClick={handleClick} />
-                        <Chip label="other" sx={{ backgroundColor: '#ededed' }} onClick={handleClick} />
+                        <Chip label="javascript" sx={{ backgroundColor: '#f6ea8c!important', color: 'white' }} onClick={handleClick} />
+                        <Chip label="java" sx={{ backgroundColor: '#c69145!important', color: 'white' }} onClick={handleClick} />
+                        <Chip label="c++" sx={{ backgroundColor: '#fa8bac!important', color: 'white' }} onClick={handleClick} />
+                        <Chip label="c#" sx={{ backgroundColor: '#27b20a!important', color: 'white' }} onClick={handleClick} />
+                        <Chip label="c" sx={{ backgroundColor: '#6e6767!important', color: 'white' }} onClick={handleClick} />
+                        <Chip label="python" sx={{ backgroundColor: '#408ed0!important', color: 'white' }} onClick={handleClick} />
+                        <Chip label="shell" sx={{ backgroundColor: '#a0e871!important', color: 'white' }} onClick={handleClick} />
+                        <Chip label="other" sx={{ backgroundColor: '#ededed!important' }} onClick={handleClick} />
                     </Stack>
                 </Box>
             </Box>

@@ -60,9 +60,9 @@ function QuestionPage() {
     };
     return (
         <Container
-            maxWidth="lg"
+            maxWidth="xl"
             sx= {{
-                display: 'fex',
+                display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'center',
                 backgroundColor: '#e9f5fa',
@@ -71,12 +71,11 @@ function QuestionPage() {
             <ActionMenu />
             <Box
                 sx= {{
-                    width: 'calc(100% - 200px)',
                     height: '100vh',
                     overflow: 'auto',
                     '&::-webkit-scrollbar':{
                         '-webkit-appearance': 'none',
-                        width: '4px'
+                        width: '8px'
                     },
                     '&::-webkit-scrollbar-thumb':{
                         background: 'rgb(214, 214, 214)',
@@ -99,7 +98,6 @@ function QuestionPage() {
                 }}>
                     <Box
                         sx= {{
-                            width: '100%',
                             display: 'flex',
                             flexDirection: 'row',
                             justifyContent: 'space-between',
@@ -115,7 +113,6 @@ function QuestionPage() {
                     </Box>
                     <Box
                         sx= {{
-                            width: '100%',
                             display: 'flex',
                             flexDirection: 'row',
                             justifyContent: 'space-between',

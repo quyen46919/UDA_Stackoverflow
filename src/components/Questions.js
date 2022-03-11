@@ -1,11 +1,15 @@
-import { Box } from '@mui/material';
+import { Avatar, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import CommentIcon from '@mui/icons-material/Comment';
 import React from 'react';
 import PropTypes from 'prop-types';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
-import { grey } from '@mui/material/colors';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { grey, yellow } from '@mui/material/colors';
+import TourIcon from '@mui/icons-material/Tour';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import user from 'assets/images/intro-HuuTai.jpg';
 
 Questions.propTypes = {
     info: PropTypes.object.isRequired
@@ -13,98 +17,178 @@ Questions.propTypes = {
 
 function Questions(props) {
     const { info } = props;
-    const { vote, answers, views, title, des } = info;
-    const handleClick = () => {};
+    const { number, time, name, title, des } = info;
     return (
-        <Box
-            sx={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
-                flexWrap: 'nowrap',
-                justifyContent: 'center',
-                alignItems: 'flex-start',
-                gap: 4,
-                pt: 2.5,
-                pb: 2.5,
-                backgroundColor: 'white',
-                borderRadius: 2
-            }}
-        >
+        <Box sx={{ pb: 2 }}>
             <Box
                 sx={{
-                    width: '13%',
+                    width: '100%',
                     display: 'flex',
+                    px: 3,
+                    boxSizing: 'border-box',
                     flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    alignItems: 'flex-end',
-                    paddingTop: '2px',
-                }}
-            >
-                <Typography
-                    sx={{ fontSize: 18 }}
-                    variant="body2"
-                    gutterBottom>{vote} votes</Typography>
-                <Typography sx={{ color: '#757575', fontSize: 18 }} variant="body2" gutterBottom>{answers} answers</Typography>
-                <Typography sx={{ color: '#757575', fontSize: 18 }} variant="body2" gutterBottom>{views} views</Typography>
-            </Box>
-            <Box
-                sx={{
-                    width: '87%',
-                    display: 'flex',
-                    flexDirection: 'column',
+                    flexWrap: 'nowrap',
                     justifyContent: 'flex-start',
                     alignItems: 'flex-start',
-                    '& a':{ textDecoration: 'none' },
-                    pr: 5.5
+                    gap: 1,
+                    pt: 2.5,
+                    boxShadow:' rgba(149, 157, 165, 0.2) 0px 8px 24px',
+                    pb: 2.5,
+                    backgroundColor: 'white',
+                    borderRadius: 2
                 }}
             >
-                <Link to='#'>
+                <Box
+                    sx={{
+                        width: '100%',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        paddingTop: '2px'
+                    }}
+                >
+                    <Box
+                        sx={{
+                        // width: '30%',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'flex-start',
+                            gap:1,
+                            alignItems: 'center'
+                        }}
+                    >
+                        <WbSunnyIcon sx={{ fontSize: '19px', color: yellow[500] }}/>
+                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[600] }} variant="subtitle1" gutterBottom component="div">
+                        Ticket #{number}
+                        </Typography>
+                    </Box>
+                    <Box
+                        sx={{
+                        // width: '30%',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'flex-end',
+                            gap:2,
+                            alignItems: 'center'
+                        }}
+                    >
+                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[500] }} variant="subtitle1" gutterBottom component="div">
+                            {time}
+                        </Typography>
+                        <Link to= {''}>
+                            <MoreHorizIcon sx={{ fontSize: '19px', color: grey[500] }}/>
+                        </Link>
+                    </Box>
+                </Box>
+                <Box
+                    sx={{
+                        width: '87%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start',
+                        alignItems: 'flex-start',
+                        '& a':{ textDecoration: 'none' },
+                        pr: 5.5
+                    }}
+                >
                     <Typography
                         sx ={{
                             width: '100%',
                             display: '-webkit-box',
-                            '-webkit-line-clamp': '2',
-                            '-webkit-box-orient': 'vertical',
+                            WebkitLineClamp: 1,
+                            WebkitBoxOrient: 'vertical',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
+                            // display: '-webkit-box',
+                            // '-webkit-line-clamp': '1',
+                            // '-webkit-box-orient': 'vertical',
+                            // overflow: 'hidden',
+                            // textOverflow: 'ellipsis',
                             fontSize: 21,
-                            color: '#077fd0',
-                            'line-height': 'normal',
+                            pl: 1,
+                            fontWeight: 700,
+                            color: grey[800],
+                            'lineHeight': 'normal',
                             marginBottom: '3px',
                             textDecoration: 'none'
                         }}
                         variant="subtitle1" gutterBottom component="div">{title}
                     </Typography>
-                </Link>
-                <Typography
-                    sx ={{
-                        width: '100%',
-                        display: '-webkit-box',
-                        '-webkit-line-clamp': '2',
-                        '-webkit-box-orient': 'vertical',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        marginBottom: '10px',
-                        fontSize: 18,
-                        color: grey[500]
-                    }}
-                    variant="body2" gutterBottom>{des}</Typography>
-                <Box>
+                    <Typography
+                        sx ={{
+                            width: '100%',
+                            display: '-webkit-box',
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            marginBottom: '10px',
+                            fontSize: 18,
+                            pl: 1,
+                            fontWeight: 600,
+                            color: grey[500]
+                        }}
+                        variant="body2" gutterBottom>{des}</Typography>
 
-                    <Stack direction="row" spacing={1}>
-                        <Chip label="javascript" sx={{ backgroundColor: '#f6ea8c!important', color: 'white' }} onClick={handleClick} />
-                        <Chip label="java" sx={{ backgroundColor: '#c69145!important', color: 'white' }} onClick={handleClick} />
-                        <Chip label="c++" sx={{ backgroundColor: '#fa8bac!important', color: 'white' }} onClick={handleClick} />
-                        <Chip label="c#" sx={{ backgroundColor: '#27b20a!important', color: 'white' }} onClick={handleClick} />
-                        <Chip label="c" sx={{ backgroundColor: '#6e6767!important', color: 'white' }} onClick={handleClick} />
-                        <Chip label="python" sx={{ backgroundColor: '#408ed0!important', color: 'white' }} onClick={handleClick} />
-                        <Chip label="shell" sx={{ backgroundColor: '#a0e871!important', color: 'white' }} onClick={handleClick} />
-                        <Chip label="other" sx={{ backgroundColor: '#ededed!important' }} onClick={handleClick} />
-                    </Stack>
                 </Box>
-            </Box>
-        </Box>
+                <Box
+                    sx={{
+                        width: '100%',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        flexWrap: 'nowrap',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        gap:1
+                    }}
+                >
+                    <Box
+                        sx={{
+                            pl:1,
+                            // width: '30%',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'flex-start',
+                            gap:1,
+                            alignItems: 'center'
+                        }}
+                    >
+                        <Avatar sx={{ height: 30, width: 30 }} alt="Remy Sharp" src={ user } />
+                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[700] }} variant="subtitle1" gutterBottom component="div">
+                            {name}
+                        </Typography>
+                    </Box>
+                    <Box
+                        sx={{
+                            pl:1,
+                            // width: '60%',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'flex-end',
+                            gap:1,
+                            alignItems: 'center',
+                            '& svg':{
+                                color: grey[600]
+                            }
+                        }}
+                    >
+                        <TourIcon/>
+                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[400], display: { xs: 'none', sm: 'block' } }} variant="subtitle1" gutterBottom component="div">
+                            Design, Help, Ui, Figma
+                        </Typography>
+                        <AttachFileIcon/>
+                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[700] }} variant="subtitle1" gutterBottom component="div">
+                            7
+                        </Typography>
+                        <Link to={''} ><CommentIcon/></Link>
+                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[700] }} variant="subtitle1" gutterBottom component="div">
+                            10
+                        </Typography>
+                    </Box>
+                </Box>
+            </Box></Box>
+
     );
 }
 

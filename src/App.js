@@ -1,14 +1,18 @@
+import Footer from 'components/Footer';
 import Header from 'components/Header';
 import EmptyPage from 'pages/EmptyPage';
+import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import HomePage from 'pages/HomePage';
 import LoginPage from 'pages/LoginPage';
 import LogupPage from 'pages/LogupPage';
+import QuestionPageTest from 'pages/QuestionPageTest';
+import ResetPasswordPage from 'pages/ResetPasswordPage';
 import {
     BrowserRouter as Router, Route, Switch
 } from 'react-router-dom';
 import './App.scss';
 import ProfilePage from './pages/ProfilePage';
-import QuestionPage from './pages/QuestionPage';
+// import QuestionPage from './pages/QuestionPage';
 
 
 function App() {
@@ -20,17 +24,18 @@ function App() {
                     <Route path="/" component={HomePage} exact/>
                     <Route path="/login" component={LoginPage} exact/>
                     <Route path="/logup" component={LogupPage} exact/>
-                    {/* tại vì Headder m chưa làm nên t để ra đâu để check UI đã */}
-                    <Route path="/question" component={QuestionPage} exact/>
+                    <Route path="/forgot-password" component={ForgotPasswordPage} exact/>
+                    <Route path="/reset-password" component={ResetPasswordPage} exact/>
                     <Route path="/" render={() =>
                         // nottableUser ? (
                         <>
                             <Header/>
                             <Switch>
-                                <Route path="/question" component={QuestionPage} exact/>
+                                <Route path="/question" component={QuestionPageTest} exact/>
                                 <Route path="/profile" component={ProfilePage} exact/>
                                 <Route component={EmptyPage}/>
                             </Switch>
+                            <Footer/>
                         </>
                         // ) : ( <Redirect to="/account"/> )
                     }

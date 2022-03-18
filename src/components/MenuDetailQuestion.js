@@ -1,17 +1,16 @@
-import React from 'react';
-import { Box, InputAdornment, TextField, Typography } from '@mui/material';
-import ListItemText from '@mui/material/ListItemText';
-import List from '@mui/material/List';
-import { blue, grey } from '@mui/material/colors';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
-import DoneIcon from '@mui/icons-material/Done';
-import ListItemButton from '@mui/material/ListItemButton';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import DoneIcon from '@mui/icons-material/Done';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import ReplyAllIcon from '@mui/icons-material/ReplyAll';
+import { Box } from '@mui/material';
+import { grey } from '@mui/material/colors';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import React, { useState } from 'react';
 
 function MenuDetailQuestion() {
-    const [selectedIndex, setSelectedIndex] = React.useState(0);
+    const [selectedIndex, setSelectedIndex] = useState(0);
 
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index);

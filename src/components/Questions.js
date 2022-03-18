@@ -1,15 +1,14 @@
-import { Avatar, Box } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import CommentIcon from '@mui/icons-material/Comment';
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { AttachFile, Tour } from '@mui/icons-material';
+import Comment from '@mui/icons-material/Comment';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
-import { grey, yellow } from '@mui/material/colors';
-import TourIcon from '@mui/icons-material/Tour';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import { Avatar, Box } from '@mui/material';
+import { grey, yellow } from '@mui/material/colors';
+import Typography from '@mui/material/Typography';
 import user from 'assets/images/intro-HuuTai.jpg';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 Questions.propTypes = {
     info: PropTypes.object.isRequired
@@ -169,19 +168,30 @@ function Questions(props) {
                             gap:1,
                             alignItems: 'center',
                             '& svg':{
-                                color: grey[600]
+                                color: grey[500]
                             }
                         }}
                     >
-                        <TourIcon sx={{ color: grey[400] }}/>
-                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[400], display: { xs: 'none', sm: 'block' } }} variant="subtitle1" gutterBottom component="div">
+                        <Tour/>
+                        <Typography
+                            sx={{
+                                margin: 0,
+                                fontWeight: 600,
+                                color: grey[400],
+                                display: { xs: 'none', sm: 'block' }
+
+                            }}
+                            noWrap
+                            variant="subtitle1"
+                            gutterBottom component="div"
+                        >
                             Design, Help, Ui, Figma
                         </Typography>
-                        <AttachFileIcon sx={{ color: grey[400] }}/>
+                        <AttachFile />
                         <Typography sx={{ margin: 0, fontWeight: 600, color: grey[400] }} variant="subtitle1" gutterBottom component="div">
                             7
                         </Typography>
-                        <Link to={''} ><CommentIcon/></Link>
+                        <Link to={''} ><Comment/></Link>
                         <Typography sx={{ margin: 0, fontWeight: 600, color: grey[400] }} variant="subtitle1" gutterBottom component="div">
                             10
                         </Typography>

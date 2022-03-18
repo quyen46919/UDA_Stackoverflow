@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material';
+import { Box, Button, Container } from '@mui/material';
 import ActionMenu from 'components/ActionMenu';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
@@ -11,6 +11,7 @@ import ViewListIcon from '@mui/icons-material/ViewList';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import MenuIcon from '@mui/icons-material/Menu';
 import { grey } from '@mui/material/colors';
 import Questions from 'components/Questions';
 
@@ -63,11 +64,11 @@ function QuestionPageTest() {
     };
 
     const handleClick = () => {
-        console.info('You clicked the Chip.');
+        // console.info('You clicked the Chip.');
     };
 
     const handleDelete = () => {
-        console.info('You clicked the delete icon.');
+        // console.info('You clicked the delete icon.');
     };
     return (
         <Container
@@ -118,29 +119,48 @@ function QuestionPageTest() {
                         alignItems: 'center'
                     }}
                 >
-                    <Stack
+                    <Box
                         sx={{
-                            backgroundColor: 'white',
-                            boxShadow:' rgba(149, 157, 165, 0.2) 0px 8px 24px',
-                            borderRadius: 0
-
-                        }}
-                    >
-                        <Chip
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            gap: 1.5
+                        }}>
+                        <Button
                             sx={{
-                                borderRadius: 0,
-                                backgroundColor: 'transparent',
-                                padding: '24px 12px',
-                                fontWeight: 600,
-                                color: grey[500],
-                                fontSize: { sm: '15px', xs: '12px' }
+                                display:{
+                                    xs: 'flex',
+                                    md: 'none'
+                                },
+                                boxShadow:' rgba(149, 157, 165, 0.2) 0px 8px 24px',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: 50
+                            }}><MenuIcon sx={{ color: grey[400] }}/></Button>
+                        <Stack
+                            sx={{
+                                backgroundColor: 'white',
+                                boxShadow:' rgba(149, 157, 165, 0.2) 0px 8px 24px',
+                                borderRadius: 0
+
                             }}
-                            deleteIcon={<BorderColorIcon sx={{ fontSize: { sm: '15px', xs: '12px' } }}/>}
-                            label="NEW TICKET"
-                            onClick={handleClick}
-                            onDelete={handleDelete}
-                        />
-                    </Stack>
+                        >
+                            <Chip
+                                sx={{
+                                    borderRadius: 0,
+                                    backgroundColor: 'transparent',
+                                    padding: '24px 12px',
+                                    fontWeight: 600,
+                                    color: grey[500],
+                                    fontSize: { sm: '15px', xs: '12px' }
+                                }}
+                                deleteIcon={<BorderColorIcon sx={{ fontSize: { sm: '15px', xs: '12px' } }}/>}
+                                label="NEW TICKET"
+                                onClick={handleClick}
+                                onDelete={handleDelete}
+                            />
+                        </Stack>
+                    </Box>
                     <Box
                         sx={{
                             display: 'flex',

@@ -2,7 +2,8 @@ import { blue, grey, orange } from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AuthContextProvider } from 'context/AuthContext';
 import { SnackbarProvider } from 'notistack';
-import React from 'react';
+import FallBackScreen from 'pages/FallBackScreen';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.scss';
@@ -35,20 +36,22 @@ const theme = createTheme({
 
 ReactDOM.render(
     <React.StrictMode>
-        <ThemeProvider theme={theme}>
-            <AuthContextProvider>
-                <SnackbarProvider
-                    maxSnack={3}
-                    anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right'
-                    }}
-                    transitionDuration={{ appear: 300, exit: 100 }}
-                >
-                    <App />
-                </SnackbarProvider>
-            </AuthContextProvider>
-        </ThemeProvider>
+        <Suspense fallback={<FallBackScreen/>}>
+            <ThemeProvider theme={theme}>
+                <AuthContextProvider>
+                    <SnackbarProvider
+                        maxSnack={3}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        }}
+                        transitionDuration={{ appear: 300, exit: 100 }}
+                    >
+                        <App />
+                    </SnackbarProvider>
+                </AuthContextProvider>
+            </ThemeProvider>
+        </Suspense>
     </React.StrictMode>
     ,
     document.getElementById('root')

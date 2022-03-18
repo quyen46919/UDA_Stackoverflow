@@ -4,6 +4,11 @@
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
+  
+  ::selection {
+    background-color: #2196f3!important;
+    color: white!important;
+  }
 
   @include customScrollBar();
 }

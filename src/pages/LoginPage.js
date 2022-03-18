@@ -352,12 +352,15 @@ function LoginPage() {
                         sm: 'block'
                     },
                     backgroundImage: `url('${bg}')`,
-                    width: '60vw',
+                    width: {
+                        xs: 0,
+                        sm: '60vw'
+                    },
                     height: '100vh',
                     backgroundSize: 'cover',
                     backgroundPosition: 'start'
                  }}
-            ></Box>
+            />
             {showDialog && (
                 <NotificateDialog
                     showDialog={showDialog}

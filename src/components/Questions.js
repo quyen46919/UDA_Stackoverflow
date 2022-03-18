@@ -19,7 +19,7 @@ function Questions(props) {
     const { info } = props;
     const { number, time, name, title, des } = info;
     return (
-        <Box sx={{ pb: 2 }}>
+        <Box sx={{ pb: 2, width: '100%' }}>
             <Box
                 sx={{
                     width: '100%',
@@ -173,16 +173,16 @@ function Questions(props) {
                             }
                         }}
                     >
-                        <TourIcon/>
+                        <TourIcon sx={{ color: grey[400] }}/>
                         <Typography sx={{ margin: 0, fontWeight: 600, color: grey[400], display: { xs: 'none', sm: 'block' } }} variant="subtitle1" gutterBottom component="div">
                             Design, Help, Ui, Figma
                         </Typography>
-                        <AttachFileIcon/>
-                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[700] }} variant="subtitle1" gutterBottom component="div">
+                        <AttachFileIcon sx={{ color: grey[400] }}/>
+                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[400] }} variant="subtitle1" gutterBottom component="div">
                             7
                         </Typography>
                         <Link to={''} ><CommentIcon/></Link>
-                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[700] }} variant="subtitle1" gutterBottom component="div">
+                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[400] }} variant="subtitle1" gutterBottom component="div">
                             10
                         </Typography>
                     </Box>

@@ -21,27 +21,31 @@ const listQuestions = [
         time: '12:05 AM',
         name: 'Hoàng Hữu Tài',
         title: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.',
-        des: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam amet dolor, in autem deserunt odit earum doloribus inventore porro, officiis tenetur aperiam blanditiis?'
+        des: 'Lorem, ipsum dolor sit amet cons',
+        file: '4',
+        comment: '34'
     },
     {
         number: '2',
-        time: '12:05 AM',
-        name: 'Hoàng Hữu Tài',
-        title: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.',
-        des: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam amet dolor, in autem deserunt odit earum doloribus inventore porro, officiis tenetur aperiam blanditiis?'
+        time: '9:05 AM',
+        name: 'Nguyễn Châu Quyền',
+        title: 'Tại sao tôi không thể cài đặt reactJs',
+        des: 'Veniam amet dolor, in autem deserunt odit earum doloribus inventore porro, officiis tenetur aperiam blanditiis?',
+        file: '4',
+        comment: '34'
     },
     {
         number: '3',
-        time: '12:05 AM',
-        name: 'Hoàng Hữu Tài',
-        title: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.',
+        time: '16:30 AM',
+        name: 'Hoàng Hữu Nghĩa',
+        title: 'Tôi không thể cài đặt Typescript',
         des: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam amet dolor, in autem deserunt odit earum doloribus inventore porro, officiis tenetur aperiam blanditiis?'
     },
     {
         number: '4',
-        time: '12:05 AM',
-        name: 'Hoàng Hữu Tài',
-        title: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.',
+        time: '8:00 AM',
+        name: 'Nguyễn Tuân',
+        title: 'Tôi đang cố gắng chạy chương trình reactJs đầu tiên cho mình',
         des: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam amet dolor, in autem deserunt odit earum doloribus inventore porro, officiis tenetur aperiam blanditiis?'
     }
 ];
@@ -75,7 +79,7 @@ function QuestionPageTest() {
                 alignItems:'flex-start',
                 pt: 6,
                 backgroundColor: 'white',
-                gap: 5,
+                gap: { xs: 0, md: 5 },
                 transition: '0.2s'
             }}
         >
@@ -85,7 +89,7 @@ function QuestionPageTest() {
                     height: '100vh',
                     width: { xs:'100vw', md: '80vw' },
                     overflow: 'auto',
-                    px: 3,
+                    px: { xs: 1, md: 3 },
                     boxSizing: 'border-box',
                     '&::-webkit-scrollbar':{
                         'webkitAppearance': 'none',
@@ -191,7 +195,7 @@ function QuestionPageTest() {
                         </FormControl>
                         <ToggleButtonGroup
                             sx={{
-                                display: 'flex',
+                                display: { xs: 'none', sm: 'flex' },
                                 flexDirection: 'row',
                                 justifyContent: 'center',
                                 alignItems: 'center',

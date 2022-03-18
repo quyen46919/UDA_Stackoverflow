@@ -1,5 +1,6 @@
 import Footer from 'components/Footer';
 import Header from 'components/Header';
+import DetailQuestionPage from 'pages/DetailQuestionPage';
 import EmptyPage from 'pages/EmptyPage';
 import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import HomePage from 'pages/HomePage';
@@ -32,6 +33,7 @@ function App() {
                             <Header/>
                             <Switch>
                                 <Route path="/question" component={QuestionPageTest} exact/>
+                                <Route path="/detail" component={DetailQuestionPage} exact/>
                                 <Route path="/profile" component={ProfilePage} exact/>
                                 <Route component={EmptyPage}/>
                             </Switch>

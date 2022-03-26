@@ -14,6 +14,10 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import MenuIcon from '@mui/icons-material/Menu';
 import { grey } from '@mui/material/colors';
 import Questions from 'components/Questions';
+import user1 from 'assets/images/intro-HuuTai.jpg';
+import user2 from 'assets/images/intro-HuuNghia.jpg';
+import user3 from 'assets/images/intro-ChauQuyen.jpg';
+import user4 from 'assets/images/intro-ChauQuyen.jpg';
 
 
 const listQuestions = [
@@ -24,7 +28,8 @@ const listQuestions = [
         title: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.',
         des: 'Lorem, ipsum dolor sit amet cons',
         file: '4',
-        comment: '34'
+        comment: '34',
+        image: user1
     },
     {
         number: '2',
@@ -33,21 +38,24 @@ const listQuestions = [
         title: 'Tại sao tôi không thể cài đặt reactJs',
         des: 'Veniam amet dolor, in autem deserunt odit earum doloribus inventore porro, officiis tenetur aperiam blanditiis?',
         file: '4',
-        comment: '34'
+        comment: '34',
+        image: user2
     },
     {
         number: '3',
         time: '16:30 AM',
         name: 'Hoàng Hữu Nghĩa',
         title: 'Tôi không thể cài đặt Typescript',
-        des: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam amet dolor, in autem deserunt odit earum doloribus inventore porro, officiis tenetur aperiam blanditiis?'
+        des: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam amet dolor, in autem deserunt odit earum doloribus inventore porro, officiis tenetur aperiam blanditiis?',
+        image: user3
     },
     {
         number: '4',
         time: '8:00 AM',
         name: 'Nguyễn Tuân',
         title: 'Tôi đang cố gắng chạy chương trình reactJs đầu tiên cho mình',
-        des: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam amet dolor, in autem deserunt odit earum doloribus inventore porro, officiis tenetur aperiam blanditiis?'
+        des: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam amet dolor, in autem deserunt odit earum doloribus inventore porro, officiis tenetur aperiam blanditiis?',
+        image: user4
     }
 ];
 

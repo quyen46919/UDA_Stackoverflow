@@ -16,7 +16,7 @@ Questions.propTypes = {
 
 function Questions(props) {
     const { info } = props;
-    const { number, time, name, title, des } = info;
+    const { number, time, name, title, des, image } = info;
     return (
         <Box sx={{ pb: 2, width: '100%' }}>
             <Box
@@ -153,7 +153,7 @@ function Questions(props) {
                             alignItems: 'center'
                         }}
                     >
-                        <Avatar sx={{ height: 30, width: 30 }} alt="Remy Sharp" src={ user } />
+                        <Avatar sx={{ height: 30, width: 30 }} alt="User" src= {image} />
                         <Typography sx={{ margin: 0, fontWeight: 600, color: grey[700] }} variant="subtitle1" gutterBottom component="div">
                             {name}
                         </Typography>

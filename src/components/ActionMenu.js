@@ -10,69 +10,14 @@ import React from 'react';
 // import Button from '@mui/material/Button';
 // import Divider from '@mui/material/Divider';
 
-function ActionMenu() {
+function ActionMenu(props) {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
 
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index);
     };
-    //     const [isOpen, setIsOpen] = React.useState(false);
-    //   const toggleDrawer = (open) => (event) => {
-    //     if (
-    //       (event && event.type === 'keydown') ||
-    //       event.key === 'Tab' ||
-    //       event.key === 'Esc'
-    //     ) {
-    //       return;
-    //     }
 
-    //     setIsOpen(open);
-    //   };
-    //   const list = (anchor) => (
-    //     <Box
-    //       sx={{ width: 300 }}
-    //       role="presentation"
-    //       onClick={() => toggleDrawer(false)}
-    //       onKeyDown={() => toggleDrawer(false)}
-    //     >
-    //       <List>
-    //         <TextField />
-    //       </List>
-    //       <List>
-    //         <a>Link1</a>
-    //       </List>
-    //       <List>
-    //         <a>Link1</a>
-    //       </List>
-    //       <List>
-    //         <a>Link1</a>
-    //       </List>
-    //       <List>
-    //         <a>Link1</a>
-    //       </List>
-    //       <Divider />
-    //       <a>Link2</a>
-    //     </Box>
-    //   );
-    // return (
-    //     <Box>
-    //       {/* {['left'].map((anchor) => ( */}
-
-    //         <Button onClick={toggleDrawer(true)}>left</Button>
-    //         <SwipeableDrawer
-    //           anchor={'left'}
-    //           open={isOpen}
-
-    //           onClose={() => toggleDrawer(false)}
-    //           onOpen={() => toggleDrawer(true)}
-    //         >
-    //           {list('left')}
-    //         </SwipeableDrawer>
-
-    //       {/* // ))} */}
-    //     </Box>
-    //   );
-    // }
+    const { marginHeight } = props;
     return (
         <Box
             sx={{
@@ -90,7 +35,9 @@ function ActionMenu() {
                 borderRadius: 2,
                 fontSize: 17,
                 paddingLeft: 2,
-                paddingRight: 2
+                paddingRight: 2,
+                mt: `${marginHeight}px` || 0,
+                transition: 'margin-top .5s ease'
             }}
         >
 

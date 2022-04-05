@@ -18,7 +18,6 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
-// import './styles.scss';
 
 function LoginPage() {
     const [isLogin, setIsLogin] = useState(true);
@@ -326,7 +325,7 @@ function LoginPage() {
                                 }
                             }}
                         >
-                            <Link to="#" onClick={handleShowDialog}>
+                            <Link to="/forgot-password" onClick={handleShowDialog}>
                                 Quên mật khẩu
                             </Link>
                         </Typography>
@@ -353,12 +352,15 @@ function LoginPage() {
                         sm: 'block'
                     },
                     backgroundImage: `url('${bg}')`,
-                    width: '60vw',
+                    width: {
+                        xs: 0,
+                        sm: '60vw'
+                    },
                     height: '100vh',
                     backgroundSize: 'cover',
                     backgroundPosition: 'start'
                  }}
-            ></Box>
+            />
             {showDialog && (
                 <NotificateDialog
                     showDialog={showDialog}

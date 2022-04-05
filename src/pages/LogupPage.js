@@ -5,11 +5,12 @@ import {
     Box,
     Button,
     Checkbox, FormControlLabel,
+    FormHelperText,
     InputAdornment,
     TextField,
     Typography
 } from '@mui/material';
-import { blue, grey } from '@mui/material/colors';
+import { blue, grey, red } from '@mui/material/colors';
 import bg from 'assets/images/login-banner.jpg';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -37,7 +38,8 @@ function LogupPage() {
         phone: Yup.string()
             .trim()
             .required('Thông tin này là bắt buộc')
-            .matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g, 'Không đúng định dạng số điện thoại')
+            .matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g, 'Không đúng định dạng số điện thoại'),
+        read: Yup.bool().required('Yêu cầu này là bắt buộc').oneOf([true], 'Yêu cầu này là bắt buộc')
     });
 
     const signupForm = useForm({
@@ -94,7 +96,15 @@ function LogupPage() {
             height: 'auto',
             display: 'flex',
             flexDirection: 'row-reverse',
-            overflowX: 'hidden!important'
+            overflowX: 'hidden!important',
+            '& ::-webkit-scrollbar': {
+                'WebkitAppearance': 'none!important',
+                'width': '6px!important'
+            },
+            '& ::-webkit-scrollbar-thumb': {
+                'background': 'rgb(214, 214, 214)!important',
+                'borderRadius': '5px!important'
+            }
         }}>
             <Box sx={{
                 width: {
@@ -159,7 +169,6 @@ function LogupPage() {
                 </Box>
                 <Box
                     component="form"
-                    className="account__text-fields"
                     onSubmit={signupForm.handleSubmit(handleSubmit)}
                     sx={{ width: '100%' }}
                 >
@@ -328,7 +337,7 @@ function LogupPage() {
                         spellCheck="false"
                         placeholder="Nhập tài khoản"
                         name="phone"
-                        type="text"
+                        type="number"
                         error={!!signupForm.formState.errors.phone}
                         helperText={signupForm.formState.errors.phone?.message ?? ''}
                         sx={{
@@ -362,6 +371,8 @@ function LogupPage() {
                         <FormControlLabel
                             control={
                                 <Checkbox
+                                    name="read"
+                                    { ...signupForm.register('read') }
                                     defaultChecked
                                     sx={{
                                         color: blue[600],
@@ -374,6 +385,11 @@ function LogupPage() {
                             label={<Typography sx={{ color: grey[600] }}>Tôi đã đọc và chấp nhận điều khoản sử dụng của website</Typography>}
                             spellCheck="false"
                         />
+                        {signupForm.formState.errors.read?.message && <FormHelperText sx={{
+                            ml: 2, color: red[700]
+                        }}>
+                            {signupForm.formState.errors.read?.message}
+                        </FormHelperText>}
                     </Box>
                     <Button
                         type="submit"

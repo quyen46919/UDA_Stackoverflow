@@ -17,6 +17,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -70,8 +71,10 @@ export default function Header() {
                 elevation: 0,
                 sx: {
                     overflow: 'visible',
-                    filter: 'drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.24))',
-                    mt: 1.5,
+                    // filter: 'drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.24))',
+                    // boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
+                    border: `1px solid ${blue[600]}`,
+                    mt: 0.6,
                     '& .MuiAvatar-root': {
                         width: 32,
                         height: 32,
@@ -82,13 +85,16 @@ export default function Header() {
                         content: '""',
                         display: 'block',
                         position: 'absolute',
-                        top: 0,
+                        top: -1,
                         right: 20,
                         width: 10,
                         height: 10,
                         bgcolor: 'background.paper',
                         transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0
+                        zIndex: 0,
+                        // boxShadow: 'rgba(99, 99, 99, 0.1) -4px -3px 6px 0px'
+                        borderLeft: `1px solid ${blue[600]}`,
+                        borderTop: `1px solid ${blue[600]}`
                     }
                 }
             }}
@@ -96,15 +102,27 @@ export default function Header() {
         >
             <MenuItem sx={{ pt: 1.2, pb: 1.2, minWidth: 200 }}>
                 <ListItemIcon>
-                    <AccountCircle/>
+                    <AccountCircle sx={{ color: `${blue[600]}!important` }}/>
                 </ListItemIcon>
                 <ListItemText sx={{ color: grey[700], pr: 1, pl: 1, '& span': { fontSize: 16 } }}>Tài khoản</ListItemText>
             </MenuItem>
             <MenuItem sx={{ pt: 1.2, pb: 1.2 }}>
                 <ListItemIcon>
-                    <Logout/>
+                    <Logout sx={{ color: `${blue[600]}!important` }}/>
                 </ListItemIcon>
-                <ListItemText sx={{ color: grey[700], pr: 1, pl: 1, '& span': { fontSize: 16 } }}>Đăng xuất</ListItemText>
+                <ListItemText sx={{
+                    color: grey[700],
+                    pr: 1, pl: 1,
+                    '& span': { fontSize: 16 },
+                    '& a': {
+                        textDecoration: 'none',
+                        color: 'inherit'
+                    }
+                }}>
+                    <Link to="/login">
+                        Đăng xuất
+                    </Link>
+                </ListItemText>
             </MenuItem>
         </Menu>
     );
@@ -173,12 +191,21 @@ export default function Header() {
             <Collapse in={open}>
                 <List component="div" disablePadding>
                     <ListItemButton sx={{ p: 0.7, pl: 3 }}>
-                        <Logout sx={{ mr: 2, color: grey[500] }}/>
-                        <ListItemText primary="Đăng xuất" sx={{ color: grey[600] }}/>
-                    </ListItemButton>
-                    <ListItemButton sx={{ p: 0.7, pl: 3 }}>
                         <Settings sx={{ mr: 2, color: grey[500] }}/>
                         <ListItemText primary="Cài đặt" sx={{ color: grey[600] }}/>
+                    </ListItemButton>
+                    <ListItemButton sx={{ p: 0.7, pl: 3 }}>
+                        <Logout sx={{ mr: 2, color: grey[500] }}/>
+                        <ListItemText
+                            sx={{
+                                '& a': {
+                                    textDecoration: 'none',
+                                    color: 'inherit'
+                                },
+                                color: grey[600]
+                            }}
+                            primary={<Link to="/login">Đăng xuất</Link>}
+                        />
                     </ListItemButton>
                 </List>
             </Collapse>

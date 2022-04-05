@@ -1,5 +1,7 @@
 import Footer from 'components/Footer';
 import Header from 'components/Header';
+import BlogDetailPage from 'pages/BlogDetailPage';
+import BlogsPage from 'pages/BlogsPage';
 import EmptyPage from 'pages/EmptyPage';
 import FallBackScreen from 'pages/FallBackScreen';
 import QuestionDetailPage from 'pages/QuestionDetailPage';
@@ -48,6 +50,8 @@ function App() {
                                 <Route path="/question" component={QuestionPageTest} exact/>
                                 <Route path="/detail" component={QuestionDetailPage} exact/>
                                 <Route path="/profile" component={ProfilePage} exact/>
+                                <Route path="/blogs" component={BlogsPage} exact/>
+                                <Route path="/blogsdetail" component={BlogDetailPage} exact/>
                                 <Route path="/admin" component={AdminPage} exact/>
                                 <Route component={EmptyPage}/>
                             </Switch>

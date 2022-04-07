@@ -1,9 +1,9 @@
 import { useTheme } from '@emotion/react';
-import { Login } from '@mui/icons-material';
+import { Home, Login } from '@mui/icons-material';
 import { Button, Container, Divider, Grid, Typography, useMediaQuery } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import { Box } from '@mui/system';
-import { coreValues } from 'assets/coreValues';
+import { coreValues } from 'assets/dataset/coreValues';
 import banner from 'assets/images/intro-introduce-img.png';
 import { programmingLanguges } from 'assets/programinglanguages';
 import { userComment } from 'assets/userComment';
@@ -32,12 +32,13 @@ const DIVIDER_STYLES = {
     }
 };
 
-function HomePage() {
+function IntroPage() {
     const theme = useTheme();
     const belowSM = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <Container maxWidth="xl" sx={{
+            pt: { xs: 0, md: 4 },
             pl: { xs: 0, md: 2 },
             pr: { xs: 0, md: 2 } }}
         >
@@ -126,7 +127,7 @@ function HomePage() {
                             width: { xs: '100%!important', md: 220 }
                         }
                     }}>
-                        <Link to="/logup">
+                        <Link to="/home">
                             <Button sx={{
                                 width: { xs: '100%!important', md: 220 },
                                 bgcolor: `${blue[50]}!important`,
@@ -134,7 +135,7 @@ function HomePage() {
                                 fontSize: 18,
                                 pl: 2, pr: 2, pt: 1, pb: 1
                             }}>
-                            Đi tới đăng nhập <Login sx={{ ml: 1 }}/>
+                            Đi tới trang chủ <Home sx={{ ml: 1 }}/>
                             </Button>
                         </Link>
                         <Link to="/logup">
@@ -145,7 +146,7 @@ function HomePage() {
                                 fontSize: 18,
                                 pl: 2, pr: 2, pt: 1, pb: 1
                             }}>
-                            Đi tới đăng ký <Login sx={{ ml: 1 }}/>
+                            Đi tới đăng nhập <Login sx={{ ml: 1 }}/>
                             </Button>
                         </Link>
                     </Box>
@@ -273,4 +274,4 @@ function HomePage() {
     );
 }
 
-export default HomePage;
+export default IntroPage;

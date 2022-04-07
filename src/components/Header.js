@@ -1,11 +1,10 @@
-import { useTheme } from '@emotion/react';
-import { ExpandLess, ExpandMore, Logout, School, Settings } from '@mui/icons-material';
+import { ExpandLess, ExpandMore, Home, LibraryBooks, Logout, School, Settings } from '@mui/icons-material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Search from '@mui/icons-material/Search';
-import { Avatar, Collapse, InputAdornment, List, ListItemButton, ListItemIcon, ListItemText, TextField, useMediaQuery } from '@mui/material';
+import { Avatar, Collapse, Divider, InputAdornment, List, ListItemButton, ListItemIcon, ListItemText, TextField } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
@@ -17,15 +16,43 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+
+const PAPERSTYLES = {
+    elevation: 0,
+    sx: {
+        overflow: 'visible',
+        border: `1px solid ${blue[600]}`,
+        mt: 0.6,
+        '& .MuiAvatar-root': {
+            width: 32,
+            height: 32,
+            ml: -0.5,
+            mr: 1
+        },
+        '&:before': {
+            content: '""',
+            display: 'block',
+            position: 'absolute',
+            top: -1,
+            right: 20,
+            width: 10,
+            height: 10,
+            bgcolor: 'background.paper',
+            transform: 'translateY(-50%) rotate(45deg)',
+            zIndex: 0,
+            borderLeft: `1px solid ${blue[600]}`,
+            borderTop: `1px solid ${blue[600]}`
+        }
+    }
+};
 
 export default function Header() {
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-    const [open, setOpen] = useState(false);
-    const theme = useTheme();
-    const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
-    const isLaptop = useMediaQuery(theme.breakpoints.up('sm'));
+    const [open, setOpen] = useState(true);
+    const history = useHistory();
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -51,6 +78,12 @@ export default function Header() {
         setOpen(!open);
     };
 
+    const handleLinktoUrlClick = (url) => {
+        setAnchorEl(null);
+        setMobileMoreAnchorEl(null);
+        history.push(`/${url}`);
+    };
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -67,44 +100,19 @@ export default function Header() {
             keepMounted
             open={isMenuOpen}
             onClose={handleMenuClose}
-            PaperProps={{
-                elevation: 0,
-                sx: {
-                    overflow: 'visible',
-                    // filter: 'drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.24))',
-                    // boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-                    border: `1px solid ${blue[600]}`,
-                    mt: 0.6,
-                    '& .MuiAvatar-root': {
-                        width: 32,
-                        height: 32,
-                        ml: -0.5,
-                        mr: 1
-                    },
-                    '&:before': {
-                        content: '""',
-                        display: 'block',
-                        position: 'absolute',
-                        top: -1,
-                        right: 20,
-                        width: 10,
-                        height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0,
-                        // boxShadow: 'rgba(99, 99, 99, 0.1) -4px -3px 6px 0px'
-                        borderLeft: `1px solid ${blue[600]}`,
-                        borderTop: `1px solid ${blue[600]}`
-                    }
-                }
-            }}
+            PaperProps={PAPERSTYLES}
             sx={{ '& svg, & p': { color: grey[500] } }}
         >
             <MenuItem sx={{ pt: 1.2, pb: 1.2, minWidth: 200 }}>
                 <ListItemIcon>
                     <AccountCircle sx={{ color: `${blue[600]}!important` }}/>
                 </ListItemIcon>
-                <ListItemText sx={{ color: grey[700], pr: 1, pl: 1, '& span': { fontSize: 16 } }}>Tài khoản</ListItemText>
+                <ListItemText
+                    sx={{ color: grey[700], pr: 1, pl: 1, '& span': { fontSize: 16 } }}
+                    onClick={() => handleLinktoUrlClick('profile')}
+                >
+                    Tài khoản
+                </ListItemText>
             </MenuItem>
             <MenuItem sx={{ pt: 1.2, pb: 1.2 }}>
                 <ListItemIcon>
@@ -139,71 +147,75 @@ export default function Header() {
                 vertical: 'top',
                 horizontal: 'right'
             }}
-            PaperProps={{
-                elevation: 0,
-                sx: {
-                    overflow: 'visible',
-                    filter: 'drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.24))',
-                    mt: 1.5,
-                    '& .MuiAvatar-root': {
-                        width: 32,
-                        height: 32,
-                        ml: -0.5,
-                        mr: 1
-                    },
-                    '&:before': {
-                        content: '""',
-                        display: 'block',
-                        position: 'absolute',
-                        top: 0,
-                        right: 20,
-                        width: 10,
-                        height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0
-                    }
-                }
-            }}
+            PaperProps={PAPERSTYLES}
             id={mobileMenuId}
             keepMounted
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
+            sx={{
+                '& svg': { color: blue[600] },
+                '& ul li': { pt: 1, pb: 1, minWidth: 220 },
+                '& ul li p': { pl: 3, color: grey[600] }
+            }}
         >
-            <MenuItem sx={{ pt: 0, pb: 0, minWidth: 200, width: 220 }}>
-                <Badge badgeContent={4} sx={{ '& span': { backgroundColor: blue[400], color: 'white' } }}>
-                    <MailIcon sx={{ color: grey[400], pl: 1 }}/>
-                </Badge>
-                <Typography sx={{ pl: 3, color: grey[600] }}>Tin nhắn</Typography>
+            <MenuItem onClick={() => handleLinktoUrlClick('home')}>
+                <Home/>
+                <Typography>Trang chủ</Typography>
             </MenuItem>
-            <MenuItem sx={{ pt: 0, pb: 0 }}>
-                <Badge badgeContent={17} sx={{ '& span': { backgroundColor: blue[400], color: 'white' } }}>
-                    <NotificationsIcon sx={{ color: grey[400], pl: 1 }}/>
-                </Badge>
-                <Typography sx={{ pl: 3, color: grey[600] }}>Thông báo</Typography>
+            <MenuItem onClick={() => handleLinktoUrlClick('blogs')}>
+                <LibraryBooks/>
+                <Typography>Blogs</Typography>
             </MenuItem>
-            <MenuItem onClick={handleClick} sx={{ pt: 0, pb: 0, pl: 3.5 }}>
-                <Avatar alt="Remy Sharp" sx={{ width: 34, height: 34 }}
-                    src="https://www.mammal.org.uk/wp-content/uploads/2021/09/red-fox-300x300.jpg" />
-                <Typography sx={{ pl: 1.4, color: grey[600] }}>Tài khoản</Typography>
-                {open ? <ExpandLess sx={{ color: grey[400], pl: 1 }}/> : <ExpandMore sx={{ color: grey[400], pl: 1 }}/>}
+            <Divider sx={{ width: '100%', m: '0 auto', bgcolor: grey[50] }}/>
+            <MenuItem onClick={() => handleLinktoUrlClick('annoucement')}>
+                <MailIcon/>
+                <Typography>Tin nhắn</Typography>
+            </MenuItem>
+            <MenuItem onClick={() => handleLinktoUrlClick('profile')}>
+                <NotificationsIcon/>
+                <Typography>Thông báo</Typography>
+            </MenuItem>
+            <Divider sx={{ width: '100%', m: '0 auto', bgcolor: grey[50] }}/>
+            <MenuItem
+                onClick={handleClick}
+                sx={{
+                    pt: 1, pb: 1, pl: 2.5,
+                    '& svg': {
+                        color: grey[400], ml: 'auto!important'
+                    }
+                }}>
+                <Avatar
+                    alt="Remy Sharp"
+                    sx={{ width: 34, height: 34 }}
+                    src="https://www.mammal.org.uk/wp-content/uploads/2021/09/red-fox-300x300.jpg"
+                />
+                <Typography sx={{ pl: '10px!important' }}>Tài khoản</Typography>
+                {
+                    open ? <ExpandLess /> : <ExpandMore />
+                }
             </MenuItem>
             <Collapse in={open}>
-                <List component="div" disablePadding>
+                <List
+                    component="div"
+                    disablePadding
+                    sx={{
+                        '& a': {
+                            textDecoration: 'none',
+                            color: 'inherit'
+                        },
+                        color: grey[600]
+                    }}
+                >
                     <ListItemButton sx={{ p: 0.7, pl: 3 }}>
                         <Settings sx={{ mr: 2, color: grey[500] }}/>
-                        <ListItemText primary="Cài đặt" sx={{ color: grey[600] }}/>
+                        <ListItemText
+                            primary="Cài đặt tài khoản"
+                            onClick={() => handleLinktoUrlClick('profile')}
+                        />
                     </ListItemButton>
                     <ListItemButton sx={{ p: 0.7, pl: 3 }}>
                         <Logout sx={{ mr: 2, color: grey[500] }}/>
                         <ListItemText
-                            sx={{
-                                '& a': {
-                                    textDecoration: 'none',
-                                    color: 'inherit'
-                                },
-                                color: grey[600]
-                            }}
                             primary={<Link to="/login">Đăng xuất</Link>}
                         />
                     </ListItemButton>
@@ -213,28 +225,95 @@ export default function Header() {
     );
 
     return (
-        <Container maxWidth="xl" sx={{ p: '0px!important' }}>
+        <Container maxWidth="xl"
+            id="scroller"
+            sx={{
+                p: '0px!important',
+                position: 'sticky',
+                top: 0,
+                bgcolor: '#fff',
+                zIndex: 999
+            }}
+        >
             <AppBar position="static"
                 sx={{
                     backgroundColor: '#fff',
                     boxShadow: 'none',
-                    borderBottom: `1px solid ${blue[500]}`,
+                    borderBottom: `1px solid ${grey[200]}`,
                     height: 70
+
                 }}
             >
-                <Toolbar sx={{ height: '100%' }}>
-                    <School sx={{ mr: { xs: 1.5, md: 1 }, color: blue[500] }} fontSize="large"/>
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="div"
-                        sx={{
-                            display: { xs: 'none', md: 'block' },
-                            color: blue[500], fontWeight: 600
-                        }}
-                    >
-                        UDA Stackoverflow
-                    </Typography>
+                <Toolbar sx={{
+                    height: '100%',
+                    '& a': {
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        textDecoration: 'none',
+                        color: blue[500]
+                    }
+                }}>
+                    <Link to="/home">
+                        <School sx={{ mr: { xs: 1.5, md: 1 } }} fontSize="large"/>
+                        <Typography
+                            noWrap
+                            component="div"
+                            sx={{
+                                display: { xs: 'none', sm: 'block' },
+                                fontWeight: 600,
+                                fontSize: 24
+                            }}
+                        >
+                            UDA Stackoverflow
+                        </Typography>
+                    </Link>
+                    <Box sx={{
+                        pl: {
+                            xs: 0,
+                            md: 3,
+                            lg: 6
+                        },
+                        display: {
+                            xs: 'none',
+                            md: 'flex'
+                        },
+                        gap: { xs: 0, md: 2, lg: 3 },
+                        transition: 'all .15s ease',
+                        '& a': {
+                            textDecoration: 'none',
+                            color: blue[600],
+                            fontWeight: 600,
+                            fontFamily: 'Nunito',
+                            transition: 'all .15s ease',
+                            position: 'relative'
+                        },
+                        '& a.active': {
+                            color: blue[800]
+                        },
+                        '& a::before': {
+                            height: 0,
+                            width: 0,
+                            transition: 'all .15s ease'
+                        },
+                        '& a.active::before': {
+                            content: '""',
+                            position: 'absolute',
+                            bottom: -24,
+                            left: 0,
+                            width: '100%',
+                            height: '2px',
+                            bgcolor: blue[800],
+                            borderRadius: 10
+                        }
+                    }}>
+                        <NavLink to="/home" exact>
+                            Trang chủ
+                        </NavLink>
+                        <NavLink to="/blogs" exact>
+                            Blogs
+                        </NavLink>
+                    </Box>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box>
                         <TextField
@@ -242,6 +321,7 @@ export default function Header() {
                             size="small"
                             placeholder="Nhập từ khóa tìm kiếm..."
                             sx={{
+                                mr: 1,
                                 '.Mui-focused': { border: 'none', outline: 'none' },
                                 '& ::placeholder': { fontSize: 16 },
                                 '& svg': { color: grey[400], pr: 0 },
@@ -265,7 +345,7 @@ export default function Header() {
                         />
                     </Box>
                     {
-                        (isDesktop || isLaptop) && <Box sx={{ ml: 2 }}>
+                        <Box sx={{ ml: 2, display: { xs: 'none', md: 'block' } }}>
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                                 <Badge badgeContent={4} sx={{ '& span': { backgroundColor: blue[400] } }}>
                                     <MailIcon sx={{ color: grey[400] }}/>
@@ -296,7 +376,7 @@ export default function Header() {
                         </Box>
                     }
 
-                    <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="show more"
@@ -304,7 +384,13 @@ export default function Header() {
                             aria-haspopup="true"
                             onClick={handleMobileMenuOpen}
                             color="inherit"
-                            sx={{ color: grey[400] }}
+                            sx={{
+                                width: 42,
+                                height: 42,
+                                color: grey[400],
+                                borderRadius: 1,
+                                '& span': { borderRadius: '8px!important' }
+                            }}
                         >
                             <MenuIcon />
                         </IconButton>

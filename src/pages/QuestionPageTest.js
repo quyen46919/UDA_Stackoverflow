@@ -1,102 +1,44 @@
-import { Box, Button, Container } from '@mui/material';
-import ActionMenu from 'components/ActionMenu';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-import React from 'react';
-import ViewListIcon from '@mui/icons-material/ViewList';
-import ViewModuleIcon from '@mui/icons-material/ViewModule';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import MenuIcon from '@mui/icons-material/Menu';
-import { grey } from '@mui/material/colors';
-import Questions from 'components/Questions';
-import user1 from 'assets/images/intro-HuuTai.jpg';
-import user2 from 'assets/images/intro-HuuNghia.jpg';
-import user3 from 'assets/images/intro-ChauQuyen.jpg';
-import user4 from 'assets/images/intro-ChauQuyen.jpg';
+import { Box, Button, Container, TextField } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
+import { listQuestions } from 'assets/questionList';
+import NotificationMenu from 'components/NotificationMenu';
+import QuestionBox from 'components/QuestionBox';
+import ToggleDisplayButton from 'components/ToggleDisplayButton';
+import React, { useState } from 'react';
 
-
-const listQuestions = [
-    {
-        number: '1',
-        time: '12:05 AM',
-        name: 'Hoàng Hữu Tài',
-        title: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.',
-        des: 'Lorem, ipsum dolor sit amet cons',
-        file: '4',
-        comment: '34',
-        image: user1
-    },
-    {
-        number: '2',
-        time: '9:05 AM',
-        name: 'Nguyễn Châu Quyền',
-        title: 'Tại sao tôi không thể cài đặt reactJs',
-        des: 'Veniam amet dolor, in autem deserunt odit earum doloribus inventore porro, officiis tenetur aperiam blanditiis?',
-        file: '4',
-        comment: '34',
-        image: user2
-    },
-    {
-        number: '3',
-        time: '16:30 AM',
-        name: 'Hoàng Hữu Nghĩa',
-        title: 'Tôi không thể cài đặt Typescript',
-        des: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam amet dolor, in autem deserunt odit earum doloribus inventore porro, officiis tenetur aperiam blanditiis?',
-        image: user3
-    },
-    {
-        number: '4',
-        time: '8:00 AM',
-        name: 'Nguyễn Tuân',
-        title: 'Tôi đang cố gắng chạy chương trình reactJs đầu tiên cho mình',
-        des: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam amet dolor, in autem deserunt odit earum doloribus inventore porro, officiis tenetur aperiam blanditiis?',
-        image: user4
-    }
-];
 
 function QuestionPageTest() {
-    const [view, setView] = React.useState('list');
-
-    const handleChange2 = (event, nextView) => {
-        setView(nextView);
-    };
-    const [script, setScript] = React.useState('');
+    const [showOption, setShowOption] = useState(10);
 
     const handleChange = (event) => {
-        setScript(event.target.value);
+        setShowOption(event.target.value);
     };
 
-    const handleClick = () => {
-        // console.info('You clicked the Chip.');
-    };
-
-    const handleDelete = () => {
-        // console.info('You clicked the delete icon.');
-    };
     return (
         <Container
             maxWidth="xl"
             sx= {{
+                width: {
+                    xs: '100%',
+                    md: 'calc(100% - 300px)'
+                },
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'flex-start',
                 alignItems:'flex-start',
-                pt: 6,
                 backgroundColor: 'white',
-                gap: { xs: 0, md: 5 },
-                transition: '0.2s'
+                gap: { xs: 0, md: 1 },
+                transition: '0.2s',
+                p: {
+                    xs: 0,
+                    md: 1
+                },
+                bgcolor: '#f5f6fb'
             }}
         >
-            <ActionMenu/>
             <Box
                 sx={{
-                    height: '100vh',
-                    width: { xs:'100vw', md: '80vw' },
                     overflow: 'auto',
                     px: { xs: 1, md: 3 },
                     boxSizing: 'border-box',
@@ -122,9 +64,14 @@ function QuestionPageTest() {
                     sx={{
                         width: '100%',
                         display: 'flex',
-                        flexDirection: 'row',
+                        flexFlow: 'row wrap',
                         justifyContent: 'space-between',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        p: 1,
+                        boxSizing: 'border-box',
+                        borderRadius: 2,
+                        mb: 1,
+                        bgcolor: '#fff'
                     }}
                 >
                     <Box
@@ -132,42 +79,33 @@ function QuestionPageTest() {
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
+                            flexWrap: 'wrap',
                             gap: 1.5
                         }}>
                         <Button
+                            variant="outlined"
                             sx={{
                                 display:{
                                     xs: 'flex',
                                     md: 'none'
                                 },
-                                boxShadow:' rgba(149, 157, 165, 0.2) 0px 8px 24px',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                height: 50
-                            }}><MenuIcon sx={{ color: grey[400] }}/></Button>
-                        <Stack
+                                p: '8px 16px',
+                                mb: 1
+                            }}>
+                            Mở bảng điều hướng
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            endIcon={<BorderColorIcon sx={{ fontSize: { sm: 15, xs: 12 } }}/>}
                             sx={{
-                                backgroundColor: 'white',
-                                boxShadow:' rgba(149, 157, 165, 0.2) 0px 8px 24px',
-                                borderRadius: 0
-
+                                p: '8px 16px',
+                                mb: { xs: 1, sm: 0 }
                             }}
                         >
-                            <Chip
-                                sx={{
-                                    borderRadius: 0,
-                                    backgroundColor: 'transparent',
-                                    padding: '24px 12px',
-                                    fontWeight: 600,
-                                    color: grey[500],
-                                    fontSize: { sm: '15px', xs: '12px' }
-                                }}
-                                deleteIcon={<BorderColorIcon sx={{ fontSize: { sm: '15px', xs: '12px' } }}/>}
-                                label="NEW TICKET"
-                                onClick={handleClick}
-                                onDelete={handleDelete}
-                            />
-                        </Stack>
+                            Đăng câu hỏi
+                        </Button>
                     </Box>
                     <Box
                         sx={{
@@ -178,88 +116,35 @@ function QuestionPageTest() {
                             gap: 2
                         }}
                     >
-                        <FormControl
+                        <TextField
+                            size="small"
+                            select
+                            value={showOption}
+                            onChange={handleChange}
                             sx={{
-                                m: 1,
-                                display: 'flex',
-                                justifyContent: 'flex-end',
-                                '& > div':{
-                                    // fontSize: 1,
-                                    width: { xs: '35px', sm: 'auto' },
-                                    border: 'none',
-                                    borderRadius: 0,
-                                    boxShadow:' rgba(149, 157, 165, 0.2) 0px 8px 24px',
-                                    padding: '5px 12px'
-                                }
-                            }}>
-                            <Select
-                                sx={{
-                                    margin: 0,
-                                    '& > div':{
-                                        padding: 1,
-                                        fontWeight: 600,
-                                        color: grey[500]
-                                    },
-                                    '& p':{
-                                        display: { xs: 'none', sm: 'block' },
-                                        margin: '0!important'
-                                    },
-                                    '& fieldset':{
-                                        borderColor: 'transparent'
-                                    }
-                                }}
-                                value={script}
-                                onChange={handleChange}
-                                displayEmpty
-                                inputProps={{ 'aria-label': 'Without label' }}
-                            >
-                                <MenuItem sx={{ '& p':{ margin: '0!important' } }} value="">
-                                    <p>Sắp xếp: A-Z</p>
-                                </MenuItem>
-                                <MenuItem sx={{ '& p':{ margin: '0!important' } }} value={1}>
-                                    <p>Sắp xếp: Z-A</p>
-                                </MenuItem>
-                            </Select>
-                        </FormControl>
-                        <ToggleButtonGroup
-                            sx={{
-                                display: { xs: 'none', sm: 'flex' },
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                gap: 1,
-                                '& button':{
-                                    border: 'none',
-                                    borderRadius: 0,
-                                    boxShadow:' rgba(149, 157, 165, 0.2) 0px 8px 24px'
+                                minWidth: 160,
+                                '& div': {
+                                    fontSize: 16
+                                },
+                                '& .MuiSelect-select': {
+                                    pt: 1.4, pb: 1.4
                                 }
                             }}
-                            orientation="vertical"
-                            value={view}
-                            exclusive
-                            onChange={handleChange2}
                         >
-                            <ToggleButton
-                                value="list"
-                                aria-label="list">
-                                <ViewListIcon />
-                            </ToggleButton>
-                            <ToggleButton value="module" aria-label="module">
-                                <ViewModuleIcon />
-                            </ToggleButton>
-
-                        </ToggleButtonGroup>
-
+                            <MenuItem value={30}>Xếp mặc định</MenuItem>
+                            <MenuItem value={10}>A -&gt; Z</MenuItem>
+                            <MenuItem value={20}>Z -&gt; A</MenuItem>
+                        </TextField>
+                        <ToggleDisplayButton/>
                     </Box>
                 </Box>
                 {
                     listQuestions.map((info, index) => (
-                        <Questions info={info} key={index} />
+                        <QuestionBox info={info} key={index} />
                     ))
                 }
             </Box>
-
-
+            <NotificationMenu/>
         </Container>
     );
 }

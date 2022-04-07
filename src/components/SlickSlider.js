@@ -47,7 +47,7 @@ function SlickSlider() {
         dots: true,
         infinite: true,
         speed: 500,
-        slidesToShow: belowSM ? 1 : 3,
+        slidesToShow: belowSM ? 1 : 4,
         slidesToScroll: 1,
         initialSlide: 0,
         responsive: [

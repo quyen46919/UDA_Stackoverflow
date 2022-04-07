@@ -2,7 +2,7 @@ import { useTheme } from '@emotion/react';
 import { Container, Divider, ListItem, ListItemText, MenuItem, TextField, Typography, useMediaQuery } from '@mui/material';
 import { blue, grey, teal } from '@mui/material/colors';
 import { Box } from '@mui/system';
-import { totalQuestionInDay, totalQuestionInYear } from 'assets/chartData';
+import { totalQuestionInDay, totalQuestionInYear } from 'assets/dataset/chartData';
 import { questionHistory } from 'assets/questionHistory';
 import React, { useState } from 'react';
 import { Bar, BarChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';

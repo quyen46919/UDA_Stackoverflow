@@ -8,19 +8,17 @@ export default function ListBlog(props) {
     const { name, image, title, hashtag, avatar } = data;
     return (
         <Box sx={{
-            height: '360px',
+            height: 360,
             width: {
-                xl: '350px',
+                xl: 350,
                 lg: '100%'
             },
-            borderRadius: '15px',
+            borderRadius: 2,
             position: 'relative',
             boxShadow: ' rgba(149, 157, 165, 0.2) 0px 8px 24px',
             cursor: 'pointer',
-            transition: 'box-shadow 0.3s ',
-            '&:hover': {
-                boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px'
-            },
+            transition: 'box-shadow 0.3s',
+            '&:hover': { boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' },
             display: 'flex',
             flexDirection: 'column'
         }}>
@@ -41,7 +39,7 @@ export default function ListBlog(props) {
                 display: 'flex',
                 flexDirection: 'column',
                 height: '160px',
-                p: '15px'
+                p: 2
             }}>
                 <Box>
                     <Typography sx={{
@@ -62,7 +60,6 @@ export default function ListBlog(props) {
                     display: 'flex',
                     justifyContent: 'space-between',
                     marginTop: 'auto'
-                    // backgroundColor: 'red'
                 }}>
                     <Box sx={{
                         height: '100%',

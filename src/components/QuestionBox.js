@@ -1,38 +1,34 @@
-import { AttachFile, Tour } from '@mui/icons-material';
+import { AttachFile, LocalOffer, Tour } from '@mui/icons-material';
 import Comment from '@mui/icons-material/Comment';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { Avatar, Box } from '@mui/material';
-import { grey, yellow } from '@mui/material/colors';
+import { blue, grey } from '@mui/material/colors';
 import Typography from '@mui/material/Typography';
-import user from 'assets/images/intro-HuuTai.jpg';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-Questions.propTypes = {
+QuestionBox.propTypes = {
     info: PropTypes.object.isRequired
 };
 
-function Questions(props) {
+function QuestionBox(props) {
     const { info } = props;
-    const { number, time, name, title, des, image } = info;
+    const { number, time, name, title, des, avatar } = info;
     return (
-        <Box sx={{ pb: 2, width: '100%' }}>
+        <Box sx={{ width: '100%' }}>
             <Box
                 sx={{
                     width: '100%',
                     display: 'flex',
                     px: 3,
+                    py: 2,
                     boxSizing: 'border-box',
                     flexDirection: 'column',
                     flexWrap: 'nowrap',
                     justifyContent: 'flex-start',
                     alignItems: 'flex-start',
                     gap: 1,
-                    pt: 2.5,
-                    boxShadow:' rgba(149, 157, 165, 0.2) 0px 8px 24px',
-                    pb: 2.5,
                     backgroundColor: 'white',
                     borderRadius: 2
                 }}
@@ -49,7 +45,6 @@ function Questions(props) {
                 >
                     <Box
                         sx={{
-                        // width: '30%',
                             display: 'flex',
                             flexDirection: 'row',
                             justifyContent: 'flex-start',
@@ -57,14 +52,17 @@ function Questions(props) {
                             alignItems: 'center'
                         }}
                     >
-                        <WbSunnyIcon sx={{ fontSize: '19px', color: yellow[500] }}/>
-                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[600] }} variant="subtitle1" gutterBottom component="div">
-                        Ticket #{number}
+                        <LocalOffer sx={{ fontSize: '19px', color: blue[500] }}/>
+                        <Typography
+                            sx={{ margin: 0, fontWeight: 500, color: grey[500], fontSize: 16 }}
+                            variant="subtitle1"
+                            gutterBottom
+                        >
+                        Câu hỏi #{number}
                         </Typography>
                     </Box>
                     <Box
                         sx={{
-                        // width: '30%',
                             display: 'flex',
                             flexDirection: 'row',
                             justifyContent: 'flex-end',
@@ -72,12 +70,10 @@ function Questions(props) {
                             alignItems: 'center'
                         }}
                     >
-                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[500] }} variant="subtitle1" gutterBottom component="div">
+                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[400], fontSize: 14 }}>
                             {time}
                         </Typography>
-                        <Link to= {''}>
-                            <MoreHorizIcon sx={{ fontSize: '19px', color: grey[500] }}/>
-                        </Link>
+                        <MoreHorizIcon sx={{ fontSize: 18, color: grey[400] }}/>
                     </Box>
                 </Box>
                 <Box
@@ -87,48 +83,52 @@ function Questions(props) {
                         flexDirection: 'column',
                         justifyContent: 'flex-start',
                         alignItems: 'flex-start',
-                        '& a':{ textDecoration: 'none' },
+                        '& a':{ textDecoration: 'none', color: 'inherit' },
                         pr: 5.5
                     }}
                 >
+                    <Link to="/home/question/questionId">
+                        <Typography
+                            sx ={{
+                                width: '100%',
+                                display: '-webkit-box',
+                                WebkitLineClamp: {
+                                    xs: 3,
+                                    md: 2,
+                                    lg: 1
+                                },
+                                WebkitBoxOrient: 'vertical',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                fontSize: 18,
+                                pl: 1,
+                                fontWeight: 700,
+                                color: grey[800],
+                                'lineHeight': 'normal',
+                                marginBottom: '3px',
+                                textDecoration: 'none'
+                            }}
+                        >
+                            {title}
+                        </Typography>
+                    </Link>
                     <Typography
                         sx ={{
                             width: '100%',
                             display: '-webkit-box',
-                            WebkitLineClamp: 1,
-                            WebkitBoxOrient: 'vertical',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            // display: '-webkit-box',
-                            // '-webkit-line-clamp': '1',
-                            // '-webkit-box-orient': 'vertical',
-                            // overflow: 'hidden',
-                            // textOverflow: 'ellipsis',
-                            fontSize: 21,
-                            pl: 1,
-                            fontWeight: 700,
-                            color: grey[800],
-                            'lineHeight': 'normal',
-                            marginBottom: '3px',
-                            textDecoration: 'none'
-                        }}
-                        variant="subtitle1" gutterBottom component="div">{title}
-                    </Typography>
-                    <Typography
-                        sx ={{
-                            width: '100%',
-                            display: '-webkit-box',
-                            WebkitLineClamp: 2,
+                            WebkitLineClamp: 3,
                             WebkitBoxOrient: 'vertical',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             marginBottom: '10px',
-                            fontSize: 18,
+                            fontSize: 16,
                             pl: 1,
-                            fontWeight: 600,
-                            color: grey[500]
+                            color: grey[600]
                         }}
-                        variant="body2" gutterBottom>{des}</Typography>
+                        gutterBottom
+                    >
+                        {des} {des} {des}
+                    </Typography>
 
                 </Box>
                 <Box
@@ -145,7 +145,6 @@ function Questions(props) {
                     <Box
                         sx={{
                             pl:1,
-                            // width: '30%',
                             display: 'flex',
                             flexDirection: 'row',
                             justifyContent: 'flex-start',
@@ -153,15 +152,14 @@ function Questions(props) {
                             alignItems: 'center'
                         }}
                     >
-                        <Avatar sx={{ height: 30, width: 30 }} alt="User" src= {image} />
-                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[700] }} variant="subtitle1" gutterBottom component="div">
+                        <Avatar sx={{ height: 30, width: 30 }} alt="User" src={avatar} />
+                        <Typography sx={{ margin: 0, fontWeight: 500, color: grey[700] }}>
                             {name}
                         </Typography>
                     </Box>
                     <Box
                         sx={{
                             pl:1,
-                            // width: '60%',
                             display: 'flex',
                             flexDirection: 'row',
                             justifyContent: 'flex-end',
@@ -172,27 +170,24 @@ function Questions(props) {
                             }
                         }}
                     >
-                        <Tour/>
+                        <Tour sx={{ fontSize: 16 }}/>
                         <Typography
                             sx={{
                                 margin: 0,
-                                fontWeight: 600,
                                 color: grey[400],
+                                fontSize: 14,
                                 display: { xs: 'none', sm: 'block' }
-
                             }}
                             noWrap
-                            variant="subtitle1"
-                            gutterBottom component="div"
                         >
                             Design, Help, Ui, Figma
                         </Typography>
-                        <AttachFile />
-                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[400] }} variant="subtitle1" gutterBottom component="div">
+                        <AttachFile sx={{ fontSize: 16 }}/>
+                        <Typography sx={{ margin: 0, color: grey[400], fontSize: 14 }}>
                             7
                         </Typography>
-                        <Link to={''} ><Comment/></Link>
-                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[400] }} variant="subtitle1" gutterBottom component="div">
+                        <Comment sx={{ fontSize: 16 }}/>
+                        <Typography sx={{ margin: 0, color: grey[400], fontSize: 14 }}>
                             10
                         </Typography>
                     </Box>
@@ -202,4 +197,4 @@ function Questions(props) {
     );
 }
 
-export default Questions;
+export default QuestionBox;

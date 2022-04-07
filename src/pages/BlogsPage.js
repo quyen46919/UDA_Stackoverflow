@@ -114,132 +114,125 @@ function BlogsPage() {
                 }}>
                     <Typography
                         sx={{
-                            fontSize: '1.7rem',
+                            fontSize: 24,
                             fontWeight: 'bold',
                             color: '#273167'
                         }}
                     >Chào Bạn👋&nbsp;</Typography>
                     <Typography
                         sx={{
-                            fontSize: '1.7rem',
+                            fontSize: 26,
                             color: '#273167'
                         }}
-                    >Hôm nay, bạn muốn học gì?</Typography>
+                    >
+                        hôm nay, bạn muốn học gì?
+                    </Typography>
                 </Box>
-                <Box>
-                    <TextField
-                        variant="outlined"
-                        placeholder="Tìm kiến thức..."
-                        sx={{
-                            padding: '20px 0 75px 0',
-                            height: '30px',
-                            width: {
-                                sm: '400px',
-                                md: '500px'
+                <TextField
+                    variant="outlined"
+                    placeholder="Nhập tên chủ đề"
+                    sx={{
+                        padding: '20px 0 45px 0',
+                        height: '30px',
+                        width: {
+                            sm: '400px',
+                            md: '500px'
+                        },
+                        color: 'grey',
+                        ontSize:'18px',
+                        '.Mui-focused': { border: 'none', outline: 'none' },
+                        '& ::placeholder': { fontSize: 18 },
+                        '& svg': { color: grey[500], pr: 0 },
+                        '& input': { color: grey[700] },
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': {
+                                borderColor: grey[400]
                             },
-                            color: 'grey',
-                            ontSize:'18px',
-                            // background: 'gey',
-                            '.Mui-focused': { border: 'none', outline: 'none' },
-                            '& ::placeholder': { fontSize: 18 },
-                            '& svg': { color: grey[500], pr: 0 },
-                            '& input': { color: grey[700] },
-                            '& .MuiOutlinedInput-root': {
-                                '& fieldset': {
-                                    borderColor: grey[400]
-                                },
-                                '&:hover fieldset': {
-                                    borderColor: grey[500]
-                                },
-                                '&.Mui-focused fieldset': {
-                                    borderColor: grey[500]
-                                }
+                            '&:hover fieldset': {
+                                borderColor: grey[500]
+                            },
+                            '&.Mui-focused fieldset': {
+                                borderColor: grey[500]
                             }
-                        }}
-                        spellCheck="false"
-                        InputProps={{
-                            startAdornment: <InputAdornment position="start"><Search/></InputAdornment>
-                        }}
-                    />
+                        }
+                    }}
+                    spellCheck="false"
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start"><Search/></InputAdornment>
+                    }}
+                />
+                <Box
+                    sx={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                        p: '20px 0 20px 40px'
+                    }}>
+                    <Star
+                        sx={{
+                            fontSize: '2rem',
+                            padding: '0 10px 0 0',
+                            float: 'left',
+                            color: '#273167'
+                        }}>
+                    </Star>
+                    <Typography
+                        sx={{
+                            fontSize: 24,
+                            color: '#273167',
+                            fontWeight: 'bold'
+                        }}>
+                            Đề xuất cho bạn
+                    </Typography>
                 </Box>
-                <Box sx={{
-                    padding: '20px 0 0 0',
-                    // background: 'green',
-                    width: '100%',
-                    height: 'auto'
-                }}>
-                    <Box
+                <Grid container spacing={3}
+                    sx={{
+                        width: '100%',
+                        padding: '0 0 0 1rem'
+                    }}>
+                    {Trendding24H.map((item) => (
+                        <Grid item key={item.id} lg={4} xl={4} md={4} sm={6} xs={12} >
+                            <ListBlog data={item}/>
+                        </Grid>
+                    ))}
+                </Grid>
+                <Box
+                    sx={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                        p: '20px 0 20px 40px'
+                    }}>
+                    <Star
                         sx={{
-                            padding: '0 0 1rem 0'
+                            fontSize: '2rem',
+                            padding: '0 10px 0 0',
+                            float: 'left',
+                            color: '#273167'
                         }}>
-                        <Star
-                            sx={{
-                                fontSize: '2rem',
-                                padding: '0 10px 0 0',
-                                float: 'left',
-                                color: '#273167'
-                            }}>
-                        </Star>
-                        <Typography
-                            sx={{
-                                fontSize: '1.7rem',
-                                color: '#273167',
-                                fontWeight: 'bold'
-                            }}>
-                        24h Trending
-                        </Typography>
-                    </Box>
-                    <Grid container spacing={3}
+                    </Star>
+                    <Typography
                         sx={{
-                            width: '100%',
-                            padding: '0 0 0 1rem'
+                            fontSize: 24,
+                            color: '#273167',
+                            fontWeight: 'bold'
                         }}>
-                        {Trendding24H.map((item) => (
-                            <Grid item key={item.id} lg={4} xl={4} md={4} sm={6} xs={12} >
-                                <ListBlog data={item}/>
-                            </Grid>
-                        ))}
-                    </Grid>
-                </Box>
-                <Box sx={{
-                    padding: '50px 0 20px 0',
-                    // background: 'green',
-                    width: '100%',
-                    height: 'auto'
-                }}>
-                    <Box
-                        sx={{
-                            padding: '0 0 1rem 0'
-                        }}>
-                        <Star
-                            sx={{
-                                fontSize: '2rem',
-                                padding: '0 10px 0 0',
-                                float: 'left',
-                                color: '#273167'
-                            }}>
-                        </Star>
-                        <Typography
-                            sx={{
-                                fontSize: '1.7rem',
-                                color: '#273167',
-                                fontWeight: 'bold'
-                            }}>
                         Nổi bật Trong Tháng
-                        </Typography>
-                    </Box>
-                    <Grid container spacing={3}
-                        sx={{
-                            width: '100%',
-                            padding: '0 0 0 1rem'
-                        }}>
-                        {Hot.map((item) => (
-                            <Grid item key={item.id} lg={4} xl={4} md={4} sm={6} xs={12} >
-                                <ListBlog data={item}/>
-                            </Grid>
-                        ))}
-                    </Grid>
+                    </Typography>
                 </Box>
+                <Grid container spacing={3}
+                    sx={{
+                        width: '100%',
+                        padding: '0 0 0 1rem'
+                    }}>
+                    {Hot.map((item) => (
+                        <Grid item key={item.id} lg={4} xl={4} md={4} sm={6} xs={12} >
+                            <ListBlog data={item}/>
+                        </Grid>
+                    ))}
+                </Grid>
             </Box>
         </Container>
     );

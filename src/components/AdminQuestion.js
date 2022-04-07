@@ -2,7 +2,7 @@ import { Block, Close, ContentPasteGo, LocalOffer, MarkChatReadOutlined, MoreHor
 import { Avatar, Grid, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from '@mui/material';
 import { blue, grey, red } from '@mui/material/colors';
 import { Box } from '@mui/system';
-import { questionSeedData } from 'assets/questionSeedData';
+import { questionSeedData } from 'assets/dataset/questionSeedData';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminSearchBar from './AdminSearchBar';

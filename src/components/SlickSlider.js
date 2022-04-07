@@ -1,7 +1,7 @@
 import { useTheme } from '@emotion/react';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
-import { donateUser } from 'assets/donateUser';
+import { donateUser } from 'assets/dataset/donateUser';
 import React from 'react';
 import Slider from 'react-slick/lib/slider';
 import 'slick-carousel/slick/slick-theme.css';

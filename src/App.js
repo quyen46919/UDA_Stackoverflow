@@ -7,6 +7,7 @@ import BlogsPage from 'pages/BlogsPage';
 import CommunityPage from 'pages/CommunityPage';
 import EmptyPage from 'pages/EmptyPage';
 import FallBackScreen from 'pages/FallBackScreen';
+import GroupQuestion from 'pages/GroupQuestion';
 // import IntroPage from 'pages/IntroPage';
 import QuestionDetailPage from 'pages/QuestionDetailPage';
 import SupportPage from 'pages/SupportPage';
@@ -64,7 +65,8 @@ function App() {
                                         <ActionMenu/>
                                         <Switch>
                                             <Route path="/home" component={QuestionPageTest} exact/>
-                                            <Route path="/home/group" component={GroupPage} exact/>
+                                            {/* <Route path="/home/group" component={GroupPage} exact/> */}
+                                            <Route path="/home/group" component={GroupQuestion} exact/>
                                             <Route path="/home/support" component={SupportPage} exact/>
                                             <Route path="/home/question/:questionId" component={QuestionDetailPage}/>
                                         </Switch>

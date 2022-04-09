@@ -7,6 +7,7 @@ import BlogsPage from 'pages/BlogsPage';
 import CommunityPage from 'pages/CommunityPage';
 import EmptyPage from 'pages/EmptyPage';
 import FallBackScreen from 'pages/FallBackScreen';
+import PostQuestionPage from 'pages/PostQuestionPage';
 // import IntroPage from 'pages/IntroPage';
 import QuestionDetailPage from 'pages/QuestionDetailPage';
 import SupportPage from 'pages/SupportPage';
@@ -23,7 +24,7 @@ import {
     BrowserRouter as Router, Route, Switch
 } from 'react-router-dom';
 import './App.scss';
-const QuestionPageTest = React.lazy(() => import('pages/QuestionPageTest'));
+const QuestionPage = React.lazy(() => import('pages/QuestionPage'));
 const ProfilePage = React.lazy(() => import('pages/ProfilePage'));
 const ResetPasswordPage = React.lazy(() => import('pages/ResetPasswordPage'));
 const LogupPage = React.lazy(() => import('pages/LogupPage'));
@@ -55,15 +56,22 @@ function App() {
                                     <Box sx={{
                                         width: '100%',
                                         display: 'flex',
+                                        flexDirection: {
+                                            xs: 'column',
+                                            lg: 'row'
+                                        },
                                         bgcolor: '#f5f6fb',
                                         pl: 2, pr: 1, pt: 2, pb: 2,
                                         p: {
-                                            xs: '0 0 24px 0'
-                                        }
+                                            xs: '8px 16px',
+                                            lg: '0 0 24px 0'
+                                        },
+                                        boxSizing: 'border-box'
                                     }}>
                                         <ActionMenu/>
                                         <Switch>
-                                            <Route path="/home" component={QuestionPageTest} exact/>
+                                            <Route path="/home" component={QuestionPage} exact/>
+                                            <Route path="/home/post" component={PostQuestionPage} exact/>
                                             <Route path="/home/group" component={GroupPage} exact/>
                                             <Route path="/home/support" component={SupportPage} exact/>
                                             <Route path="/home/question/:questionId" component={QuestionDetailPage}/>

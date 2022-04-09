@@ -72,7 +72,8 @@ function UserRatingComment(props) {
                     width: '100%',
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: 'center',
+                    alignItems: { xs: 'center', md: 'flex-start' },
+                    justifyContent: 'center',
                     pt: { xs: 0, md: 3 },
                     pb: { xs: 2, md: 0 }
                 }}>

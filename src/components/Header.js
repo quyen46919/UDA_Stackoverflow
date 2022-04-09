@@ -154,7 +154,7 @@ export default function Header() {
             onClose={handleMobileMenuClose}
             sx={{
                 '& svg': { color: blue[600] },
-                '& ul li': { pt: 1, pb: 1, minWidth: 220 },
+                '& ul li': { pt: 1, pb: 1, minWidth: { xs: 280, md: 400 } },
                 '& ul li p': { pl: 3, color: grey[600] }
             }}
         >
@@ -169,12 +169,42 @@ export default function Header() {
             <Divider sx={{ width: '100%', m: '0 auto', bgcolor: grey[50] }}/>
             <MenuItem onClick={() => handleLinktoUrlClick('annoucement')}>
                 <MailIcon/>
-                <Typography>Tin nhắn</Typography>
+                <Typography>Cài đặt hiển thị</Typography>
             </MenuItem>
-            <MenuItem onClick={() => handleLinktoUrlClick('profile')}>
+            <MenuItem onClick={handleClick}>
                 <NotificationsIcon/>
-                <Typography>Thông báo</Typography>
+                <Typography>Đổi ngôn ngữ</Typography>
+                {
+                    open ? <ExpandLess /> : <ExpandMore />
+                }
             </MenuItem>
+            <Collapse in={open}>
+                <List
+                    component="div"
+                    disablePadding
+                    sx={{
+                        '& a': {
+                            textDecoration: 'none',
+                            color: 'inherit'
+                        },
+                        color: grey[600]
+                    }}
+                >
+                    <ListItemButton sx={{ p: 0.7, pl: 3 }}>
+                        <Settings sx={{ mr: 2, color: grey[500] }}/>
+                        <ListItemText
+                            primary="Chế sáng"
+                            onClick={() => handleLinktoUrlClick('profile')}
+                        />
+                    </ListItemButton>
+                    <ListItemButton sx={{ p: 0.7, pl: 3 }}>
+                        <Logout sx={{ mr: 2, color: grey[500] }}/>
+                        <ListItemText
+                            primary={<Link to="/login">Chế độ tối</Link>}
+                        />
+                    </ListItemButton>
+                </List>
+            </Collapse>
             <Divider sx={{ width: '100%', m: '0 auto', bgcolor: grey[50] }}/>
             <MenuItem
                 onClick={handleClick}

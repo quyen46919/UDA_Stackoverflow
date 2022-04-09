@@ -5,8 +5,8 @@ import { blue, grey } from '@mui/material/colors';
 import { Box } from '@mui/system';
 import { coreValues } from 'assets/dataset/coreValues';
 import banner from 'assets/images/intro-introduce-img.png';
-import { programmingLanguges } from 'assets/programinglanguages';
-import { userComment } from 'assets/userComment';
+import { programmingLanguges } from 'assets/dataset/programinglanguages';
+import { userComment } from 'assets/dataset/userComment';
 import Footer from 'components/Footer';
 import SlickSlider from 'components/SlickSlider';
 import StyledScript from 'components/StyledScript';
@@ -57,25 +57,35 @@ function IntroPage() {
                 mt: {
                     xs: 5,
                     lg: 0
-                },
-                '& img': {
-                    width: {
-                        xs: '100%',
-                        lg: 'auto'
-                    },
-                    height: {
-                        xs: 180,
-                        sm: 300,
-                        lg: 360
-                    },
-                    maxWidth: {
-                        xs: '100%',
-                        lg: '50%'
-                    },
-                    objectFit: 'cover'
                 }
             }}>
-                <img src={banner}/>
+                <Box
+                    sx={{
+                        backgroundImage: `url('${banner}')`,
+                        backgroundSize: {
+                            xs: 'cover',
+                            md: 'contain',
+                            lg: 'cover'
+                        },
+                        backgroundPosition: 'center',
+                        width: {
+                            xs: '100%',
+                            md: '100%',
+                            lg: 600
+                        },
+                        height: {
+                            xs: 180,
+                            sm: 300,
+                            md: 410,
+                            lg: 360
+                        },
+                        maxWidth: {
+                            xs: '100%',
+                            lg: '50%'
+                        },
+                        objectFit: 'cover'
+                    }}
+                />
                 <Box sx={{ width: { xs: '100%', lg: '50%' } }}>
                     <Typography sx={{
                         fontSize: 24,
@@ -193,7 +203,7 @@ function IntroPage() {
                 }
             </Grid>
             <Box sx={{
-                width: '80%',
+                width: { xs: '100%', md: '80%' },
                 m: '0 auto',
                 pt: 4
             }}>

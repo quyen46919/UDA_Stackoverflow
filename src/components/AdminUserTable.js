@@ -2,7 +2,7 @@ import { AccountCircle, Close, ContentPasteGo, MoreHoriz, Person, Star } from '@
 import { Avatar, Grid, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Pagination, Typography } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import { Box } from '@mui/system';
-import { userData } from 'assets/users';
+import { userData } from 'assets/dataset/users';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminSearchBar from './AdminSearchBar';
@@ -130,7 +130,8 @@ function AdminUserTable() {
                                 width: 32,
                                 height: 32,
                                 ml: -0.5,
-                                mr: 1
+                                mr: 1,
+                                transform: 'translate(3px, 3px)!important'
                             },
                             '&:after': {
                                 content: '""',

@@ -1,88 +1,66 @@
-import React from 'react';
-import { Container, Box, Button } from '@mui/material';
-import ActionMenu from 'components/ActionMenu';
-import Typography from '@mui/material/Typography';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { Box, Container, Grid, TextField } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import '../scss/QuestionPage.scss';
-import Questions from 'components/QuestionBox';
-import { Sort } from '@mui/icons-material';
-import TextField from '@mui/material/TextField';
-
-const listQuestions = [
-    {
-        vote: '1',
-        answers: '5',
-        views: '12',
-        title: 'Chung ta co the dat ten o day Chung ta co the dat ten o day Chung ta co the dat ten o day Chung ta co the dat ten o day Chung ta co the dat ten o day ',
-        des: 'Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day '
-        // con phan mapping các loại ngôn ngữ tao đang bí
-    },
-    {
-        vote: '1',
-        answers: '5',
-        views: '12',
-        title: 'Chung ta co the dat ten o day Chung ta co the dat ten o day Chung ta co the dat ten o day Chung ta co the dat ten o day Chung ta co the dat ten o day ',
-        des: 'Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day '
-        // con phan mapping các loại ngôn ngữ tao đang bí
-    },
-    {
-        vote: '1',
-        answers: '5',
-        views: '12',
-        title: 'Chung ta co the dat ten o day Chung ta co the dat ten o day Chung ta co the dat ten o day Chung ta co the dat ten o day Chung ta co the dat ten o day ',
-        des: 'Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day '
-        // con phan mapping các loại ngôn ngữ tao đang bí
-    },
-    {
-        vote: '1',
-        answers: '5',
-        views: '12',
-        title: 'Chung ta co the dat ten o day Chung ta co the dat ten o day Chung ta co the dat ten o day Chung ta co the dat ten o day Chung ta co the dat ten o day ',
-        des: 'Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day Chung ta dat mo ta o day '
-        // con phan mapping các loại ngôn ngữ tao đang bí
-    }
-];
+import { questionSeedData } from 'assets/dataset/questionSeedData';
+import NotificationMenu from 'components/NotificationMenu';
+import QuestionBox from 'components/QuestionBox';
+import ToggleDisplayButton from 'components/ToggleDisplayButton';
+import React, { useState } from 'react';
 
 function QuestionPage() {
-    const [alignment, setAlignment] = React.useState(1);
+    const [showOption, setShowOption] = useState(10);
+    const [lineDisplay, setLineDisplay] = useState(true);
 
-    const handleAlignment = (event, newAlignment) => {
-        setAlignment(newAlignment);
+    const handleChangeDisplayType = (newBoolean) => {
+        setLineDisplay(newBoolean);
     };
-    const [age, setAge] = React.useState(0);
 
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setShowOption(event.target.value);
     };
+
     return (
         <Container
             maxWidth="xl"
             sx= {{
+                width: {
+                    xs: '100%',
+                    lg: 'calc(100% - 300px)'
+                },
+                minWidth: {
+                    xs: '100%',
+                    lg: 'calc(100% - 300px)'
+                },
                 display: 'flex',
                 flexDirection: 'row',
-                justifyContent: 'center',
-                backgroundColor: '#e9f5fa',
-                gap: 2
-            }}>
-            <ActionMenu />
+                justifyContent: 'flex-start',
+                alignItems:'flex-start',
+                backgroundColor: 'white',
+                gap: { xs: 0, md: 1 },
+                transition: '0.2s',
+                p: {
+                    xs: 0,
+                    lg: 1
+                },
+                bgcolor: '#f5f6fb'
+            }}
+        >
             <Box
-                sx= {{
-                    height: '100vh',
+                sx={{
                     overflow: 'auto',
+                    maxWidth: '100%',
+                    width: '100%',
+                    px: { xs: 0, lg: 3 },
+                    boxSizing: 'border-box',
                     '&::-webkit-scrollbar':{
-                        '-webkit-appearance': 'none',
-                        width: '8px'
+                        'webkitAppearance': 'none',
+                        width: 0
                     },
                     '&::-webkit-scrollbar-thumb':{
                         background: 'rgb(214, 214, 214)',
                         borderRadius: '5px'
                     },
                     display: 'flex',
-                    flexDirection: 'column!important',
+                    flexDirection: 'column',
                     flexWrap: 'nowrap',
                     justifyContent: 'flex-start',
                     alignItems: 'flex-start',
@@ -91,169 +69,74 @@ function QuestionPage() {
                     borderRadius: 2
                 }}
             >
-                <Box sx={{
-                    width: '100%',
-                    backgroundColor: 'white',
-                    borderRadius: 2
-                }}>
+                <Box
+                    sx={{
+                        width: '100%',
+                        minWidth: '100%',
+                        display: 'flex',
+                        flexFlow: 'row wrap',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        p: 1,
+                        boxSizing: 'border-box',
+                        borderRadius: 2,
+                        mb: 1,
+                        bgcolor: '#fff'
+                    }}
+                >
                     <Box
-                        sx= {{
+                        sx={{
+                            width: '100%',
+                            minWidth: '100%',
                             display: 'flex',
                             flexDirection: 'row',
-                            justifyContent: 'space-between',
                             alignItems: 'center',
-                            boxSizing: 'border-box',
-                            padding: '20px'
-                        }}>
-                        <Typography sx={{ fontWeight: 700 }} variant="h4" gutterBottom component="div">
-                        All Questions
-                        </Typography>
-                        <Button variant='contained' disableElevation
-                        >Ask Question</Button>
-                    </Box>
-                    <Box
-                        sx= {{
-                            display: 'flex',
-                            flexDirection: 'row',
                             justifyContent: 'space-between',
-                            alignItems: 'center',
-                            boxSizing: 'border-box',
-                            padding: '15px 20px'
+                            gap: 2
                         }}
                     >
-                        <Typography sx={{ fontSize: 18 }} variant="subtitle1" gutterBottom component="div">
-                        132 questions
-                        </Typography>
-                        <Box
+                        <TextField
+                            size="small"
+                            select
+                            value={showOption}
+                            onChange={handleChange}
                             sx={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                gap: 5
+                                minWidth: 160,
+                                '& div': {
+                                    fontSize: 16
+                                },
+                                '& .MuiSelect-select': {
+                                    pt: 1.4, pb: 1.4
+                                }
                             }}
                         >
-
-                            <ToggleButtonGroup
-                                value={alignment}
-                                exclusive
-                                onChange={handleAlignment}
-                                aria-label="text alignment"
-                                sx={{
-                                    '& button':{
-                                        fontSize:17
-                                    }
-                                }}
-                            >
-                                <ToggleButton
-                                    value="1"
-
-                                >
-                                Newest
-                                </ToggleButton>
-                                <ToggleButton
-                                    value="2"
-                                >
-                                Active
-                                </ToggleButton>
-                                <ToggleButton value="3"
-                                >
-                                Bountied
-                                </ToggleButton>
-                                <ToggleButton value="4"
-                                >
-                                Unanswered
-                                </ToggleButton>
-                                <ToggleButton value="5"
-                                    sx={{
-                                        padding: 0
-                                    }}
-                                >
-                                    <FormControl
-                                        sx={{
-                                            minWidth: 50,
-                                            margin: 0,
-                                            padding: 0,
-                                            maxHeight:50
-                                        }}>
-                                        <Select
-                                            value={age}
-                                            onChange={handleChange}
-                                            displayEmpty
-                                            inputProps={{ 'aria-label': 'Without label' }}
-                                            sx ={{
-                                                padding: 0,
-                                                maxHeight: 51,
-                                                borderRadius: 0,
-                                                outline: '0'
-                                            }}
-                                        >
-                                            <MenuItem disabled value={0} sx={{ maxHeight: 51 }}>
-                                                <p>More</p>
-                                            </MenuItem>
-                                            <MenuItem value={10}>Ten</MenuItem>
-                                            <MenuItem value={20}>Twenty</MenuItem>
-                                            <MenuItem value={30}>Thirty</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </ToggleButton>
-                            </ToggleButtonGroup>
-                            <ToggleButtonGroup exclusive>
-                                <ToggleButton
-                                    sx={{
-                                        padding: 0
-                                    }}>
-                                    <FormControl
-                                        sx={{
-                                            minWidth: 50,
-                                            margin: 0,
-                                            padding: 0,
-                                            maxHeight:50,
-                                            display: 'flex',
-                                            flexDirection: 'row',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center',
-                                            '& div div svg.MuiSelect-icon':{ display: 'none' },
-                                            '& div div div':{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }
-                                        }}>
-                                        <TextField
-                                            value={age}
-                                            onChange={handleChange}
-                                            displayEmpty
-                                            inputProps={{ 'aria-label': 'Without label' }}
-                                            select
-                                            sx ={{
-                                                padding: 0,
-                                                maxWidth: 100,
-                                                maxHeight: 51,
-                                                display: 'flex',
-                                                flexDirection: 'row',
-                                                justifyContent: 'center',
-                                                alignItems: 'center'
-                                            }}
-                                        >
-                                            <MenuItem disabled value={0} sx={{
-                                                maxHeight: 51,
-                                                display: 'flex',
-                                                flexDirection: 'row',
-                                                justifyContent: 'center',
-                                                alignItems: 'center' }}>
-                                                <Sort/> <p>Filter</p>
-                                            </MenuItem>
-                                            <MenuItem value={10}>Ten</MenuItem>
-                                            <MenuItem value={20}>Twenty</MenuItem>
-                                            <MenuItem value={30}>Thirty</MenuItem>
-                                        </TextField>
-                                    </FormControl>
-                                </ToggleButton>
-                            </ToggleButtonGroup>
-                        </Box>
+                            <MenuItem value={30}>Xếp mặc định</MenuItem>
+                            <MenuItem value={10}>A -&gt; Z</MenuItem>
+                            <MenuItem value={20}>Z -&gt; A</MenuItem>
+                        </TextField>
+                        <ToggleDisplayButton
+                            handleChangeDisplayType={handleChangeDisplayType}
+                            lineDisplay={lineDisplay}
+                        />
                     </Box>
                 </Box>
                 {
-                    listQuestions.map((info, index) => (
-                        <Questions info={info} key={index} />
-                    ))
+                    lineDisplay
+                        ? questionSeedData.map((item, index) => (
+                            <QuestionBox item={item} key={index} isLine={true}/>
+                        ))
+                        : <Grid container spacing={2}>
+                            {
+                                questionSeedData.map((item, index) => (
+                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6} key={index}>
+                                        <QuestionBox item={item} square={true}/>
+                                    </Grid>
+                                ))
+                            }
+                        </Grid>
                 }
             </Box>
+            <NotificationMenu/>
         </Container>
     );
 }

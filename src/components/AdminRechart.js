@@ -3,7 +3,7 @@ import { Container, Divider, ListItem, ListItemText, MenuItem, TextField, Typogr
 import { blue, grey, teal } from '@mui/material/colors';
 import { Box } from '@mui/system';
 import { totalQuestionInDay, totalQuestionInYear } from 'assets/dataset/chartData';
-import { questionHistory } from 'assets/questionHistory';
+import { questionHistory } from 'assets/dataset/questionHistory';
 import React, { useState } from 'react';
 import { Bar, BarChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 

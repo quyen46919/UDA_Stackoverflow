@@ -1,7 +1,7 @@
 import { useTheme } from '@emotion/react';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
-import { donateUser } from 'assets/donateUser';
+import { donateUser } from 'assets/dataset/donateUser';
 import React from 'react';
 import Slider from 'react-slick/lib/slider';
 import 'slick-carousel/slick/slick-theme.css';
@@ -52,7 +52,7 @@ function SlickSlider() {
         initialSlide: 0,
         responsive: [
             {
-                breakpoint: 1024,
+                breakpoint: 1440,
                 settings: {
                     slidesToShow: 3,
                     slidesToScroll: 3,
@@ -61,7 +61,16 @@ function SlickSlider() {
                 }
             },
             {
-                breakpoint: 600,
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 768,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
@@ -69,7 +78,7 @@ function SlickSlider() {
                 }
             },
             {
-                breakpoint: 480,
+                breakpoint: 560,
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1

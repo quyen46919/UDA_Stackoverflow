@@ -1,7 +1,7 @@
-import { AttachFile, LocalOffer, Tour } from '@mui/icons-material';
+import { LocalOffer, Tour } from '@mui/icons-material';
 import Comment from '@mui/icons-material/Comment';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { Avatar, Box } from '@mui/material';
+import { Avatar, Box, IconButton } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
@@ -9,17 +9,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 QuestionBox.propTypes = {
-    info: PropTypes.object.isRequired
+    item: PropTypes.object.isRequired,
+    // using for full width display type
+    isLine: PropTypes.bool,
+    // using for admin page
+    isAdminBox: PropTypes.bool,
+    handleOpenMenu: PropTypes.func
 };
 
 function QuestionBox(props) {
-    const { info } = props;
-    const { number, time, name, title, des, avatar } = info;
+    const { item, isAdminBox, handleOpenMenu, isLine } = props;
+    const { content, title, owner, ownerAvatar, tags, label, commentCount, createAt } = item;
     return (
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%', height: '100%' }}>
             <Box
                 sx={{
                     width: '100%',
+                    height: '100%',
                     display: 'flex',
                     px: 3,
                     py: 2,
@@ -30,7 +36,8 @@ function QuestionBox(props) {
                     alignItems: 'flex-start',
                     gap: 1,
                     backgroundColor: 'white',
-                    borderRadius: 2
+                    borderRadius: 2,
+                    boxShadow: isAdminBox ? 'rgba(149, 157, 165, 0.2) 0px 8px 24px' : ''
                 }}
             >
                 <Box
@@ -58,7 +65,7 @@ function QuestionBox(props) {
                             variant="subtitle1"
                             gutterBottom
                         >
-                        Câu hỏi #{number}
+                        Câu hỏi #{label}
                         </Typography>
                     </Box>
                     <Box
@@ -70,10 +77,12 @@ function QuestionBox(props) {
                             alignItems: 'center'
                         }}
                     >
-                        <Typography sx={{ margin: 0, fontWeight: 600, color: grey[400], fontSize: 14 }}>
-                            {time}
+                        <Typography sx={{ margin: 0, mr: -1.6, fontWeight: 600, color: grey[400], fontSize: 14 }}>
+                            {createAt}
                         </Typography>
-                        <MoreHorizIcon sx={{ fontSize: 18, color: grey[400] }}/>
+                        { isAdminBox && <IconButton onClick={handleOpenMenu}>
+                            <MoreHorizIcon sx={{ fontSize: 18, color: grey[400] }}/>
+                        </IconButton> }
                     </Box>
                 </Box>
                 <Box
@@ -127,19 +136,18 @@ function QuestionBox(props) {
                         }}
                         gutterBottom
                     >
-                        {des} {des} {des}
+                        {content}
                     </Typography>
-
                 </Box>
                 <Box
                     sx={{
                         width: '100%',
                         display: 'flex',
-                        flexDirection: 'row',
-                        flexWrap: 'nowrap',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        gap:1
+                        flexDirection: !isLine ? 'column' : { xs: 'column', sm: 'row' },
+                        justifyContent: !isLine ? 'center' : { xs: 'flex-start', sm: 'space-between' },
+                        alignItems: !isLine ? 'flex-start' : { xs: 'flex-start', sm: 'center' },
+                        gap: 1,
+                        mt: 'auto'
                     }}
                 >
                     <Box
@@ -152,9 +160,9 @@ function QuestionBox(props) {
                             alignItems: 'center'
                         }}
                     >
-                        <Avatar sx={{ height: 30, width: 30 }} alt="User" src={avatar} />
+                        <Avatar sx={{ height: 30, width: 30 }} alt="User" src={ownerAvatar} />
                         <Typography sx={{ margin: 0, fontWeight: 500, color: grey[700] }}>
-                            {name}
+                            {owner}
                         </Typography>
                     </Box>
                     <Box
@@ -175,20 +183,15 @@ function QuestionBox(props) {
                             sx={{
                                 margin: 0,
                                 color: grey[400],
-                                fontSize: 14,
-                                display: { xs: 'none', sm: 'block' }
+                                fontSize: 14
                             }}
                             noWrap
                         >
-                            Design, Help, Ui, Figma
-                        </Typography>
-                        <AttachFile sx={{ fontSize: 16 }}/>
-                        <Typography sx={{ margin: 0, color: grey[400], fontSize: 14 }}>
-                            7
+                            { tags.join(', ') }
                         </Typography>
                         <Comment sx={{ fontSize: 16 }}/>
                         <Typography sx={{ margin: 0, color: grey[400], fontSize: 14 }}>
-                            10
+                            {commentCount}
                         </Typography>
                     </Box>
                 </Box>

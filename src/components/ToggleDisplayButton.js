@@ -2,10 +2,16 @@ import { Apps, ViewList } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import { Box } from '@mui/system';
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
-function ToggleDisplayButton() {
-    const [showInBlock, setShowInBlock] = useState(true);
+ToggleDisplayButton.propTypes = {
+    lineDisplay: PropTypes.bool.isRequired,
+    handleChangeDisplayType: PropTypes.func.isRequired
+};
+
+function ToggleDisplayButton(props) {
+    const { lineDisplay, handleChangeDisplayType } = props;
 
     return (
         <Box sx={{
@@ -17,28 +23,28 @@ function ToggleDisplayButton() {
             <IconButton
                 sx={{
                     borderRadius: '5px!important',
-                    color: showInBlock ? blue[600] : grey[600],
-                    bgcolor: showInBlock ? `${blue[50]}!important` : 'initial',
+                    color: lineDisplay ? blue[600] : grey[600],
+                    bgcolor: lineDisplay ? `${blue[50]}!important` : 'initial',
                     '& span': {
                         borderRadius: '5px!important'
                     }
                 }}
-                onClick={() => setShowInBlock(true)}
+                onClick={() => handleChangeDisplayType(true)}
             >
-                <Apps/>
+                <ViewList/>
             </IconButton>
             <IconButton
                 sx={{
                     borderRadius: '5px!important',
-                    color: !showInBlock ? blue[600] : grey[600],
-                    bgcolor: !showInBlock ? `${blue[50]}!important` : 'initial',
+                    color: !lineDisplay ? blue[600] : grey[600],
+                    bgcolor: !lineDisplay ? `${blue[50]}!important` : 'initial',
                     '& span': {
                         borderRadius: '5px!important'
                     }
                 }}
-                onClick={() => setShowInBlock(false)}
+                onClick={() => handleChangeDisplayType(false)}
             >
-                <ViewList/>
+                <Apps/>
             </IconButton>
         </Box>
     );

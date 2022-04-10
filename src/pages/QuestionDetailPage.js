@@ -17,13 +17,13 @@ function QuestionDetailPage() {
 
     return (
         <>
-            <Box ref={ref} sx={{ mt: -220 }}/>
+            <Box ref={ref}/>
             <Container
                 maxWidth="xl"
                 sx= {{
                     width: {
                         xs: '100%',
-                        md: 'calc(100% - 360px)'
+                        lg: 'calc(100% - 360px)'
                     },
                     display: 'flex',
                     flexDirection: 'row',
@@ -32,8 +32,8 @@ function QuestionDetailPage() {
                     gap: 5,
                     pb: 6,
                     pt: 2,
-                    mt: { xs: 0, md: 2.5 },
-                    ml: { xs: 0, md: 3 },
+                    mt: { xs: 0, lg: 1 },
+                    ml: { xs: 0, lg: 3 },
                     mr: { xs: 0, md: 3 },
                     backgroundColor: 'white',
                     transition: '0.2s',
@@ -65,7 +65,7 @@ function QuestionDetailPage() {
                             pl: 2.5
                         }}
                     >
-                    Tôi không cách nào có thể sử dụng useRef React Hook để lấy chiều dài của một component được
+                        Tôi không cách nào có thể sử dụng useRef React Hook để lấy chiều dài của một component được
                     </Typography>
                     <Box
                         sx={{

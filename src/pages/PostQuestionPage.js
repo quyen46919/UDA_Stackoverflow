@@ -9,7 +9,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
 import { Box } from '@mui/system';
 import TextEditor from 'components/TextEditor';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const ITEM_HEIGHT = 44;
 const ITEM_PADDING_TOP = 6;
@@ -63,7 +63,6 @@ function PostQuestionPage() {
     const downSM = useMediaQuery(theme.breakpoints.down('sm'));
 
     const handleContentChange = (newContent) => {
-        console.log('new Content: ', newContent);
         setPostContent((prevState) => ({
             ... prevState,
             content: newContent
@@ -80,15 +79,15 @@ function PostQuestionPage() {
         );
     };
 
-    const ref = useRef();
+    // const ref = useRef();
     useEffect(() => {
-        ref.current.scrollIntoView();
+        // ref.current.scrollIntoView();
     }, []);
 
 
     return (
         <>
-            <Box ref={ref} sx={{ mt: -220 }}/>
+            {/* <Box ref={ref} sx={{ mt: -220 }}/> */}
             <Box sx={{
                 width: '100%',
                 minHeight: 400,

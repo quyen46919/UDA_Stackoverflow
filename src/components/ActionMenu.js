@@ -51,7 +51,7 @@ function ActionMenu() {
                 top: '90px'
             }}
         >
-            <Box fullWidth>
+            <Box fullWidth sx={{ display: { xs: 'block', lg: 'none' } }}>
                 <Typography sx={{ pb: 1, color: grey[500] }}>
                     Điều hướng
                 </Typography>
@@ -64,11 +64,12 @@ function ActionMenu() {
                 >
                     <MenuItem value="home">Trang chủ</MenuItem>
                     <MenuItem value="post">Đăng câu hỏi</MenuItem>
+                    <MenuItem value="group">Nhóm</MenuItem>
                     <MenuItem value="support">Hỗ trợ</MenuItem>
                 </TextField>
             </Box>
             {
-                ( currentPage === 'home' || currentPage === '' ) && <Box sx={{ pt: 2 }}>
+                ( currentPage === 'home' || currentPage === '' ) && <Box sx={{ pt: { xs: 2, lg: 0 } }}>
                     <Typography sx={{ fontWeight: 700, fontSize: 24 }}>
                         Tìm kiếm câu hỏi
                     </Typography>

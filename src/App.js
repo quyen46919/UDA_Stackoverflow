@@ -2,37 +2,38 @@ import { Box } from '@mui/system';
 import ActionMenu from 'components/ActionMenu';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
+import ProfilePageMenu from 'components/ProfilePageMenu';
 import BlogDetailPage from 'pages/BlogDetailPage';
 import BlogsPage from 'pages/BlogsPage';
 import CommunityPage from 'pages/CommunityPage';
 import EmptyPage from 'pages/EmptyPage';
 import FallBackScreen from 'pages/FallBackScreen';
-import PostQuestionPage from 'pages/PostQuestionPage';
-// import IntroPage from 'pages/IntroPage';
-import QuestionDetailPage from 'pages/QuestionDetailPage';
 import SupportPage from 'pages/SupportPage';
-// import AdminPage from 'pages/AdminPage';
-// import ForgotPasswordPage from 'pages/ForgotPasswordPage';
-// import HomePage from 'pages/HomePage';
-// import LoginPage from 'pages/LoginPage';
-// import LogupPage from 'pages/LogupPage';
-// import ResetPasswordPage from 'pages/ResetPasswordPage';
-// import ProfilePage from './pages/ProfilePage';
-// import QuestionPage from './pages/QuestionPage';
 import React from 'react';
 import {
     BrowserRouter as Router, Route, Switch
 } from 'react-router-dom';
 import './App.scss';
+// home routes
 const QuestionPage = React.lazy(() => import('pages/QuestionPage'));
-const ProfilePage = React.lazy(() => import('pages/ProfilePage'));
-const ResetPasswordPage = React.lazy(() => import('pages/ResetPasswordPage'));
+const QuestionDetailPage = React.lazy(() => import('pages/QuestionDetailPage'));
 const LogupPage = React.lazy(() => import('pages/LogupPage'));
-const LoginPage = React.lazy(() => import('pages/LoginPage'));
-const IntroPage = React.lazy(() => import('pages/IntroPage'));
 const ForgotPasswordPage = React.lazy(() => import('pages/ForgotPasswordPage'));
-const AdminPage = React.lazy(() => import('pages/AdminPage'));
+const PostQuestionPage = React.lazy(() => import('pages/PostQuestionPage'));
+
+// profile routes
+const ProfilePage = React.lazy(() => import('pages/ProfilePage'));
+const ProfileNotificationPage = React.lazy(() => import('pages/ProfileNotificationPage'));
+const ProfilePrivacyPage = React.lazy(() => import('pages/ProfilePrivacyPage'));
+const ProfileSystemPage = React.lazy(() => import('pages/ProfileSystemPage'));
+const ProfileBlacklistPage = React.lazy(() => import('pages/ProfileBlacklistPage'));
+
+// others routes
 const GroupPage = React.lazy(() => import('pages/GroupPage'));
+const AdminPage = React.lazy(() => import('pages/AdminPage'));
+const IntroPage = React.lazy(() => import('pages/IntroPage'));
+const LoginPage = React.lazy(() => import('pages/LoginPage'));
+const ResetPasswordPage = React.lazy(() => import('pages/ResetPasswordPage'));
 
 
 function App() {
@@ -61,10 +62,9 @@ function App() {
                                             lg: 'row'
                                         },
                                         bgcolor: '#f5f6fb',
-                                        pl: 2, pr: 1, pt: 2, pb: 2,
                                         p: {
                                             xs: '8px 16px',
-                                            lg: '0 0 24px 0'
+                                            lg: '0 8px 24px 8px'
                                         },
                                         boxSizing: 'border-box'
                                     }}>
@@ -79,7 +79,34 @@ function App() {
                                     </Box>
                                 }/>
                                 <Route path="/community" component={CommunityPage} exact/>
-                                <Route path="/profile" component={ProfilePage} exact/>
+                                <Route path="/profile" render={() =>
+                                    <>
+                                        <Box sx={{
+                                            width: '100%',
+                                            display: 'flex',
+                                            flexDirection: {
+                                                xs: 'column',
+                                                lg: 'row'
+                                            },
+                                            bgcolor: '#f5f6fb',
+                                            p: {
+                                                xs: '8px 16px 40px 16px',
+                                                lg: '16px 8px 24px 8px'
+                                            },
+                                            boxSizing: 'border-box',
+                                            gap: { xs: 1, md: 2, lg: 0 }
+                                        }}>
+                                            <ProfilePageMenu/>
+                                            <Switch>
+                                                <Route path="/profile" component={ProfilePage} exact/>
+                                                <Route path="/profile/notification" component={ProfileNotificationPage} exact/>
+                                                <Route path="/profile/privacy" component={ProfilePrivacyPage} exact/>
+                                                <Route path="/profile/blacklist" component={ProfileBlacklistPage} exact/>
+                                                <Route path="/profile/system" component={ProfileSystemPage}/>
+                                            </Switch>
+                                        </Box>
+                                    </>
+                                }/>
                                 <Route path="/blogs" component={BlogsPage} exact/>
                                 <Route path="/blogs/:blogId" component={BlogDetailPage} exact/>
                                 <Route path="/admin" component={AdminPage} exact/>

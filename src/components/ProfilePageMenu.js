@@ -1,11 +1,12 @@
-import { AdminPanelSettings, Campaign, DisplaySettings, Healing } from '@mui/icons-material';
-import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import { Campaign, DisplaySettings, Lock } from '@mui/icons-material';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import BlockIcon from '@mui/icons-material/Block';
 import { Box, MenuItem, TextField, Typography } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
 
 const menuItemStyles = {
@@ -13,9 +14,10 @@ const menuItemStyles = {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    gap: 1,
+    gap: 2,
     color: grey[600],
-    '& svg': { transform: 'translateY(-1px)' }
+    '& svg': { transform: 'translateY(-1px)', color: blue[600] },
+    pt: 1.2, pb: 1.2
 };
 
 function ProfilePageMenu() {
@@ -23,17 +25,23 @@ function ProfilePageMenu() {
     const location = useLocation();
     const currentPage = location.pathname.split('/').pop();
     const history = useHistory();
-    const [page, setPage] = useState(currentPage || '');
+    const [page, setPage] = useState(currentPage || 'profile');
 
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index);
     };
 
+    useEffect(() => {
+        const newCurrentPage = location.pathname.split('/').pop();
+        setPage(newCurrentPage);
+    }, [location.pathname]);
+
     const handleChangePage = (e) => {
         let newUrlParam = e.target.value;
         setPage(newUrlParam);
         if (newUrlParam === 'profile') {
-            newUrlParam = '';
+            history.push('/profile');
+            return;
         }
         history.push(`/profile/${newUrlParam}`);
     };
@@ -69,11 +77,15 @@ function ProfilePageMenu() {
                     value={page}
                     onChange={handleChangePage}
                     sx={{
-                        '& .MuiSelect-select': menuItemStyles
+                        '& .MuiSelect-select': menuItemStyles,
+                        '& .MuiMenu-paper': {
+                            boxShadow: `${0}!important`,
+                            border: `1px solid ${blue[600]}!important`
+                        }
                     }}
                 >
                     <MenuItem value="profile" sx={menuItemStyles}>
-                        <CardGiftcardIcon/>
+                        <AccountBoxIcon/>
                         <ListItemText primary="Trang cá nhân" />
                     </MenuItem>
                     <MenuItem value="notification" sx={menuItemStyles}>
@@ -81,11 +93,11 @@ function ProfilePageMenu() {
                         <ListItemText primary="Thiết lập thông báo" />
                     </MenuItem>
                     <MenuItem value="privacy" sx={menuItemStyles}>
-                        <AdminPanelSettings/>
+                        <Lock/>
                         <ListItemText primary="Thiết lập quyền riêng tư" />
                     </MenuItem>
                     <MenuItem value="blacklist" sx={menuItemStyles}>
-                        <Healing/>
+                        <BlockIcon/>
                         <ListItemText primary="Quản lí danh sách chặn" />
                     </MenuItem>
                     <MenuItem value="system" sx={menuItemStyles}>
@@ -114,7 +126,7 @@ function ProfilePageMenu() {
                             selected={selectedIndex === 1}
                             onClick={(event) => handleListItemClick(event, 1)}
                         >
-                            <CardGiftcardIcon/>
+                            <AccountBoxIcon/>
                             <ListItemText primary="Trang cá nhân" />
                         </ListItemButton>
                     </NavLink>
@@ -132,7 +144,7 @@ function ProfilePageMenu() {
                             selected={selectedIndex === 3}
                             onClick={(event) => handleListItemClick(event, 3)}
                         >
-                            <AdminPanelSettings/>
+                            <Lock/>
                             <ListItemText primary="Thiết lập quyền riêng tư" />
                         </ListItemButton>
                     </NavLink>
@@ -141,7 +153,7 @@ function ProfilePageMenu() {
                             selected={selectedIndex === 4}
                             onClick={(event) => handleListItemClick(event, 4)}
                         >
-                            <Healing/>
+                            <BlockIcon/>
                             <ListItemText primary="Quản lí danh sách chặn" />
                         </ListItemButton>
                     </NavLink>

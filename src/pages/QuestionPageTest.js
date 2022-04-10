@@ -1,18 +1,15 @@
-import { Box, Container, Grid, TextField } from '@mui/material';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import { Box, Button, Container, TextField } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
-import { questionSeedData } from 'assets/dataset/questionSeedData';
+import { listQuestions } from 'assets/dataset/questionList';
 import NotificationMenu from 'components/NotificationMenu';
 import QuestionBox from 'components/QuestionBox';
 import ToggleDisplayButton from 'components/ToggleDisplayButton';
 import React, { useState } from 'react';
 
-function QuestionPage() {
-    const [showOption, setShowOption] = useState(10);
-    const [lineDisplay, setLineDisplay] = useState(true);
 
-    const handleChangeDisplayType = (newBoolean) => {
-        setLineDisplay(newBoolean);
-    };
+function QuestionPageTest() {
+    const [showOption, setShowOption] = useState(10);
 
     const handleChange = (event) => {
         setShowOption(event.target.value);
@@ -24,11 +21,7 @@ function QuestionPage() {
             sx= {{
                 width: {
                     xs: '100%',
-                    lg: 'calc(100% - 300px)'
-                },
-                minWidth: {
-                    xs: '100%',
-                    lg: 'calc(100% - 300px)'
+                    md: 'calc(100% - 300px)'
                 },
                 display: 'flex',
                 flexDirection: 'row',
@@ -39,7 +32,7 @@ function QuestionPage() {
                 transition: '0.2s',
                 p: {
                     xs: 0,
-                    lg: 1
+                    md: 1
                 },
                 bgcolor: '#f5f6fb'
             }}
@@ -47,9 +40,7 @@ function QuestionPage() {
             <Box
                 sx={{
                     overflow: 'auto',
-                    maxWidth: '100%',
-                    width: '100%',
-                    px: { xs: 0, lg: 1 },
+                    px: { xs: 1, md: 3 },
                     boxSizing: 'border-box',
                     '&::-webkit-scrollbar':{
                         'webkitAppearance': 'none',
@@ -65,14 +56,13 @@ function QuestionPage() {
                     justifyContent: 'flex-start',
                     alignItems: 'flex-start',
                     gap: 1,
-                    marginTop: 0.5,
+                    marginTop: '10px',
                     borderRadius: 2
                 }}
             >
                 <Box
                     sx={{
                         width: '100%',
-                        minWidth: '100%',
                         display: 'flex',
                         flexFlow: 'row wrap',
                         justifyContent: 'space-between',
@@ -86,12 +76,43 @@ function QuestionPage() {
                 >
                     <Box
                         sx={{
-                            width: '100%',
-                            minWidth: '100%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexWrap: 'wrap',
+                            gap: 1.5
+                        }}>
+                        <Button
+                            variant="outlined"
+                            sx={{
+                                display:{
+                                    xs: 'flex',
+                                    md: 'none'
+                                },
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                p: '8px 16px',
+                                mb: 1
+                            }}>
+                            Mở bảng điều hướng
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            endIcon={<BorderColorIcon sx={{ fontSize: { sm: 15, xs: 12 } }}/>}
+                            sx={{
+                                p: '8px 16px',
+                                mb: { xs: 1, sm: 0 }
+                            }}
+                        >
+                            Đăng câu hỏi
+                        </Button>
+                    </Box>
+                    <Box
+                        sx={{
                             display: 'flex',
                             flexDirection: 'row',
                             alignItems: 'center',
-                            justifyContent: 'space-between',
+                            justifyContent: 'flex-end',
                             gap: 2
                         }}
                     >
@@ -114,26 +135,13 @@ function QuestionPage() {
                             <MenuItem value={10}>A -&gt; Z</MenuItem>
                             <MenuItem value={20}>Z -&gt; A</MenuItem>
                         </TextField>
-                        <ToggleDisplayButton
-                            handleChangeDisplayType={handleChangeDisplayType}
-                            lineDisplay={lineDisplay}
-                        />
+                        <ToggleDisplayButton/>
                     </Box>
                 </Box>
                 {
-                    lineDisplay
-                        ? questionSeedData.map((item, index) => (
-                            <QuestionBox item={item} key={index} isLine={true}/>
-                        ))
-                        : <Grid container spacing={2}>
-                            {
-                                questionSeedData.map((item, index) => (
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6} key={index}>
-                                        <QuestionBox item={item} square={true}/>
-                                    </Grid>
-                                ))
-                            }
-                        </Grid>
+                    listQuestions.map((info, index) => (
+                        <QuestionBox info={info} key={index} />
+                    ))
                 }
             </Box>
             <NotificationMenu/>
@@ -141,4 +149,4 @@ function QuestionPage() {
     );
 }
 
-export default QuestionPage;
+export default QuestionPageTest;

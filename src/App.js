@@ -8,6 +8,8 @@ import BlogsPage from 'pages/BlogsPage';
 import CommunityPage from 'pages/CommunityPage';
 import EmptyPage from 'pages/EmptyPage';
 import FallBackScreen from 'pages/FallBackScreen';
+import GroupQuestionPage from 'pages/GroupQuestionPage';
+// import IntroPage from 'pages/IntroPage';
 import SupportPage from 'pages/SupportPage';
 import React from 'react';
 import {
@@ -64,7 +66,7 @@ function App() {
                                         bgcolor: '#f5f6fb',
                                         p: {
                                             xs: '8px 16px',
-                                            lg: '0 8px 24px 8px'
+                                            lg: '8px 8px 24px 8px'
                                         },
                                         boxSizing: 'border-box'
                                     }}>
@@ -73,6 +75,7 @@ function App() {
                                             <Route path="/home" component={QuestionPage} exact/>
                                             <Route path="/home/post" component={PostQuestionPage} exact/>
                                             <Route path="/home/group" component={GroupPage} exact/>
+                                            <Route path="/home/group/:groupId" component={GroupQuestionPage} exact/>
                                             <Route path="/home/support" component={SupportPage} exact/>
                                             <Route path="/home/question/:questionId" component={QuestionDetailPage}/>
                                         </Switch>

@@ -140,7 +140,7 @@ function ActionMenu() {
                     <NavLink to="/home/post" exact>
                         <ListItemButton
                             selected={selectedIndex === 3}
-                            onClick={(event) => handleListItemClick(event, 2)}
+                            onClick={(event) => handleListItemClick(event, 3)}
                         >
                             <ListItemText primary="Đăng câu hỏi" />
                             <KeyboardDoubleArrowRightIcon sx={{ fontSize: '20px', color: grey[500] }} />

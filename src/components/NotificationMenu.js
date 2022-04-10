@@ -10,14 +10,13 @@ function NotificationMenu() {
         <Box sx={{
             width: 300,
             minWidth: 300,
-            pt: 1,
             display: {
                 xs: 'none',
                 lg: 'block'
             },
             boxSizing: 'border-box',
             position: 'sticky',
-            top: '80px'
+            top: '90px'
         }}>
             <Box sx={{
                 width: '100%',

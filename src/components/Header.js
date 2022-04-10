@@ -1,10 +1,17 @@
-import { ExpandLess, ExpandMore, Home, LibraryBooks, Logout, School, Settings } from '@mui/icons-material';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import { Brightness4, Campaign, ExpandLess, ExpandMore, Home, LibraryBooks, LightMode, Logout, ModeNight, School } from '@mui/icons-material';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import BlockIcon from '@mui/icons-material/Block';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import LanguageIcon from '@mui/icons-material/Language';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import LockIcon from '@mui/icons-material/Lock';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Search from '@mui/icons-material/Search';
-import { Avatar, Collapse, Divider, InputAdornment, List, ListItemButton, ListItemIcon, ListItemText, TextField } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { Avatar, Collapse, Divider, InputAdornment, List, ListItemButton, ListItemIcon, ListItemText, Popover, TextField } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
@@ -18,6 +25,7 @@ import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+
 
 const PAPERSTYLES = {
     elevation: 0,
@@ -48,10 +56,51 @@ const PAPERSTYLES = {
     }
 };
 
+const POPOVER_STYLES = {
+    transform: 'translate(-2px, 5px)!important',
+    boxShadow: 0,
+    '& .MuiPopover-paper': {
+        border: `1px solid ${blue[700]}`,
+        boxShadow: 0
+    },
+    '& .MuiPopover-paper li': {
+        pt: 1.2, pb: 1.2, color: grey[600]
+    },
+    '& .MuiPopover-paper li svg': {
+        mr: 2, color: blue[600]
+    }
+};
+
 export default function Header() {
+    const [popupAnchorEl2, setPopupAnchorEl2] = useState(null);
+
+    const handlePopUpClick2 = (event) => {
+        setPopupAnchorEl2(event.currentTarget);
+    };
+
+    const handlePopupClose2 = () => {
+        setPopupAnchorEl2(null);
+    };
+
+    const popupOpen2 = Boolean(popupAnchorEl2);
+    const idPopup2 = popupOpen2 ? 'simple-popover' : undefined;
+
+    const [popupAnchorEl, setPopupAnchorEl] = useState(null);
+
+    const handlePopUpClick = (event) => {
+        setPopupAnchorEl(event.currentTarget);
+    };
+
+    const handlePopupClose = () => {
+        setPopupAnchorEl(null);
+    };
+
+    const popupOpen = Boolean(popupAnchorEl);
+    const idPopup = popupOpen ? 'simple-popover' : undefined;
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-    const [open, setOpen] = useState(true);
+    const [openSystemCollapse, setOpenSystemCollap] = useState(false);
+    const [showAccountCollapse, setShowAccountCollapse] = useState(false);
     const history = useHistory();
 
     const isMenuOpen = Boolean(anchorEl);
@@ -74,8 +123,11 @@ export default function Header() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
-    const handleClick = () => {
-        setOpen(!open);
+    const handleShowSystemCollapse = () => {
+        setOpenSystemCollap(!openSystemCollapse);
+    };
+    const handleShowAccountCollapse = () => {
+        setShowAccountCollapse(!showAccountCollapse);
     };
 
     const handleLinktoUrlClick = (url) => {
@@ -103,33 +155,163 @@ export default function Header() {
             PaperProps={PAPERSTYLES}
             sx={{ '& svg, & p': { color: grey[500] } }}
         >
-            <MenuItem sx={{ pt: 1.2, pb: 1.2, minWidth: 200 }}>
+            <Typography
+                sx={{
+                    fontSize: '16px',
+                    fontWeight: 600,
+                    pl: 2.2,
+                    pt: 0.8,
+                    color: `${grey[700]}!important`
+                }}>Thông tin của tôi</Typography>
+            <MenuItem
+                sx={{ pt: 1.2, pb: 1.2, minWidth: 250 }}
+                onClick={() => handleLinktoUrlClick('profile')}
+            >
                 <ListItemIcon>
-                    <AccountCircle sx={{ color: `${blue[600]}!important` }}/>
+                    <AccountBoxIcon sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
                 </ListItemIcon>
-                <ListItemText
-                    sx={{ color: grey[700], pr: 1, pl: 1, '& span': { fontSize: 16 } }}
-                    onClick={() => handleLinktoUrlClick('profile')}
-                >
-                    Tài khoản
+                <ListItemText sx={{ color: grey[600], p6: 1, pl: 0, '& span': { fontSize: 16 } }}>
+                    Trang cá nhân
                 </ListItemText>
             </MenuItem>
-            <MenuItem sx={{ pt: 1.2, pb: 1.2 }}>
+            <MenuItem
+                sx={{ pt: 1.2, pb: 1.2, minWidth: 250 }}
+                onClick={() => handleLinktoUrlClick('profile/notification')}
+            >
                 <ListItemIcon>
-                    <Logout sx={{ color: `${blue[600]}!important` }}/>
+                    <Campaign sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
                 </ListItemIcon>
-                <ListItemText sx={{
-                    color: grey[700],
-                    pr: 1, pl: 1,
-                    '& span': { fontSize: 16 },
-                    '& a': {
-                        textDecoration: 'none',
-                        color: 'inherit'
-                    }
+                <ListItemText sx={{ color: grey[600], p6: 1, pl: 0, '& span': { fontSize: 16 } }}>
+                    Thiết lập thông báo
+                </ListItemText>
+            </MenuItem>
+            <MenuItem
+                sx={{ pt: 1.2, pb: 1.2, minWidth: 250 }}
+                onClick={() => handleLinktoUrlClick('profile/privacy')}
+            >
+                <ListItemIcon>
+                    <LockIcon sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
+                </ListItemIcon>
+                <ListItemText sx={{ color: grey[600], pr: 1, '& span': { fontSize: 16 } }}>
+                    Thiết lập quyền riêng tư
+                </ListItemText>
+            </MenuItem>
+            <MenuItem
+                sx={{ pt: 1.2, pb: 1.2, minWidth: 250, borderBottom: '1px solid #ebe6e6' }}
+                onClick={() => handleLinktoUrlClick('profile/blacklist')}
+            >
+                <ListItemIcon>
+                    <BlockIcon sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
+                </ListItemIcon>
+                <ListItemText sx={{ color: grey[600], pr: 1, '& span': { fontSize: 16 } }}>
+                    Quản lý danh sách chặn
+                </ListItemText>
+            </MenuItem>
+            <Typography
+                sx={{
+                    fontSize: '16px',
+                    fontWeight: 600,
+                    pl: 2.2,
+                    color: `${grey[700]}!important`,
+                    pt: 1.8
                 }}>
-                    <Link to="/login">
-                        Đăng xuất
-                    </Link>
+                    Thiết lập hệ thống
+            </Typography>
+            <MenuItem sx={{ pt: 1.2, pb: 1.2, minWidth: 250 }} aria-describedby={idPopup} onClick={handlePopUpClick}>
+                <ListItemIcon>
+                    <LanguageIcon sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
+                </ListItemIcon>
+                <ListItemText
+                    sx={{ color: grey[600], pr: 1, '& span': { fontSize: 16 } }}
+                >
+                    Đổi ngôn ngữ
+                </ListItemText>
+                <ChevronRightIcon/>
+            </MenuItem>
+            <Popover
+                sx={POPOVER_STYLES}
+                id={idPopup}
+                open={popupOpen}
+                anchorEl={popupAnchorEl}
+                onClose={handlePopupClose}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left'
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right'
+                }}
+            >
+                <MenuItem sx={{ minWidth: 200 }} onClick={() => setPopupAnchorEl(null)}>
+                    <Typography sx={{ color: blue[600], fontWeight: 600, mr: 2 }}>VN</Typography>
+                    <Typography>Tiếng Việt</Typography>
+                </MenuItem>
+                <MenuItem onClick={() => setPopupAnchorEl(null)}>
+                    <Typography sx={{ color: blue[600], fontWeight: 600, mr: 2 }}>EN</Typography>
+                    <Typography>Tiếng Anh</Typography>
+                </MenuItem>
+            </Popover>
+            <MenuItem
+                sx={{ pt: 1.2, pb: 1.2, minWidth: 250, borderBottom: '1px solid #ebe6e6' }}
+                aria-describedby={idPopup2}
+                onClick={handlePopUpClick2}
+            >
+                <ListItemIcon>
+                    <LightModeIcon sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
+                </ListItemIcon>
+                <ListItemText
+                    sx={{ color: grey[600], pr: 3, '& span': { fontSize: 16 } }}
+                >
+                    Cài đặt hiển thị
+                </ListItemText>
+                <ChevronRightIcon/>
+            </MenuItem>
+            <Popover
+                elevation={0}
+                sx={POPOVER_STYLES}
+                id={idPopup2}
+                open={popupOpen2}
+                anchorEl={popupAnchorEl2}
+                onClose={handlePopupClose2}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left'
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right'
+                }}
+            >
+                <MenuItem sx={{ minWidth: 200 }} onClick={() => setPopupAnchorEl2(null)}>
+                    <Brightness4/>
+                    <Typography>Mặc định</Typography>
+                </MenuItem>
+                <MenuItem onClick={() => setPopupAnchorEl2(null)}>
+                    <ModeNight/>
+                    <Typography>Đêm</Typography>
+                </MenuItem>
+                <MenuItem onClick={() => setPopupAnchorEl2(null)}>
+                    <LightMode/>
+                    <Typography>Ngày</Typography>
+                </MenuItem>
+            </Popover>
+            <MenuItem sx={{ pt: 1.2, pb: 1.2 }} onClick={() => handleLinktoUrlClick('login')}>
+                <ListItemIcon>
+                    <Logout sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
+                </ListItemIcon>
+                <ListItemText
+                    sx={{
+                        color: grey[700],
+                        pr: 1,
+                        '& span': { fontSize: 16 },
+                        '& a': {
+                            textDecoration: 'none',
+                            color: 'inherit'
+                        }
+                    }}
+                >
+                    Đăng xuất
                 </ListItemText>
             </MenuItem>
         </Menu>
@@ -154,77 +336,42 @@ export default function Header() {
             onClose={handleMobileMenuClose}
             sx={{
                 '& svg': { color: blue[600] },
-                '& ul li': { pt: 1, pb: 1, minWidth: { xs: 280, md: 400 } },
-                '& ul li p': { pl: 3, color: grey[600] }
+                '& ul li': { pb: 1, minWidth: 260 },
+                '& ul li p': { pl: 1, color: grey[600] }
             }}
         >
             <MenuItem onClick={() => handleLinktoUrlClick('home')}>
-                <Home/>
-                <Typography>Trang chủ</Typography>
+                <Home sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
+                <Typography sx={{ fontSize: '17px', ml: 0.9, fontWeight: 500 }}>Trang chủ</Typography>
             </MenuItem>
             <MenuItem onClick={() => handleLinktoUrlClick('blogs')}>
-                <LibraryBooks/>
-                <Typography>Blogs</Typography>
+                <LibraryBooks sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
+                <Typography sx={{ fontSize: '17px', ml: 0.9, fontWeight: 500 }}>Blogs</Typography>
             </MenuItem>
-            <Divider sx={{ width: '100%', m: '0 auto', bgcolor: grey[50] }}/>
-            <MenuItem onClick={() => handleLinktoUrlClick('annoucement')}>
-                <MailIcon/>
-                <Typography>Cài đặt hiển thị</Typography>
-            </MenuItem>
-            <MenuItem onClick={handleClick}>
-                <NotificationsIcon/>
-                <Typography>Đổi ngôn ngữ</Typography>
-                {
-                    open ? <ExpandLess /> : <ExpandMore />
-                }
-            </MenuItem>
-            <Collapse in={open}>
-                <List
-                    component="div"
-                    disablePadding
-                    sx={{
-                        '& a': {
-                            textDecoration: 'none',
-                            color: 'inherit'
-                        },
-                        color: grey[600]
-                    }}
-                >
-                    <ListItemButton sx={{ p: 0.7, pl: 3 }}>
-                        <Settings sx={{ mr: 2, color: grey[500] }}/>
-                        <ListItemText
-                            primary="Chế sáng"
-                            onClick={() => handleLinktoUrlClick('profile')}
-                        />
-                    </ListItemButton>
-                    <ListItemButton sx={{ p: 0.7, pl: 3 }}>
-                        <Logout sx={{ mr: 2, color: grey[500] }}/>
-                        <ListItemText
-                            primary={<Link to="/login">Chế độ tối</Link>}
-                        />
-                    </ListItemButton>
-                </List>
-            </Collapse>
             <Divider sx={{ width: '100%', m: '0 auto', bgcolor: grey[50] }}/>
             <MenuItem
-                onClick={handleClick}
+                onClick={handleShowAccountCollapse}
                 sx={{
-                    pt: 1, pb: 1, pl: 2.5,
+                    pt: 1, pb: 1,
                     '& svg': {
-                        color: grey[400], ml: 'auto!important'
+                        color: grey[400]
                     }
                 }}>
-                <Avatar
-                    alt="Remy Sharp"
-                    sx={{ width: 34, height: 34 }}
-                    src="https://www.mammal.org.uk/wp-content/uploads/2021/09/red-fox-300x300.jpg"
-                />
-                <Typography sx={{ pl: '10px!important' }}>Tài khoản</Typography>
+                <><AccountCircleIcon sx={{ color: `${blue[600]}!important`, fontSize: 20, ml: '0!important' }}/></>
+                <Typography
+                    sx={{
+                        fontSize: '17px',
+                        fontWeight: 600,
+                        ml: 0.9,
+                        color: `${grey[700]}!important`
+                    }}>Tài khoản</Typography>
                 {
-                    open ? <ExpandLess /> : <ExpandMore />
+                    showAccountCollapse
+                        ? <ExpandLess sx={{ ml: 'auto', color: grey[400] }}/>
+                        : <ExpandMore sx={{ ml: 'auto', color: grey[400] }} />
                 }
             </MenuItem>
-            <Collapse in={open}>
+            <Collapse in={showAccountCollapse}>
                 <List
                     component="div"
                     disablePadding
@@ -236,21 +383,106 @@ export default function Header() {
                         color: grey[600]
                     }}
                 >
-                    <ListItemButton sx={{ p: 0.7, pl: 3 }}>
-                        <Settings sx={{ mr: 2, color: grey[500] }}/>
-                        <ListItemText
-                            primary="Cài đặt tài khoản"
-                            onClick={() => handleLinktoUrlClick('profile')}
-                        />
+                    <ListItemButton sx={{ p: 0.7, pl: 3 }} onClick={() => handleLinktoUrlClick('profile')}>
+                        <AccountBoxIcon sx={{ color: `${blue[600]}!important`, fontSize: '17px', pl: 1 }}/>
+                        <ListItemText sx={{ color: grey[600], pl: 1, '& span': { fontSize: 16 } }}>
+                            Quản lý thông tin
+                        </ListItemText>
                     </ListItemButton>
-                    <ListItemButton sx={{ p: 0.7, pl: 3 }}>
-                        <Logout sx={{ mr: 2, color: grey[500] }}/>
-                        <ListItemText
-                            primary={<Link to="/login">Đăng xuất</Link>}
-                        />
+                    <ListItemButton sx={{ p: 0.7, pl: 3 }} onClick={() => handleLinktoUrlClick('profile/privacy')}>
+                        <LockIcon sx={{ color: `${blue[600]}!important`, fontSize: '17px', pl: 1 }}/>
+                        <ListItemText sx={{ color: grey[600], pl: 1, '& span': { fontSize: 16 } }}>
+                            Thiết lập quyền riêng tư
+                        </ListItemText>
+                    </ListItemButton>
+                    <ListItemButton sx={{ p: 0.7, pl: 3 }} onClick={() => handleLinktoUrlClick('profile/blacklist')}>
+                        <BlockIcon sx={{ color: `${blue[600]}!important`, fontSize: '17px', pl: 1 }}/>
+                        <ListItemText sx={{ color: grey[600], pl: 1, '& span': { fontSize: 16 } }}>
+                            Danh sách chặn
+                        </ListItemText>
                     </ListItemButton>
                 </List>
             </Collapse>
+            <MenuItem
+                onClick={handleShowSystemCollapse}
+                sx={{
+                    pt: 1, pb: 1,
+                    '& svg': {
+                        color: grey[400]
+                    }
+                }}>
+                <SettingsIcon sx={{ color: `${blue[600]}!important`, fontSize: 20, ml: '0!important' }}/>
+                <Typography
+                    sx={{
+                        fontSize: '17px',
+                        fontWeight: 600,
+                        ml: 0.9,
+                        color: `${grey[700]}!important`
+                    }}>
+                    Hệ thống
+                </Typography>
+                {
+                    openSystemCollapse
+                        ? <ExpandLess sx={{ ml: 'auto', color: grey[400] }}/>
+                        : <ExpandMore sx={{ ml: 'auto', color: grey[400] }} />
+                }
+            </MenuItem>
+            <Collapse in={openSystemCollapse}>
+                <List
+                    component="div"
+                    disablePadding
+                    sx={{
+                        '& a': {
+                            textDecoration: 'none',
+                            color: 'inherit'
+                        },
+                        color: grey[600]
+                    }}
+                >
+                    <ListItemButton sx={{ p: 0.7, pl: 3 }} onClick={() => handleLinktoUrlClick('profile/system')}>
+                        <LanguageIcon sx={{ color: `${blue[600]}!important`, fontSize: '17px', pl: 1 }}/>
+                        <ListItemText sx={{ color: grey[600], pl: 1, '& span': { fontSize: 16 } }}>
+                            Đổi ngôn ngữ
+                        </ListItemText>
+                        <ChevronRightIcon/>
+                    </ListItemButton>
+                    <ListItemButton sx={{ p: 0.7, pl: 3 }} onClick={() => handleLinktoUrlClick('profile/system')}>
+                        <LightModeIcon sx={{ color: `${blue[600]}!important`, fontSize: '17px', pl: 1 }}/>
+                        <ListItemText sx={{ color: grey[600], pl: 1, '& span': { fontSize: 16 } }}>
+                            Chế độ hiển thị
+                        </ListItemText>
+                        <ChevronRightIcon/>
+                    </ListItemButton>
+                </List>
+            </Collapse>
+            <MenuItem
+                onClick={() => handleLinktoUrlClick('login')}
+                sx={{
+                    pt: 1, pb: 1,
+                    '& svg': {
+                        color: grey[400],
+                        maxWidth: '20px!important'
+                    }
+                }}>
+                <ListItemIcon>
+                    <Logout sx={{ color: `${blue[600]}!important`, fontSize: 20, ml: '0!important' }}/>
+                </ListItemIcon>
+                <ListItemText
+                    sx={{
+                        color: grey[700],
+                        '& span': { fontSize: 17,
+                            fontWeight: 600,
+                            color: `${grey[700]}!important` },
+                        '& a': {
+                            textDecoration: 'none',
+                            color: 'inherit'
+
+                        }
+                    }}
+                >
+                    Đăng xuất
+                </ListItemText>
+            </MenuItem>
         </Menu>
     );
 

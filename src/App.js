@@ -9,7 +9,6 @@ import CommunityPage from 'pages/CommunityPage';
 import EmptyPage from 'pages/EmptyPage';
 import FallBackScreen from 'pages/FallBackScreen';
 import GroupQuestionPage from 'pages/GroupQuestionPage';
-// import IntroPage from 'pages/IntroPage';
 import SupportPage from 'pages/SupportPage';
 import React from 'react';
 import {

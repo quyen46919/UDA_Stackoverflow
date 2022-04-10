@@ -6,7 +6,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LanguageIcon from '@mui/icons-material/Language';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import LockIcon from '@mui/icons-material/Lock';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Search from '@mui/icons-material/Search';
@@ -25,6 +24,7 @@ import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+import NotificationPopover from './NotificationPopover';
 
 
 const PAPERSTYLES = {
@@ -73,6 +73,18 @@ const POPOVER_STYLES = {
 
 export default function Header() {
     const [popupAnchorEl2, setPopupAnchorEl2] = useState(null);
+    const [notificationEl, setNotificationEl] = useState(null);
+
+    const handleOpenNotificationPopover = (event) => {
+        setNotificationEl(event.currentTarget);
+    };
+
+    const handleCloseNotificationPopover = () => {
+        setNotificationEl(null);
+    };
+
+    const openNotificationPopover = Boolean(notificationEl);
+    const idNotificationPopover = openNotificationPopover ? 'notification-popover' : undefined;
 
     const handlePopUpClick2 = (event) => {
         setPopupAnchorEl2(event.currentTarget);
@@ -81,6 +93,7 @@ export default function Header() {
     const handlePopupClose2 = () => {
         setPopupAnchorEl2(null);
     };
+
 
     const popupOpen2 = Boolean(popupAnchorEl2);
     const idPopup2 = popupOpen2 ? 'simple-popover' : undefined;
@@ -607,21 +620,22 @@ export default function Header() {
                         />
                     </Box>
                     {
-                        <Box sx={{ ml: 2, display: { xs: 'none', md: 'block' } }}>
-                            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                                <Badge badgeContent={4} sx={{ '& span': { backgroundColor: blue[400] } }}>
-                                    <MailIcon sx={{ color: grey[400] }}/>
-                                </Badge>
-                            </IconButton>
+                        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                             <IconButton
                                 size="large"
-                                aria-label="show 17 new notifications"
+                                aria-describedby={idNotificationPopover}
                                 color="inherit"
+                                onClick={handleOpenNotificationPopover}
                             >
                                 <Badge badgeContent={17} sx={{ '& span': { backgroundColor: blue[400] } }}>
                                     <NotificationsIcon sx={{ color: grey[400] }}/>
                                 </Badge>
                             </IconButton>
+                            { openNotificationPopover && <NotificationPopover
+                                open={openNotificationPopover}
+                                anchorEl={notificationEl}
+                                handleClose={handleCloseNotificationPopover}
+                            /> }
                             <IconButton
                                 size="large"
                                 edge="end"

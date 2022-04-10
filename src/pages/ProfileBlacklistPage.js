@@ -24,7 +24,6 @@ function ProfileBlacklistPage() {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 pr: 2, pl: 2, pt: 1
-                // borderRadius: 3
             },
             '& > div > div > p': {
                 color: grey[600]

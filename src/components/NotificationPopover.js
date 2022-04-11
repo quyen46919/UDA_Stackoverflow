@@ -78,7 +78,7 @@ function NotificationPopover(props) {
             }}>
                 { notifications.map((noti) => (
                     <MenuItem
-                        onClick={() => handleClick(`/profile/list/notification/${noti.id}`)}
+                        onClick={() => handleClick(`/profile/notificationList/${noti.id}`)}
                         key={noti.id}
                         sx={{
                             width: '100%',
@@ -118,7 +118,7 @@ function NotificationPopover(props) {
                                 {noti.createAt}
                             </Typography>
                             <Link to={`/profile/list/notification/${noti.id}`}>
-                                Xem chi tiết &gt;
+                               Xem chi tiết &gt;
                             </Link>
                         </Box>
                     </MenuItem>
@@ -126,7 +126,7 @@ function NotificationPopover(props) {
             </Box>
             <Divider/>
             <Typography
-                onClick={() => handleClick('/profile/list/notification')}
+                onClick={() => handleClick('/profile/notificationList')}
                 sx={{
                     cursor: 'pointer',
                     p: '8px 16px',

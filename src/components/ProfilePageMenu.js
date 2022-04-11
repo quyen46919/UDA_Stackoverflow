@@ -1,4 +1,4 @@
-import { Campaign, DisplaySettings, Lock } from '@mui/icons-material';
+import { Campaign, DisplaySettings, ListAlt, Lock } from '@mui/icons-material';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import BlockIcon from '@mui/icons-material/Block';
 import { Box, MenuItem, TextField, Typography } from '@mui/material';
@@ -88,6 +88,10 @@ function ProfilePageMenu() {
                         <AccountBoxIcon/>
                         <ListItemText primary="Trang cá nhân" />
                     </MenuItem>
+                    <MenuItem value="notificationList" sx={menuItemStyles}>
+                        <ListAlt/>
+                        <ListItemText primary="Tất cả thông báo" />
+                    </MenuItem>
                     <MenuItem value="notification" sx={menuItemStyles}>
                         <Campaign/>
                         <ListItemText primary="Thiết lập thông báo" />
@@ -130,10 +134,19 @@ function ProfilePageMenu() {
                             <ListItemText primary="Trang cá nhân" />
                         </ListItemButton>
                     </NavLink>
-                    <NavLink to="/profile/notification" exact>
+                    <NavLink to="/profile/notificationList" exact>
                         <ListItemButton
                             selected={selectedIndex === 2}
                             onClick={(event) => handleListItemClick(event, 2)}
+                        >
+                            <ListAlt/>
+                            <ListItemText primary="Tất cả thông báo" />
+                        </ListItemButton>
+                    </NavLink>
+                    <NavLink to="/profile/notification" exact>
+                        <ListItemButton
+                            selected={selectedIndex === 3}
+                            onClick={(event) => handleListItemClick(event, 3)}
                         >
                             <Campaign/>
                             <ListItemText primary="Thiết lập thông báo" />
@@ -141,8 +154,8 @@ function ProfilePageMenu() {
                     </NavLink>
                     <NavLink to="/profile/privacy" exact>
                         <ListItemButton
-                            selected={selectedIndex === 3}
-                            onClick={(event) => handleListItemClick(event, 3)}
+                            selected={selectedIndex === 4}
+                            onClick={(event) => handleListItemClick(event, 4)}
                         >
                             <Lock/>
                             <ListItemText primary="Thiết lập quyền riêng tư" />
@@ -150,8 +163,8 @@ function ProfilePageMenu() {
                     </NavLink>
                     <NavLink to="/profile/blacklist" exact>
                         <ListItemButton
-                            selected={selectedIndex === 4}
-                            onClick={(event) => handleListItemClick(event, 4)}
+                            selected={selectedIndex === 5}
+                            onClick={(event) => handleListItemClick(event, 5)}
                         >
                             <BlockIcon/>
                             <ListItemText primary="Quản lí danh sách chặn" />
@@ -159,8 +172,8 @@ function ProfilePageMenu() {
                     </NavLink>
                     <NavLink to="/profile/system" exact>
                         <ListItemButton
-                            selected={selectedIndex === 5}
-                            onClick={(event) => handleListItemClick(event, 5)}
+                            selected={selectedIndex === 6}
+                            onClick={(event) => handleListItemClick(event, 6)}
                         >
                             <DisplaySettings/>
                             <ListItemText primary="Thiết lập hệ thống" />

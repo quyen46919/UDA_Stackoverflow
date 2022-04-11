@@ -13,7 +13,7 @@ function Footer() {
                 minHeight: 320,
                 backgroundImage: `url('${footerBg}')`,
                 backgroundSize: 'cover',
-                mt: 3,
+                mt: 6,
                 pb: {
                     xs: 3,
                     sm: 3

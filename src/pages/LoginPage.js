@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import bg from 'assets/images/login-banner.jpg';
-import NotificateDialog from 'components/NotidficationDialog';
+import NotificateDialog from 'components/NotificationDialog';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useHistory } from 'react-router-dom';

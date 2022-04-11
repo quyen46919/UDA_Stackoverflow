@@ -28,6 +28,7 @@ const ProfileNotificationPage = React.lazy(() => import('pages/ProfileNotificati
 const ProfilePrivacyPage = React.lazy(() => import('pages/ProfilePrivacyPage'));
 const ProfileSystemPage = React.lazy(() => import('pages/ProfileSystemPage'));
 const ProfileBlacklistPage = React.lazy(() => import('pages/ProfileBlacklistPage'));
+const AllNotificationPage = React.lazy(() => import('pages/AllNotificationPage'));
 
 // others routes
 const GroupPage = React.lazy(() => import('pages/GroupPage'));
@@ -101,6 +102,7 @@ function App() {
                                             <ProfilePageMenu/>
                                             <Switch>
                                                 <Route path="/profile" component={ProfilePage} exact/>
+                                                <Route path="/profile/notificationList" component={AllNotificationPage} exact/>
                                                 <Route path="/profile/notification" component={ProfileNotificationPage} exact/>
                                                 <Route path="/profile/privacy" component={ProfilePrivacyPage} exact/>
                                                 <Route path="/profile/blacklist" component={ProfileBlacklistPage} exact/>

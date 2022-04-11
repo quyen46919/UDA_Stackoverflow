@@ -1,4 +1,4 @@
-import { Brightness4, Campaign, ExpandLess, ExpandMore, Home, LibraryBooks, LightMode, Logout, ModeNight, School } from '@mui/icons-material';
+import { Brightness4, Campaign, ExpandLess, ExpandMore, Home, LibraryBooks, LightMode, ListAlt, Logout, ModeNight, School } from '@mui/icons-material';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import BlockIcon from '@mui/icons-material/Block';
@@ -175,7 +175,9 @@ export default function Header() {
                     pl: 2.2,
                     pt: 0.8,
                     color: `${grey[700]}!important`
-                }}>Thông tin của tôi</Typography>
+                }}>
+                    Thông tin của tôi
+            </Typography>
             <MenuItem
                 sx={{ pt: 1.2, pb: 1.2, minWidth: 250 }}
                 onClick={() => handleLinktoUrlClick('profile')}
@@ -185,6 +187,17 @@ export default function Header() {
                 </ListItemIcon>
                 <ListItemText sx={{ color: grey[600], p6: 1, pl: 0, '& span': { fontSize: 16 } }}>
                     Trang cá nhân
+                </ListItemText>
+            </MenuItem>
+            <MenuItem
+                sx={{ pt: 1.2, pb: 1.2, minWidth: 250 }}
+                onClick={() => handleLinktoUrlClick('profile/notificationList')}
+            >
+                <ListItemIcon>
+                    <ListAlt sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
+                </ListItemIcon>
+                <ListItemText sx={{ color: grey[600], p6: 1, pl: 0, '& span': { fontSize: 16 } }}>
+                    Tất cả thông báo
                 </ListItemText>
             </MenuItem>
             <MenuItem
@@ -399,7 +412,13 @@ export default function Header() {
                     <ListItemButton sx={{ p: 0.7, pl: 3 }} onClick={() => handleLinktoUrlClick('profile')}>
                         <AccountBoxIcon sx={{ color: `${blue[600]}!important`, fontSize: '17px', pl: 1 }}/>
                         <ListItemText sx={{ color: grey[600], pl: 1, '& span': { fontSize: 16 } }}>
-                            Quản lý thông tin
+                            Trang cá nhân
+                        </ListItemText>
+                    </ListItemButton>
+                    <ListItemButton sx={{ p: 0.7, pl: 3 }} onClick={() => handleLinktoUrlClick('profile/notificationList')}>
+                        <ListAlt sx={{ color: `${blue[600]}!important`, fontSize: '17px', pl: 1 }}/>
+                        <ListItemText sx={{ color: grey[600], pl: 1, '& span': { fontSize: 16 } }}>
+                            Tất cả thông báo
                         </ListItemText>
                     </ListItemButton>
                     <ListItemButton sx={{ p: 0.7, pl: 3 }} onClick={() => handleLinktoUrlClick('profile/privacy')}>

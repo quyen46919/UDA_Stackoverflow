@@ -1,5 +1,8 @@
 import { Box } from '@mui/system';
 import ActionMenu from 'components/ActionMenu';
+import AdminQuestion from 'pages/AdminQuestion';
+import AdminRecharts from 'pages/AdminRechart';
+import AdminUserTable from 'pages/AdminUserTable';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
 import ProfilePageMenu from 'components/ProfilePageMenu';
@@ -28,7 +31,7 @@ const ProfileNotificationPage = React.lazy(() => import('pages/ProfileNotificati
 const ProfilePrivacyPage = React.lazy(() => import('pages/ProfilePrivacyPage'));
 const ProfileSystemPage = React.lazy(() => import('pages/ProfileSystemPage'));
 const ProfileBlacklistPage = React.lazy(() => import('pages/ProfileBlacklistPage'));
-const AllNotificationPage = React.lazy(() => import('pages/AllNotificationPage'));
+const AllNotificationPage = React.lazy(() => import('pages/ProfileAllNotificationPage'));
 
 // others routes
 const GroupPage = React.lazy(() => import('pages/GroupPage'));
@@ -113,7 +116,16 @@ function App() {
                                 }/>
                                 <Route path="/blogs" component={BlogsPage} exact/>
                                 <Route path="/blogs/:blogId" component={BlogDetailPage} exact/>
-                                <Route path="/admin" component={AdminPage} exact/>
+                                <Route path="/admin" render={() =>
+                                    <>
+                                        <AdminPage/>
+                                        <Switch>
+                                            <Route path="/admin" component={AdminRecharts} exact/>
+                                            <Route path="/admin/users" component={AdminUserTable} exact/>
+                                            <Route path="/admin/questions" component={AdminQuestion} exact/>
+                                        </Switch>
+                                    </>
+                                }/>
                                 <Route component={EmptyPage}/>
                             </Switch>
                             <Footer/>

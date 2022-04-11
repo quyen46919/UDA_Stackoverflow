@@ -1,11 +1,11 @@
 import { Close, ContentPasteGo } from '@mui/icons-material';
-import { Grid, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
+import { Box, Grid, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import { questionSeedData } from 'assets/dataset/questionSeedData';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AdminSearchBar from './AdminSearchBar';
-import QuestionBox from './QuestionBox';
+import AdminSearchBar from '../components/AdminSearchBar';
+import QuestionBox from '../components/QuestionBox';
 
 function AdminQuestion() {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -17,7 +17,11 @@ function AdminQuestion() {
         setAnchorEl(null);
     };
     return (
-        <>
+        <Box sx={{
+            width: '100%',
+            boxSizing: 'border-box',
+            p: 2
+        }}>
             <AdminSearchBar/>
             <Grid container spacing={2}>
                 {
@@ -99,7 +103,7 @@ function AdminQuestion() {
                     </MenuItem>
                 </Menu>
             </Grid>
-        </>
+        </Box>
     );
 }
 

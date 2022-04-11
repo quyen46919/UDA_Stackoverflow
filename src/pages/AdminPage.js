@@ -1,23 +1,21 @@
 import { AdminPanelSettings, NotificationsActive, Person } from '@mui/icons-material';
 import TabContext from '@mui/lab/TabContext';
-import TabPanel from '@mui/lab/TabPanel';
 import { Box, Container, IconButton, Tab, Tabs, Typography } from '@mui/material';
 import { blue, deepOrange, deepPurple, grey, teal } from '@mui/material/colors';
-import AdminQuestion from 'components/AdminQuestion';
-import AdminRecharts from 'components/AdminRechart';
-import AdminUserTable from 'components/AdminUserTable';
 import React, { useState } from 'react';
-
-// lazy load
-// const AdminRecharts = React.lazy(() => import('components/AdminRechart'));
-// const AdminUserTable = React.lazy(() => import('components/AdminUserTable'));
-// const AdminQuestion = React.lazy(() => import('components/AdminQuestion'));
+import { useHistory } from 'react-router-dom';
 
 function AdminPage() {
-    const [value, setValue] = useState('1');
+    const [value, setValue] = useState('analysis');
+    const history = useHistory();
 
-    const handleChange = (event, newValue) => {
+    const handleChange = (e, newValue) => {
         setValue(newValue);
+        if (newValue === 'analysis') {
+            history.push('/admin');
+            return;
+        }
+        history.push(`/admin/${newValue}`);
     };
 
     return (
@@ -137,35 +135,11 @@ function AdminPage() {
                             }
                         }}
                     >
-                        <Tab label="Thống kê" value="1"/>
-                        <Tab label="Người dùng" value="2"/>
-                        <Tab label="Câu hỏi" value="3"/>
+                        <Tab label="Thống kê" value="analysis"/>
+                        <Tab label="Người dùng" value="users"/>
+                        <Tab label="Câu hỏi" value="questions"/>
                     </Tabs>
                 </Box>
-                <TabPanel value="1" sx={{
-                    minHeight: 500,
-                    pt: { xs: 0.4, md: 1 },
-                    pl: { xs: 0, md: 1 },
-                    pr: { xs: 0, md: 1 }
-                }}>
-                    <Box sx={{ width: '100%', height: '100%' }}>
-                        <AdminRecharts/>
-                    </Box>
-                </TabPanel>
-                <TabPanel value="2"sx={{
-                    minHeight: 500,
-                    pl: { xs: 0, md: 1 },
-                    pr: { xs: 0, md: 1 }
-                }}>
-                    <AdminUserTable/>
-                </TabPanel>
-                <TabPanel value="3" sx={{
-                    minHeight: 500,
-                    pl: { xs: 0, md: 1 },
-                    pr: { xs: 0, md: 1 }
-                }}>
-                    <AdminQuestion/>
-                </TabPanel>
             </TabContext>
         </Container>
     );

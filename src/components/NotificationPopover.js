@@ -1,11 +1,11 @@
-import { Divider, Link, MenuItem, Popover, Typography } from '@mui/material';
-import { blue, grey } from '@mui/material/colors';
-import React from 'react';
-import PropTypes from 'prop-types';
-import { notifications } from 'assets/dataset/notifications';
-import { Box } from '@mui/system';
 import { Campaign } from '@mui/icons-material';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Divider, MenuItem, Popover, Typography } from '@mui/material';
+import { blue, grey } from '@mui/material/colors';
+import { Box } from '@mui/system';
+import { notifications } from 'assets/dataset/notifications';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 NotificationPopover.propTypes = {
     open: PropTypes.bool.isRequired,
@@ -101,7 +101,7 @@ function NotificationPopover(props) {
                         }}>
                             <Typography sx={{
                                 display: '-webkit-box',
-                                WebkitLineClamp: 2,
+                                WebkitLineClamp: 3,
                                 WebkitBoxOrient: 'vertical',
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
@@ -117,9 +117,6 @@ function NotificationPopover(props) {
                             }}>
                                 {noti.createAt}
                             </Typography>
-                            <Link to={`/profile/list/notification/${noti.id}`}>
-                               Xem chi tiết &gt;
-                            </Link>
                         </Box>
                     </MenuItem>
                 ))}

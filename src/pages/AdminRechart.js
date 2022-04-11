@@ -30,25 +30,23 @@ export default function AdminRecharts() {
             display: 'flex',
             flexDirection: 'column',
             gap: 3,
-            p: {
-                xs: 0,
-                md: 1
-            }
+            p: 2,
+            boxSizing: 'border-box'
         }}>
             <Box sx={{
                 width: '100%',
                 display: 'flex',
                 flexDirection: {
                     xs: 'column',
-                    md: 'row'
+                    lg: 'row'
                 },
-                gap: 3,
+                gap: { xs: 0, lg: 2 },
                 borderBottom: `1px solid ${grey[300]}`
             }}>
                 <Box sx={{
                     width: {
                         xs: '100%',
-                        md: '70%'
+                        lg: '70%'
                     },
                     pb: {
                         xs: 0,
@@ -87,15 +85,16 @@ export default function AdminRecharts() {
                 <Box sx={{
                     width: {
                         xs: '100%',
-                        md: '30%'
+                        lg: '30%'
                     },
                     pl: {
                         xs: 0,
                         md: 3
                     },
+                    boxSizing: 'border-box',
                     borderLeft: {
                         xs: 'none',
-                        md: `1px solid ${grey[300]}`
+                        lg: `1px solid ${grey[300]}`
                     },
                     display: 'flex',
                     flexDirection: 'column'

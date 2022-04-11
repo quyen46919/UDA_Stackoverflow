@@ -5,7 +5,7 @@ import { Box } from '@mui/system';
 import { userData } from 'assets/dataset/users';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AdminSearchBar from './AdminSearchBar';
+import AdminSearchBar from '../components/AdminSearchBar';
 
 function AdminUserTable() {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -19,7 +19,11 @@ function AdminUserTable() {
     };
 
     return (
-        <Box>
+        <Box sx={{
+            width: '100%',
+            p: 2,
+            boxSizing: 'border-box'
+        }}>
             <AdminSearchBar/>
             <Grid container spacing={2}>
                 {

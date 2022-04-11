@@ -26,7 +26,7 @@ function uploadImageCallBack(file) {
     );
 }
 
-function EditorContainer() {
+function TextEditor() {
     const [editorState, setEditorState] = useState(
         EditorState.createWithContent(convertFromHTML('Thay đổi nội dung tại đây...'))
     );
@@ -56,9 +56,9 @@ function EditorContainer() {
     );
 }
 
-export default EditorContainer;
+export default TextEditor;
 
-// export default class EditorContainer extends React.Component {
+// export default class TextEditor extends React.Component {
 //     // constructor(props) {
 //     //     super(props);
 //     //     this.state = {

@@ -59,7 +59,7 @@ function LoginPage() {
     };
 
     const handleSubmit = async () => {
-        history.push('/question');
+        history.push('/home');
         // try {
         //     setIsSubmitting(true);
         //     const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/v1/auth/login`, values);
@@ -86,14 +86,16 @@ function LoginPage() {
         }}>
             <Box sx={{
                 width: {
-                    xs: '100%',
-                    sm: 'unset'
+                    xs: '100vw',
+                    md: 'unset'
                 },
-                minWidth: '40vw',
+                minWidth: '50vw',
                 boxSizing: 'border-box',
                 padding: {
                     xs: '30px 40px 30px 40px',
-                    xl: '20px 90px'
+                    sm: '30px 100px',
+                    lg: '20px 90px',
+                    xl: '20px 140px'
                 },
                 display: 'flex',
                 flexDirection: 'column',
@@ -104,10 +106,15 @@ function LoginPage() {
                     sx={{
                         fontSize: {
                             xs: 28,
-                            sm: 40
-                        }
+                            sm: 36
+                        },
+                        color: blue[600],
+                        fontWeight: 600,
+                        pb: 1
                     }}
-                >Đăng nhập ngay</Typography>
+                >
+                    Đăng nhập ngay
+                </Typography>
                 <Box sx={{
                     width: '100%',
                     display: 'flex',
@@ -192,10 +199,9 @@ function LoginPage() {
                     onSubmit={signinForm.handleSubmit(handleSubmit)}
                     sx={{ width: '100%' }}
                 >
-                    <Typography variant="subtitle1" sx={{ color: grey[600] }}>Email</Typography>
+                    <Typography variant="subtitle1" sx={{ color: grey[500], pb: 1 }}>Email</Typography>
                     <TextField
                         { ...signinForm.register('username') }
-                        autoFocus
                         autoComplete="true"
                         fullWidth
                         InputProps={{
@@ -208,7 +214,7 @@ function LoginPage() {
                                         }
                                     }}
                                 >
-                                    <Email />
+                                    <Email sx={{ color: grey[500] }} />
                                 </InputAdornment>
                             )
                         }}
@@ -240,7 +246,7 @@ function LoginPage() {
                             }
                         }}
                     />
-                    <Typography variant="subtitle1" sx={{ color: grey[600] }}>Mật khẩu</Typography>
+                    <Typography variant="subtitle1" sx={{ color: grey[500], pb: 1 }}>Mật khẩu</Typography>
                     <TextField
                         autoComplete="true"
                         fullWidth
@@ -254,7 +260,7 @@ function LoginPage() {
                                         }
                                     }}
                                 >
-                                    <Lock />
+                                    <Lock sx={{ color: grey[500] }}/>
                                 </InputAdornment>
                             )
                         }}
@@ -349,13 +355,11 @@ function LoginPage() {
                 sx={{
                     display: {
                         xs: 'none',
-                        sm: 'block'
+                        md: 'block'
                     },
                     backgroundImage: `url('${bg}')`,
-                    width: {
-                        xs: 0,
-                        sm: '60vw'
-                    },
+                    width: '50vw',
+                    minWidth: '50vw',
                     height: '100vh',
                     backgroundSize: 'cover',
                     backgroundPosition: 'start'

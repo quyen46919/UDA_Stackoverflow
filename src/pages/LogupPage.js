@@ -3,14 +3,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Email, Lock, Person, Phone } from '@mui/icons-material';
 import {
     Box,
-    Button,
-    Checkbox, FormControlLabel,
-    FormHelperText,
-    InputAdornment,
+    Button, InputAdornment,
     TextField,
     Typography
 } from '@mui/material';
-import { blue, grey, red } from '@mui/material/colors';
+import { blue, grey } from '@mui/material/colors';
 import bg from 'assets/images/login-banner.jpg';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -109,14 +106,16 @@ function LogupPage() {
             <Box sx={{
                 width: {
                     xs: '100%',
-                    sm: 'unset'
+                    md: '50vw'
                 },
                 height: '100vh',
-                minWidth: '40vw',
+                minWidth: '50vw',
                 boxSizing: 'border-box',
                 padding: {
                     xs: '30px 40px 30px 40px',
-                    xl: '30px 90px'
+                    md: '30px 100px',
+                    lg: '20px 90px',
+                    xl: '20px 140px'
                 },
                 display: {
                     xs: 'block',
@@ -131,8 +130,11 @@ function LogupPage() {
                     sx={{
                         fontSize: {
                             xs: 28,
-                            sm: 40
-                        }
+                            sm: 36
+                        },
+                        color: blue[600],
+                        fontWeight: 600,
+                        pb: 1
                     }}
                 >
                     Đăng ký
@@ -172,10 +174,9 @@ function LogupPage() {
                     onSubmit={signupForm.handleSubmit(handleSubmit)}
                     sx={{ width: '100%' }}
                 >
-                    <Typography variant="subtitle1" sx={{ color: grey[600] }}>Tên đăng nhập</Typography>
+                    <Typography variant="subtitle1" sx={{ color: grey[600], pb: 1 }}>Tên đăng nhập</Typography>
                     <TextField
                         { ...signupForm.register('username') }
-                        autoFocus
                         autoComplete="true"
                         fullWidth
                         InputProps={{
@@ -220,10 +221,9 @@ function LogupPage() {
                             }
                         }}
                     />
-                    <Typography variant="subtitle1" sx={{ color: grey[600] }}>Email</Typography>
+                    <Typography variant="subtitle1" sx={{ color: grey[600], pb: 1 }}>Email</Typography>
                     <TextField
                         { ...signupForm.register('email') }
-                        autoFocus
                         autoComplete="true"
                         fullWidth
                         InputProps={{
@@ -268,7 +268,7 @@ function LogupPage() {
                             }
                         }}
                     />
-                    <Typography variant="subtitle1" sx={{ color: grey[600] }}>Mật khẩu</Typography>
+                    <Typography variant="subtitle1" sx={{ color: grey[600], pb: 1 }}>Mật khẩu</Typography>
                     <TextField
                         autoComplete="true"
                         fullWidth
@@ -314,10 +314,9 @@ function LogupPage() {
                             }
                         }}
                     />
-                    <Typography variant="subtitle1" sx={{ color: grey[600] }}>Số điện thoại</Typography>
+                    <Typography variant="subtitle1" sx={{ color: grey[600], pb: 1 }}>Số điện thoại</Typography>
                     <TextField
                         { ...signupForm.register('phone') }
-                        autoFocus
                         autoComplete="true"
                         fullWidth
                         InputProps={{
@@ -362,7 +361,7 @@ function LogupPage() {
                             }
                         }}
                     />
-                    <Box sx={{
+                    {/* <Box sx={{
                         width: '100%',
                         display: 'block',
                         mt: 1,
@@ -390,7 +389,7 @@ function LogupPage() {
                         }}>
                             {signupForm.formState.errors.read?.message}
                         </FormHelperText>}
-                    </Box>
+                    </Box> */}
                     <Button
                         type="submit"
                         fullWidth
@@ -399,7 +398,8 @@ function LogupPage() {
                         disabled={!isSubmitting ? false : true}
                         sx={{
                             height: 50,
-                            fontSize: 18
+                            fontSize: 18,
+                            mt: 2
                         }}
                     >
                         { !isSubmitting ? 'Đăng nhập' : 'Đang đăng nhập' }
@@ -410,14 +410,14 @@ function LogupPage() {
                 sx={{
                     display: {
                         xs: 'none',
-                        sm: 'block'
+                        md: 'block'
                     },
                     backgroundImage: `url('${bg}')`,
-                    width: '60vw',
+                    width: '50vw',
                     height: '100vh',
                     backgroundSize: 'cover',
-                    backgroundPosition: '300px'
-                 }}
+                    backgroundPosition: 'start'
+                }}
             />
         </Box>
     );

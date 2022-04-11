@@ -72,7 +72,6 @@ function ForgotPasswordPage() {
                 </Typography>
                 <TextField
                     { ...forgotPasswordForm.register('email') }
-                    autoFocus
                     autoComplete="true"
                     fullWidth
                     InputProps={{

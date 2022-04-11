@@ -16,7 +16,7 @@ const menuItemStyles = {
     alignItems: 'center',
     gap: 2,
     color: grey[600],
-    '& svg': { transform: 'translateY(-1px)', color: blue[600] },
+    '& svg': { transform: 'translateY(-1px)', color: blue[800] },
     pt: 1.2, pb: 1.2
 };
 

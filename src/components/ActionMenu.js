@@ -1,5 +1,4 @@
-import { Search } from '@mui/icons-material';
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import { Group, PostAdd, QuestionAnswer, Search } from '@mui/icons-material';
 import { Box, InputAdornment, MenuItem, TextField, Typography } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import List from '@mui/material/List';
@@ -7,9 +6,17 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import React, { useState } from 'react';
 import { NavLink, useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
-// import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-// import Button from '@mui/material/Button';
-// import Divider from '@mui/material/Divider';
+
+const menuItemStyles = {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    gap: 2,
+    color: grey[600],
+    '& svg': { transform: 'translateY(-1px)', color: blue[600] },
+    pt: 1.2, pb: 1.2
+};
 
 function ActionMenu() {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -61,28 +68,44 @@ function ActionMenu() {
                     fullWidth
                     value={page}
                     onChange={handleChangePage}
+                    sx={{
+                        '& .MuiSelect-select': menuItemStyles,
+                        '& .MuiMenu-paper': {
+                            boxShadow: `${0}!important`,
+                            border: `1px solid ${blue[600]}!important`
+                        }
+                    }}
                 >
-                    <MenuItem value="home">Trang chủ</MenuItem>
-                    <MenuItem value="post">Đăng câu hỏi</MenuItem>
-                    <MenuItem value="group">Nhóm</MenuItem>
-                    <MenuItem value="support">Hỗ trợ</MenuItem>
+                    <MenuItem value="home" sx={menuItemStyles}>
+                        <QuestionAnswer fontSize="small"/>
+                        Trang chủ
+                    </MenuItem>
+                    <MenuItem value="post" sx={menuItemStyles}>
+                        <PostAdd fontSize="small"/>
+                        Đăng câu hỏi
+                    </MenuItem>
+                    <MenuItem value="group" sx={menuItemStyles}>
+                        <Group fontSize="small"/>
+                        Nhóm
+                    </MenuItem>
                 </TextField>
             </Box>
             {
                 ( currentPage === 'home' || currentPage === '' ) && <Box sx={{ pt: { xs: 2, lg: 0 } }}>
-                    <Typography sx={{ fontWeight: 700, fontSize: 24 }}>
+                    <Typography sx={{ fontWeight: 700, fontSize: 22, color: grey[800] }}>
                         Tìm kiếm câu hỏi
                     </Typography>
                     <Typography sx={{ pb: 1, color: grey[500] }}>
                         Nhập từ khóa tìm kiếm ở ô bên dưới
                     </Typography>
                     <TextField
+                        multiline
                         variant="outlined"
                         placeholder="Nhập câu hỏi tìm kiếm..."
                         size="small"
                         sx={{
                             width: '100%',
-                            mt: 1,
+                            mb: 2,
                             '.Mui-focused': { border: 'none', outline: 'none' },
                             '& ::placeholder': { fontSize: 16 },
                             '& svg': { color: grey[400], pr: 0 },
@@ -111,12 +134,14 @@ function ActionMenu() {
                     sx={{
                         '& a': {
                             textDecoration: 'none',
-                            color: 'inherit'
+                            color: grey[600]
                         },
                         '& a.active span': {
-                            color: blue[900],
+                            color: blue[800],
                             fontWeight: 700
-                        }
+                        },
+                        '& a svg': { pr: 2, color: blue[800] },
+                        '& a.active svg': { color: blue[800] }
                     }}
                 >
                     <NavLink to="/home" exact>
@@ -124,8 +149,8 @@ function ActionMenu() {
                             selected={selectedIndex === 1}
                             onClick={(event) => handleListItemClick(event, 1)}
                         >
+                            <QuestionAnswer fontSize="small"/>
                             <ListItemText primary="Câu hỏi" />
-                            <KeyboardDoubleArrowRightIcon sx={{ fontSize: '20px', color: grey[500] }} />
                         </ListItemButton>
                     </NavLink>
                     <NavLink to="/home/group" exact>
@@ -133,8 +158,8 @@ function ActionMenu() {
                             selected={selectedIndex === 2}
                             onClick={(event) => handleListItemClick(event, 2)}
                         >
+                            <Group fontSize="small"/>
                             <ListItemText primary="Nhóm" />
-                            <KeyboardDoubleArrowRightIcon sx={{ fontSize: '20px', color: grey[500] }} />
                         </ListItemButton>
                     </NavLink>
                     <NavLink to="/home/post" exact>
@@ -142,17 +167,8 @@ function ActionMenu() {
                             selected={selectedIndex === 3}
                             onClick={(event) => handleListItemClick(event, 3)}
                         >
+                            <PostAdd fontSize="small"/>
                             <ListItemText primary="Đăng câu hỏi" />
-                            <KeyboardDoubleArrowRightIcon sx={{ fontSize: '20px', color: grey[500] }} />
-                        </ListItemButton>
-                    </NavLink>
-                    <NavLink to="/home/support" exact>
-                        <ListItemButton
-                            selected={selectedIndex === 4}
-                            onClick={(event) => handleListItemClick(event, 4)}
-                        >
-                            <ListItemText primary="Hỗ trợ" />
-                            <KeyboardDoubleArrowRightIcon sx={{ fontSize: '20px', color: grey[500] }} />
                         </ListItemButton>
                     </NavLink>
                 </List>

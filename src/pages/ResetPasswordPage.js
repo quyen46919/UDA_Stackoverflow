@@ -108,7 +108,6 @@ function ResetPasswordPage() {
                 <Typography variant="subtitle1" sx={{ color: grey[600], mb: 1 }}>Mật khẩu mới</Typography>
                 <TextField
                     { ...resetPasswordForm.register('password') }
-                    autoFocus
                     autoComplete="true"
                     fullWidth
                     InputProps={{

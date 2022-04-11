@@ -1,13 +1,13 @@
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Divider, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import { grey } from '@mui/material/colors';
 import Stack from '@mui/material/Stack';
 import user3 from 'assets/images/intro-ChauQuyen.jpg';
-import user4 from 'assets/images/intro-HuuTai.jpg';
+import TextEditor from 'components/TextEditor';
 import React, { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 function QuestionDetailPage() {
     const ref = useRef();
@@ -61,8 +61,7 @@ function QuestionDetailPage() {
                         sx={{
                             fontSize: 24,
                             fontWeight: 700,
-                            color: grey[700],
-                            pl: 2.5
+                            color: grey[700]
                         }}
                     >
                         Tôi không cách nào có thể sử dụng useRef React Hook để lấy chiều dài của một component được
@@ -76,6 +75,7 @@ function QuestionDetailPage() {
                             alignItems: 'flex-start',
                             boxSizing: 'border-box',
                             p: 2.5,
+                            pl: 0,
                             pt: 1,
                             gap: 2
                         }}
@@ -120,12 +120,10 @@ function QuestionDetailPage() {
                                         fontSize: 14
                                     }}
                                 >
-                            4 days ago
+                                    4 days ago
                                 </Typography>
                             </Box>
-
                         </Box>
-
                         <Typography
                             sx={{
                                 m: 0
@@ -193,7 +191,7 @@ function QuestionDetailPage() {
                             alignItems: 'flex-start',
                             boxSizing: 'border-box',
                             gap: 2,
-                            pl: 2
+                            pb: 3
                         }}
                     >
                         <Typography
@@ -202,26 +200,25 @@ function QuestionDetailPage() {
                                 fontSize: 18,
                                 fontWeight: 600,
                                 width: '100%',
-                                pb: 1,
-                                borderBottom: `1px solid ${grey[300]}`
+                                pb: 1
                             }}>
                             12 Câu trả lời
                         </Typography>
+                        <Divider sx={{ width: '100%' }}/>
                         <Box
                             sx={{
                                 display: 'flex',
                                 flexDirection: 'row',
                                 justifyContent: 'flex-start',
                                 alignItems: 'center',
-                                pt: 2,
+                                pt: 1,
                                 gap: 2
-
                             }}
                         >
                             <Stack direction="row">
                                 <Avatar
                                     alt="Avatar"
-                                    src= {user4} />
+                                    src="https://yt3.ggpht.com/ytc/AKedOLSwsClUG1GFkusyX93-K9XTaDva7Mkw8huSIykH=s68-c-k-c0x00ffffff-no-rj"/>
                             </Stack>
                             <Box
                                 sx={{
@@ -303,6 +300,16 @@ function QuestionDetailPage() {
                                 </Link>
                             </Typography>
                         </Box>
+                    </Box>
+                    <Divider sx={{ width: '100%' }}/>
+                    <Box sx={{
+                        width: '100%',
+                        mt: 1
+                    }}>
+                        <Typography sx={{ color: grey[700], mb: 1.5 }}>
+                            Nhập câu trả lời của bạn
+                        </Typography>
+                        <TextEditor/>
                     </Box>
                 </Box>
             </Container>

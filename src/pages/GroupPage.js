@@ -45,14 +45,14 @@ function GroupPage() {
                 }}
             >
                 <Typography
-                    gutterBottom
                     sx={{
+                        fontSize: 20,
                         width: '100%',
                         color: grey[700],
                         fontWeight: 700,
-                        mb: 1,
                         pl: 3,
-                        pt: 1
+                        pt: 1,
+                        pb: 1
                     }}
                 >
                     Các không gian làm việc của bạn
@@ -82,18 +82,16 @@ function GroupPage() {
                         >
                             Tạo nhóm mới
                         </Button>
-
                     </Grid>
                 </Grid>
                 <Typography
-                    gutterBottom
                     sx={{
+                        fontSize: 20,
                         width: '100%',
                         color: grey[700],
                         fontWeight: 700,
-                        mb: 1,
                         pl: 3,
-                        pt: 1
+                        pt: 3
                     }}
                 >
                     Các không gian làm việc bạn có thể tham gia

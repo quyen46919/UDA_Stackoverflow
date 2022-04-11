@@ -5,17 +5,19 @@ export const initialNoteData = {
             lastUpdate: '7/10/2021',
             title: 'Assassination classroom',
             isFavorited: false,
-            columnOrder: ['column-2', 'column-3', 'column-1', 'column-4'],
+            columnOrder: ['column-1', 'column-3', 'column-2', 'column-4'],
             columns: [
                 {
                     id: 'column-1',
                     boardId: 'board-1',
                     isFavorite: false,
                     title: 'To do column',
-                    cardOrder: ['card-3', 'card-2', 'card-1', 'card-4', 'card-5', 'card-6', 'card-7'],
+                    cardOrder: ['card-1', 'card-2', 'card-3', 'card-4', 'card-5', 'card-6', 'card-7'],
                     cards: [
                         {
                             id: 'card-1',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-1',
                             columnId: 'column-1',
                             title: 'Material ui v5',
@@ -24,6 +26,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-2',
+                            tagName: 'Thông báo',
+                            tagType: 'notification',
                             boardId: 'board-1',
                             columnId: 'column-1',
                             title: 'Title of card 2',
@@ -31,6 +35,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-3',
+                            tagName: 'Ghi chú buổi 1',
+                            tagType: 'note',
                             boardId: 'board-1',
                             columnId: 'column-1',
                             title: 'Carefully when use styles',
@@ -39,6 +45,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-4',
+                            tagName: 'Bài tập',
+                            tagType: 'assignment',
                             boardId: 'board-1',
                             columnId: 'column-1',
                             title: 'Title of card 4',
@@ -46,6 +54,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-5',
+                            tagName: 'Ghi chú buổi 2',
+                            tagType: 'note',
                             boardId: 'board-1',
                             columnId: 'column-1',
                             title: 'You should NOT use this codemod if you have already defined default variant: "outlined" in the theme.',
@@ -53,6 +63,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-6',
+                            tagName: 'Thông báo khẩn 1',
+                            tagType: 'notification',
                             boardId: 'board-1',
                             columnId: 'column-1',
                             title: 'Title of card 6',
@@ -60,6 +72,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-7',
+                            tagName: 'Thông báo khẩn 1',
+                            tagType: 'notification',
                             boardId: 'board-1',
                             columnId: 'column-1',
                             title: 'Title of card 7',
@@ -76,6 +90,8 @@ export const initialNoteData = {
                     cards: [
                         {
                             id: 'card-8',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: 'Title of card 1',
@@ -83,6 +99,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-9',
+                            tagName: 'Thông báo',
+                            tagType: 'notification',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: 'Title of card 2',
@@ -90,6 +108,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-10',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: '',
@@ -98,6 +118,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-11',
+                            tagName: 'Thông báo',
+                            tagType: 'notification',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: 'Title of card 4',
@@ -105,6 +127,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-12',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: 'Title of card 5',
@@ -121,6 +145,8 @@ export const initialNoteData = {
                     cards: [
                         {
                             id: 'card-13',
+                            tagName: 'Thông báo',
+                            tagType: 'notification',
                             boardId: 'board-1',
                             columnId: 'column-1',
                             title: 'Title of card 1',
@@ -128,6 +154,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-14',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-3',
                             columnId: 'column-1',
                             title: 'Title of card 2',
@@ -144,6 +172,8 @@ export const initialNoteData = {
                     cards: [
                         {
                             id: 'card-1',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-1',
                             columnId: 'column-1',
                             title: ' to allow a gradual migration to v5. You should be able to remove the dependency following these steps. ',
@@ -151,6 +181,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-2',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-1',
                             columnId: 'column-1',
                             title: 'Title of card 2',
@@ -158,6 +190,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-3',
+                            tagName: 'Ghi chú buổi 2',
+                            tagType: 'note',
                             boardId: 'board-1',
                             columnId: 'column-1',
                             title: ' should ha duplicate with emotion. Its meant to allow a gradual migration to v5. You should be able to remo',
@@ -165,6 +199,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-4',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-1',
                             columnId: 'column-1',
                             title: 'Title of card 4',
@@ -172,6 +208,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-5',
+                            tagName: 'Ghi chú buổi 2',
+                            tagType: 'note',
                             boardId: 'board-1',
                             columnId: 'column-1',
                             title: 'You should NOT use this codemod if you have already defined default variant: "outlined" in the theme.',
@@ -179,6 +217,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-6',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-1',
                             columnId: 'column-1',
                             title: 'Title of card 6',
@@ -186,6 +226,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-7',
+                            tagName: 'Ghi chú buổi 2',
+                            tagType: 'note',
                             boardId: 'board-1',
                             columnId: 'column-1',
                             title: 'Title of card 7',
@@ -211,6 +253,8 @@ export const initialNoteData = {
                     cards: [
                         {
                             id: 'card-1',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: 'Button Text',
@@ -219,6 +263,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-2',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: 'Outlined button',
@@ -227,6 +273,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-3',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: 'Sizes',
@@ -235,6 +283,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-4',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: 'Title of card 4',
@@ -242,6 +292,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-5',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: 'Upload button',
@@ -249,6 +301,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-6',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: 'Title of card 6',
@@ -256,6 +310,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-7',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: 'Using MUI\'s breakpoint helpers',
@@ -272,6 +328,8 @@ export const initialNoteData = {
                     cards: [
                         {
                             id: 'card-8',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: 'Basic TextField',
@@ -280,6 +338,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-9',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: 'Form props',
@@ -288,6 +348,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-10',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: '',
@@ -296,6 +358,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-11',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: 'Validation',
@@ -303,6 +367,8 @@ export const initialNoteData = {
                         },
                         {
                             id: 'card-12',
+                            tagName: 'Bài tập 1',
+                            tagType: 'assignment',
                             boardId: 'board-2',
                             columnId: 'column-1',
                             title: 'Icons',

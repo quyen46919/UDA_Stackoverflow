@@ -1,23 +1,24 @@
 import { Box } from '@mui/system';
-import ActionMenu from 'components/ActionMenu';
-import AdminQuestion from 'pages/AdminQuestion';
-import AdminRecharts from 'pages/AdminRechart';
-import AdminUserTable from 'pages/AdminUserTable';
-import Footer from 'components/Footer';
-import Header from 'components/Header';
-import ProfilePageMenu from 'components/ProfilePageMenu';
 import BlogDetailPage from 'pages/BlogDetailPage';
 import BlogsPage from 'pages/BlogsPage';
 import CommunityPage from 'pages/CommunityPage';
-import EmptyPage from 'pages/EmptyPage';
-import FallBackScreen from 'pages/FallBackScreen';
-import GroupQuestionPage from 'pages/GroupQuestionPage';
 import SupportPage from 'pages/SupportPage';
 import React from 'react';
 import {
     BrowserRouter as Router, Route, Switch
 } from 'react-router-dom';
 import './App.scss';
+
+// support screens
+import Footer from 'components/Footer';
+import Header from 'components/Header';
+import EmptyPage from 'pages/EmptyPage';
+import FallBackScreen from 'pages/FallBackScreen';
+
+// menu
+import ActionMenu from 'components/ActionMenu';
+import ProfilePageMenu from 'components/ProfilePageMenu';
+
 // home routes
 const QuestionPage = React.lazy(() => import('pages/QuestionPage'));
 const QuestionDetailPage = React.lazy(() => import('pages/QuestionDetailPage'));
@@ -33,12 +34,21 @@ const ProfileSystemPage = React.lazy(() => import('pages/ProfileSystemPage'));
 const ProfileBlacklistPage = React.lazy(() => import('pages/ProfileBlacklistPage'));
 const AllNotificationPage = React.lazy(() => import('pages/ProfileAllNotificationPage'));
 
-// others routes
+// group routes
 const GroupPage = React.lazy(() => import('pages/GroupPage'));
-const AdminPage = React.lazy(() => import('pages/AdminPage'));
+const GroupNoteBoardPage = React.lazy(() => import('pages/GroupNoteBoardPage'));
+const GroupQuestionPage = React.lazy(() => import('pages/GroupQuestionPage'));
+
+// auth routes
 const IntroPage = React.lazy(() => import('pages/IntroPage'));
 const LoginPage = React.lazy(() => import('pages/LoginPage'));
 const ResetPasswordPage = React.lazy(() => import('pages/ResetPasswordPage'));
+
+// admin routes
+const AdminPage = React.lazy(() => import('pages/AdminPage'));
+const AdminQuestion = React.lazy(() => import('pages/AdminQuestion'));
+const AdminRecharts = React.lazy(() => import('pages/AdminRecharts'));
+const AdminUserTable = React.lazy(() => import('pages/AdminUserTable'));
 
 
 function App() {
@@ -52,12 +62,14 @@ function App() {
                     <Route path="/logup" component={LogupPage} exact/>
                     <Route path="/forgot-password" component={ForgotPasswordPage} exact/>
                     <Route path="/reset-password" component={ResetPasswordPage} exact/>
+                    <Route path="/board" component={GroupNoteBoardPage} exact/>
                     <Route path="/fallback" component={FallBackScreen} exact/>
                     <Route path="/" render={() =>
                         // nottableUser ? (
                         <>
                             <Header/>
                             <Switch>
+                                <Route path="/home/group/:groupId/:boardId" component={GroupNoteBoardPage} exact/>
                                 <Route path="/home" render={() =>
                                     <Box sx={{
                                         width: '100%',

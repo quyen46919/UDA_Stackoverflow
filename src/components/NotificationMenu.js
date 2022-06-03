@@ -27,10 +27,10 @@ function NotificationMenu() {
                 p: 2,
                 boxSizing: 'border-box',
                 borderRadius: 3,
-                bgcolor: '#fff'
+                bgcolor: 'secondary.main'
             }}>
                 <Typography sx={{
-                    color: grey[600],
+                    color: 'text.primary',
                     pb: 1
                 }}>
                     Thông báo chính thức
@@ -40,7 +40,9 @@ function NotificationMenu() {
                 }}>
                     <List sx={{ p: 0, width: '100%' }}>
                         <ListItem
-                            sx={{ p: 0,
+                            sx={{
+                                p: 0,
+                                color: 'text.primary',
                                 '& .MuiListItemButton-root:hover': {
                                     bgcolor: blue[50],
                                     borderRadius: 3
@@ -57,7 +59,7 @@ function NotificationMenu() {
                                 <ListItemText primary={
                                     <Typography sx={{
                                         fontSize: 16,
-                                        color: grey[600]
+                                        color: 'text.primary'
                                     }}>
                                         Thông báo về nội dung kỳ thực tập doanh nghiệp tháng 10/2022
                                     </Typography>
@@ -82,7 +84,7 @@ function NotificationMenu() {
                                 <ListItemText primary={
                                     <Typography sx={{
                                         fontSize: 16,
-                                        color: grey[600]
+                                        color: 'text.primary'
                                     }}>
                                         Thông báo về học phí ngành CNTT học kỳ 2 - 2022
                                     </Typography>
@@ -102,10 +104,10 @@ function NotificationMenu() {
                 p: 2,
                 boxSizing: 'border-box',
                 borderRadius: 3,
-                bgcolor: '#fff'
+                bgcolor: 'secondary.main'
             }}>
                 <Typography sx={{
-                    color: grey[600],
+                    color: 'text.primary',
                     pb: 1
                 }}>
                     Chủ đề hot tuần qua
@@ -128,7 +130,7 @@ function NotificationMenu() {
                         }}>
                             <Typography sx={{
                                 fontSize: 18,
-                                color: grey[700],
+                                color: 'text.primary',
                                 fontWeight: 600
                             }}>
                                 <Typography sx={{ fontSize: 14, fontWeight: 600 }} component="span"> # </Typography>

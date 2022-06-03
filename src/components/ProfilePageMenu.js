@@ -15,7 +15,7 @@ const menuItemStyles = {
     justifyContent: 'flex-start',
     alignItems: 'center',
     gap: 2,
-    color: grey[600],
+    color: 'text.secondary',
     '& svg': { transform: 'translateY(-1px)', color: blue[800] },
     pt: 1.2, pb: 1.2
 };
@@ -57,11 +57,10 @@ function ProfilePageMenu() {
                 flexWrap: 'nowrap',
                 p: 2,
                 boxSizing: 'border-box',
-                bgcolor: '#ffffff',
+                bgcolor: 'secondary.main',
                 borderRadius: 2,
                 fontSize: 17,
                 position: { xs: 'unset', lg: 'sticky' },
-                transition: 'all .15s ease',
                 top: { xs: 0, lg: '85px' },
                 ml: { xs: 0, lg: 1 }
             }}
@@ -110,12 +109,12 @@ function ProfilePageMenu() {
                     </MenuItem>
                 </TextField>
             </Box>
-            <Box sx={{ width: '100%', bgcolor: '#fff', display: { xs: 'none', lg: 'block' } }}>
+            <Box sx={{ width: '100%', bgcolor: 'secondary.main', display: { xs: 'none', lg: 'block' } }}>
                 <List component="nav"
                     sx={{
                         '& a': {
                             textDecoration: 'none',
-                            color: grey[500]
+                            color: 'text.secondary'
                         },
                         '& a.active span, & a.active .MuiListItemButton-root': {
                             color: blue[900],

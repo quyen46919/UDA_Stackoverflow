@@ -1,5 +1,4 @@
 import { Switch, Typography } from '@mui/material';
-import { grey } from '@mui/material/colors';
 import { Box } from '@mui/system';
 import React from 'react';
 
@@ -13,7 +12,7 @@ function ProfileNotificationPage() {
             boxSizing: 'border-box',
             '& > p': {
                 mb: 1,
-                color: grey[500],
+                color: 'text.primary',
                 pl: 2,
                 boxSizing: 'border-box'
             },
@@ -23,8 +22,8 @@ function ProfileNotificationPage() {
                 justifyContent: 'space-between',
                 pr: 2, pl: 2, pt: 1
             },
-            '& > div > div > p': {
-                color: grey[600]
+            '& .MuiTypography-root': {
+                color: 'text.secondary'
             }
         }}>
             <Typography>Thiết lập đăng tải</Typography>
@@ -33,15 +32,15 @@ function ProfileNotificationPage() {
                 overflow: 'hidden',
                 pt: 1, pb: 2,
                 boxSizing: 'border-box',
-                bgcolor: '#fff'
+                bgcolor: 'secondary.main'
             }}>
                 <Box>
                     <Typography>Hiển thị các ghi chú hướng dẫn sử dụng</Typography>
-                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked />
+                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked color="default"/>
                 </Box>
                 <Box>
                     <Typography>Gửi thông báo về email khi trạng thái câu hỏi thay đổi</Typography>
-                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked />
+                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked color="default"/>
                 </Box>
             </Box>
             <Typography sx={{ mt: 2 }}>Thiết lập thông báo</Typography>
@@ -50,19 +49,19 @@ function ProfileNotificationPage() {
                 overflow: 'hidden',
                 pt: 1, pb: 2,
                 boxSizing: 'border-box',
-                bgcolor: '#fff'
+                bgcolor: 'secondary.main'
             }}>
                 <Box>
                     <Typography>Ai đó bình luận về câu hỏi của tôi</Typography>
-                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked />
+                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked color="default"/>
                 </Box>
                 <Box>
                     <Typography>Ai đó báo cáo câu hỏi của tôi</Typography>
-                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked />
+                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked color="default"/>
                 </Box>
                 <Box>
                     <Typography>Ai đó theo dõi tôi</Typography>
-                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked />
+                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked color="default"/>
                 </Box>
             </Box>
         </Box>

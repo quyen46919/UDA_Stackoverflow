@@ -1,15 +1,20 @@
 import { ArrowBack, Email } from '@mui/icons-material';
 import {
-    Box, Button, InputAdornment, TextField, Typography
+    Alert,
+    Box, Button, CircularProgress, InputAdornment, TextField, Typography
 } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import AuthAPI from 'api/auth.api';
 
 function ForgotPasswordPage() {
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const forgotPasswordForm = useForm({
         defaultValues: {
@@ -22,8 +27,18 @@ function ForgotPasswordPage() {
         }))
     });
 
-    const handleSubmit = () => {
-        // console.log(values);
+    const handleSubmit = async (values) => {
+        setLoading(true);
+        setErrorMessage('');
+        setSuccessMessage('');
+        try {
+            const response = await AuthAPI.forgotPassword(values);
+            setSuccessMessage(response?.data?.message);
+        } catch (error) {
+            setErrorMessage(error?.data?.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -32,7 +47,8 @@ function ForgotPasswordPage() {
             height: '100vh',
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            bgcolor: 'primary.main'
         }}>
             <Box
                 component="form"
@@ -45,10 +61,7 @@ function ForgotPasswordPage() {
                     justifyContent: 'center',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    boxShadow: {
-                        xs: 'none',
-                        md: 'rgba(149, 157, 165, 0.2) 0px 8px 24px'
-                    },
+                    boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
                     p: '20px 30px',
                     backgroundColor: '#ffffff',
                     borderRadius: 2
@@ -70,6 +83,18 @@ function ForgotPasswordPage() {
                 }}>
                     Nhập email đã đăng ký của bạn vào ô bên dưới và chúng tôi sẽ gửi vào email của bạn link xác nhận đổi mật khẩu
                 </Typography>
+                <Box sx={{ width: '100%' }}>
+                    {
+                        errorMessage && <Alert severity="error" sx={{ mb: 1 }}>
+                            {errorMessage}
+                        </Alert>
+                    }
+                    {
+                        successMessage && <Alert severity="success" sx={{ mb: 1 }}>
+                            {successMessage}
+                        </Alert>
+                    }
+                </Box>
                 <TextField
                     { ...forgotPasswordForm.register('email') }
                     autoComplete="true"
@@ -113,21 +138,33 @@ function ForgotPasswordPage() {
                     fullWidth
                     variant="contained"
                     type="submit"
-                    disableElevation sx={{
+                    disableElevation
+                    sx={{
                         height: 50,
                         textTransform: 'uppercase',
-                        mt: 1
+                        mt: 1,
+                        bgcolor: `${blue[600]}!important`,
+                        color: '#fff'
                     }}>
-                    Gửi link xác nhận
+                    {
+                        loading && <CircularProgress sx={{
+                            width: '20px!important',
+                            height: '20px!important',
+                            color: blue[400],
+                            transform: 'translateY(-3px)',
+                            mr: 2
+                        }}/>
+                    }
+                    { loading === true ? 'Đang kiểm tra' : 'Kiểm tra' }
                 </Button>
                 <Button startIcon={<ArrowBack/>} sx={{
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
                     mt: 2,
-                    '& a': {
+                    '& a, & svg': {
                         textDecoration: 'none',
-                        color: 'inherit',
+                        color: blue[600],
                         fontSize: 16
                     }
                 }}>

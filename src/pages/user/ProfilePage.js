@@ -1,33 +1,52 @@
 import { Box, Button, Typography, useMediaQuery } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import noItem from 'assets/images/no-item.png';
 import { useTheme } from '@emotion/react';
 import ProfileEditInfoPage from './ProfileEditInfoPage';
+import UserAPI from 'api/user.api';
+import { useSelector } from 'react-redux';
+import moment from 'moment';
+import QuestionBox from 'components/QuestionBox';
 
 function ProfilePage() {
     const theme = useTheme();
     const upMD = useMediaQuery(theme.breakpoints.up('md'));
     const downSM = useMediaQuery(theme.breakpoints.down('sm'));
     const [isEdit, setIsEdit] = useState(false);
+    const [postedQuestionList, setPostedQuestionList] = useState([]);
+    const { user } = useSelector(state => state.user.current);
 
     const handleOpenEditInfoPage = () => {
         setIsEdit(!isEdit);
     };
+
+    useEffect(() => {
+        const loadPostedQuestionList = async () => {
+            try {
+                const response = await UserAPI.fetchAllPostedQuestions(user?.id);
+                setPostedQuestionList(response?.data?.questions);
+            } catch (err) {
+                // console.log(err?.message);
+            }
+        };
+        loadPostedQuestionList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const renderStatisticalTable = (
         <Box sx={{
             width: { xs: '100%', md: 350 },
             minWidth: { xs: '100%', md: 350 },
             height: { xs: 'auto', md: 350 },
-            bgcolor: '#fff',
             p: 3,
+            bgcolor: 'secondary.main',
             pt: { xs: 0, md: 3 },
             boxSizing: 'border-box',
             borderRadius: 2,
             '& > div': {
                 width: '100%',
-                bgcolor: '#f1f4f9',
+                bgcolor: 'secondary.light',
                 p: 1.6,
                 borderRadius: 3,
                 boxSizing: 'border-box',
@@ -63,6 +82,7 @@ function ProfilePage() {
             onClick={handleOpenEditInfoPage}
             sx={{
                 display: 'block',
+                textTransform: 'initial',
                 position: { xs: 'relative', sm: 'absolute' },
                 right: 0,
                 bottom: { xs: 0, sm: 20 },
@@ -97,7 +117,7 @@ function ProfilePage() {
                     }}>
                         <Box sx={{
                             width: '100%',
-                            bgcolor: '#fff',
+                            bgcolor: 'secondary.main',
                             p: 3,
                             boxSizing: 'border-box',
                             borderRadius: 2
@@ -148,7 +168,7 @@ function ProfilePage() {
                                     }
                                 }}>
                                     <Box>
-                                        <img src="https://img-os-static.hoyolab.com/avatar/avatar1.png" alt="avatar"/>
+                                        <img src={user?.avatar} alt={user?.username}/>
                                     </Box>
                                 </Box>
                                 { !downSM && renderEditInfoButton }
@@ -168,27 +188,43 @@ function ProfilePage() {
                                     color: blue[800],
                                     fontWeight: 700
                                 }}>
-                                    Nguyễn Châu Quyền - ST19A1A
+                                    {user?.username}
                                 </Typography>
                                 <Typography sx={{ color: grey[500], fontSize: 16 }}>
-                                    Tham gia vào ngày 09/04/2022
+                                    Tham gia vào {moment(user?.created_at).format('DD-MM-YYYY')}
                                 </Typography>
                             </Box>
                             { downSM && renderEditInfoButton }
                         </Box>
                         {!upMD && renderStatisticalTable}
-                        <Box sx={{
-                            width: '100%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            flexDirection: 'column',
-                            '& img': { height: 'auto', width: 300 }
-                        }}>
-                            <img src={noItem} alt="no item"/>
-                            <Typography sx={{ color: grey[500], fontSize: 16 }}>
-                            Bạn chưa đăng tải câu hỏi nào cả
-                            </Typography>
-                        </Box>
+                        {
+                            postedQuestionList.length > 0
+                                ? <Box sx={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: 1,
+                                    mt: 1
+                                }}>
+                                    {
+                                        postedQuestionList.map((question) =>
+                                            <QuestionBox key={question.id} item={question} isLine={true}/>
+                                        )
+                                    }
+                                </Box>
+                                : <Box sx={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    flexDirection: 'column',
+                                    '& img': { height: 'auto', width: 300 }
+                                }}>
+                                    <img src={noItem} alt="no item"/>
+                                    <Typography sx={{ color: grey[500], fontSize: 16 }}>
+                                    Bạn chưa đăng tải câu hỏi nào cả
+                                    </Typography>
+                                </Box>
+                        }
                     </Box>
                     : <ProfileEditInfoPage handleOpenEditInfoPage={handleOpenEditInfoPage}/>
             }

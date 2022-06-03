@@ -1,16 +1,22 @@
-import axios from 'axios';
+import axiosClient from './axiosClient';
 
-export const login = async (data) => {
-    const request = await axios.post(`${process.env.REACT_APP_API_SERVER_URL}/auth/login`, data);
-    return request.data;
+const AuthAPI = {
+    logup : (params) => {
+        const url = '/auth/logup';
+        return axiosClient.post(url, params);
+    },
+    login : (params) => {
+        const url = '/auth/login';
+        return axiosClient.post(url, params);
+    },
+    logout : (params) => {
+        const url = '/auth/logout';
+        return axiosClient.post(url, params);
+    },
+    forgotPassword: (params) => {
+        const url = 'auth/forgot-password';
+        return axiosClient.post(url, params);
+    }
 };
 
-export const logout = async (refreshToken) => {
-    const request = await axios.post(`${process.env.REACT_APP_API_SERVER_URL}/auth/logout`, refreshToken);
-    return request.data;
-};
-
-export const register = async (data) => {
-    const request = await axios.post(`${process.env.REACT_APP_API_SERVER_URL}/auth/register`, data);
-    return request.data;
-};
+export default AuthAPI;

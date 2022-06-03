@@ -1,8 +1,14 @@
-import { convertFromHTML } from 'draft-convert';
+import { Box } from '@mui/material';
+import { convertFromHTML, convertToHTML } from 'draft-convert';
 import { EditorState } from 'draft-js';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import PropTypes from 'prop-types';
+
+TextEditor.propTypes = {
+    handleContentChange: PropTypes.func.isRequired
+};
 
 function uploadImageCallBack(file) {
     return new Promise(
@@ -26,17 +32,25 @@ function uploadImageCallBack(file) {
     );
 }
 
-function TextEditor() {
+function TextEditor(props) {
     const [editorState, setEditorState] = useState(
         EditorState.createWithContent(convertFromHTML('Thay đổi nội dung tại đây...'))
     );
+    const { handleContentChange } = props;
 
     // const onEditorStateChange = (newEditorState) => {
     //     setEditorState(newEditorState);
     // };
 
+    useEffect(() => {
+        handleContentChange(convertToHTML(editorState.getCurrentContent()));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [editorState]);
+
     return (
-        <div>
+        <Box sx={{
+            '& span': { color: 'text.primary' }
+        }}>
             <Editor
                 editorState={editorState}
                 toolbarClassName="toolbarClassName"
@@ -52,64 +66,8 @@ function TextEditor() {
                     image: { uploadCallback: uploadImageCallBack, alt: { present: true, mandatory: true } }
                 }}
             />
-        </div>
+        </Box>
     );
 }
 
 export default TextEditor;
-
-// export default class TextEditor extends React.Component {
-//     // constructor(props) {
-//     //     super(props);
-//     //     this.state = {
-//     //         editorState: EditorState.createWithContent(convertFromHTML('Gõ nội dung tại đây!'))
-//     //     };
-//     //     // this.onEditorStateChange = this.onEditorStateChange.bind(this);
-//     // }
-
-//     state = {
-//         editorState: EditorState.createWithContent(convertFromHTML('Gõ nội dung tại đây!'))
-//     };
-
-//     onEditorStateChange(editorState) {
-//         this.setState({
-//             editorState,
-//         });
-//         var contentRaw = convertToRaw(this.state.editorState.getCurrentContent());
-//         var contentHTML = convertToHTML(this.state.editorState.getCurrentContent());
-//         console.log('contentHTML =', contentHTML);
-//         localStorage.setItem('draftRaw', JSON.stringify(contentRaw));
-//         this.props.handleContentChange(contentRaw);
-//     }
-
-//     componentWillUnmount() {
-//         this.setState({ editorState: {} });
-//     }
-
-//     render() {
-//         const { editorState } = this.state;
-//         return (
-//             <Box className='editor'
-//                 sx={{
-//                     '& .rdw-editor-toolbar': {
-//                         border: `1px solid ${grey[400]}`,
-//                         borderRadius: 1
-//                     }
-//                 }}
-//             >
-//                 <Editor
-//                     editorState={editorState}
-//                     onEditorStateChange={this.onEditorStateChange}
-//                     toolbar={{
-//                         inline: { inDropdown: true },
-//                         list: { inDropdown: true },
-//                         textAlign: { inDropdown: true },
-//                         link: { inDropdown: true },
-//                         history: { inDropdown: true },
-//                         image: { uploadCallback: uploadImageCallBack, alt: { present: true, mandatory: true } }
-//                     }}
-//                 />
-//             </Box>
-//         );
-//     }
-// }

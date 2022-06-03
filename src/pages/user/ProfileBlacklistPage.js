@@ -34,7 +34,7 @@ function ProfileBlacklistPage() {
                 overflow: 'hidden',
                 pt: 1, pb: 2,
                 boxSizing: 'border-box',
-                bgcolor: '#fff'
+                bgcolor: 'secondary.main'
             }}>
                 <Typography>Quản lí danh sách chặn</Typography>
                 <Divider/>

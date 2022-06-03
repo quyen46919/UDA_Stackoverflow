@@ -4,8 +4,10 @@ import { blue, grey } from '@mui/material/colors';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink, useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { updateSearchText } from 'redux/globalSlice';
 
 const menuItemStyles = {
     width: '100%',
@@ -24,6 +26,9 @@ function ActionMenu() {
     const currentPage = location.pathname.split('/').pop();
     const history = useHistory();
     const [page, setPage] = useState(currentPage || 'home');
+    const typingTimeoutRef = useRef(null);
+    const dispatch = useDispatch();
+    const [searchTextField, setSearchTextField] = useState('');
 
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index);
@@ -38,6 +43,20 @@ function ActionMenu() {
         history.push(`/home/${newUrlParam}`);
     };
 
+    const handleSearchTextChange = (e) => {
+        const value = e.target.value;
+
+        setSearchTextField(value);
+
+        if (typingTimeoutRef.current) {
+            clearTimeout(typingTimeoutRef.current);
+        }
+
+        typingTimeoutRef.current = setTimeout(() => {
+            dispatch(updateSearchText(value));
+        }, 500);
+    };
+
     return (
         <Box
             sx={{
@@ -47,14 +66,13 @@ function ActionMenu() {
                 height: '70%',
                 flexDirection: 'column',
                 flexWrap: 'nowrap',
-                p: 3,
+                p: 2,
                 boxSizing: 'border-box',
-                bgcolor: '#ffffff',
+                bgcolor: 'secondary.main',
                 margin: '10px 0',
                 borderRadius: 2,
                 fontSize: 17,
                 position: { xs: 'unset', lg: 'sticky' },
-                transition: 'all .15s ease',
                 top: '90px'
             }}
         >
@@ -92,7 +110,7 @@ function ActionMenu() {
             </Box>
             {
                 ( currentPage === 'home' || currentPage === '' ) && <Box sx={{ pt: { xs: 2, lg: 0 } }}>
-                    <Typography sx={{ fontWeight: 700, fontSize: 22, color: grey[800] }}>
+                    <Typography sx={{ fontWeight: 700, fontSize: 22, color: 'text.primary' }}>
                         Tìm kiếm câu hỏi
                     </Typography>
                     <Typography sx={{ pb: 1, color: grey[500] }}>
@@ -103,11 +121,16 @@ function ActionMenu() {
                         variant="outlined"
                         placeholder="Nhập câu hỏi tìm kiếm..."
                         size="small"
+                        onChange={handleSearchTextChange}
+                        value={searchTextField}
                         sx={{
                             width: '100%',
                             mb: 2,
                             '.Mui-focused': { border: 'none', outline: 'none' },
-                            '& ::placeholder': { fontSize: 16 },
+                            '& ::placeholder': {
+                                fontSize: 16,
+                                color: 'text.primary'
+                            },
                             '& svg': { color: grey[400], pr: 0 },
                             '& input': { color: grey[700] },
                             '& .MuiOutlinedInput-root': {
@@ -129,18 +152,18 @@ function ActionMenu() {
                     />
                 </Box>
             }
-            <Box sx={{ width: '100%', bgcolor: '#fff', display: { xs: 'none', lg: 'block' } }}>
+            <Box sx={{ width: '100%', display: { xs: 'none', lg: 'block' } }}>
                 <List component="nav" aria-label="main mailbox folders"
                     sx={{
                         '& a': {
                             textDecoration: 'none',
-                            color: grey[600]
+                            color: 'text.primary'
                         },
                         '& a.active span': {
                             color: blue[800],
                             fontWeight: 700
                         },
-                        '& a svg': { pr: 2, color: blue[800] },
+                        '& a svg': { pr: 2, color: blue[800], fontSize: 40 },
                         '& a.active svg': { color: blue[800] }
                     }}
                 >
@@ -158,7 +181,7 @@ function ActionMenu() {
                             selected={selectedIndex === 2}
                             onClick={(event) => handleListItemClick(event, 2)}
                         >
-                            <Group fontSize="small"/>
+                            <Group/>
                             <ListItemText primary="Nhóm" />
                         </ListItemButton>
                     </NavLink>

@@ -1,26 +1,30 @@
 /* eslint-disable indent */
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Email, Lock, Person, Phone } from '@mui/icons-material';
+import { Email, Lock, Person } from '@mui/icons-material';
 import {
+    Alert,
     Box,
     Button, InputAdornment,
     TextField,
     Typography
 } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
+import { unwrapResult } from '@reduxjs/toolkit';
 import bg from 'assets/images/login-banner.jpg';
+import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logup } from 'redux/userSlice';
 import * as Yup from 'yup';
 
 function LogupPage() {
     const [isLogin, setIsLogin] = useState(true);
-    // eslint-disable-next-line no-unused-vars
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const history = useHistory();
-    // const { enqueueSnackbar } = useSnackbar();
-    // const { dispatch } = useContext(AuthContext);
+    const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
+    const [message, setMessage] = useState('');
 
     const signupSchema = Yup.object().shape({
         email: Yup.string()
@@ -31,12 +35,7 @@ function LogupPage() {
             .min(6, 'Mật khẩu quá ngắn!')
             .max(50, 'Mật khẩu quá dài!'),
         username: Yup.string()
-            .required('Thông tin này là bắt buộc'),
-        phone: Yup.string()
-            .trim()
             .required('Thông tin này là bắt buộc')
-            .matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g, 'Không đúng định dạng số điện thoại'),
-        read: Yup.bool().required('Yêu cầu này là bắt buộc').oneOf([true], 'Yêu cầu này là bắt buộc')
     });
 
     const signupForm = useForm({
@@ -52,23 +51,24 @@ function LogupPage() {
         setIsLogin(!isLogin);
     };
 
-    const handleSubmit = async () => {
-        history.push('/question');
-        // try {
-        //     setIsSubmitting(true);
-        //     const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/v1/auth/login`, values);
-        //     // dispatch({ type: 'LOGIN_SUCCESS', payload: res.data });
-        //     // enqueueSnackbar('Đăng nhập thành công', {
-        //     //     variant: 'success'
-        //     // });
-        //     history.push('/');
-        // } catch (err) {
-        //     // dispatch({ type: 'LOGIN_FAILURE' });
-        //     // enqueueSnackbar(err?.response.data.message, {
-        //     //     variant: 'error'
-        //     // });
-        // } finally {
-        //     setIsSubmitting(false);
+    const handleSubmit = async (values) => {
+        setIsSubmitting(true);
+        try {
+            const action = logup(values);
+            const resultAction = await dispatch(action);
+            unwrapResult(resultAction);
+            signupForm.reset();
+            enqueueSnackbar('Tạo tài khoản thành công', { variant: 'success' });
+            setMessage('Tạo tài khoản thành công, vui lòng kiểm tra gmail để xác thực tài khoản');
+        } catch (error) {
+            if (error?.data?.message) {
+                if (error?.data?.message === 'Địa chỉ email này đã tồn tại') {
+                    signupForm.setError('email', { type: 'custom', message: error?.data?.message });
+                }
+            }
+        } finally {
+            setIsSubmitting(false);
+        }
         // }
     };
 
@@ -91,6 +91,7 @@ function LogupPage() {
         <Box sx={{
             width: '100%',
             height: 'auto',
+            bgcolor: 'secondary.main',
             display: 'flex',
             flexDirection: 'row-reverse',
             overflowX: 'hidden!important',
@@ -126,6 +127,9 @@ function LogupPage() {
                 alignItems: 'flex-start',
                 overflowY: 'scroll'
             }}>
+                {
+                    message && <Alert severity="success">{message}</Alert>
+                }
                 <Typography
                     sx={{
                         fontSize: {
@@ -174,7 +178,7 @@ function LogupPage() {
                     onSubmit={signupForm.handleSubmit(handleSubmit)}
                     sx={{ width: '100%' }}
                 >
-                    <Typography variant="subtitle1" sx={{ color: grey[600], pb: 1 }}>Tên đăng nhập</Typography>
+                    <Typography variant="subtitle1" sx={{ color: grey[600], pb: 1 }}>Tên của bạn</Typography>
                     <TextField
                         { ...signupForm.register('username') }
                         autoComplete="true"
@@ -194,7 +198,7 @@ function LogupPage() {
                             )
                         }}
                         spellCheck="false"
-                        placeholder="Nhập tài khoản"
+                        placeholder="Nhập tên của bạn"
                         name="username"
                         type="text"
                         error={!!signupForm.formState.errors.username}
@@ -221,7 +225,7 @@ function LogupPage() {
                             }
                         }}
                     />
-                    <Typography variant="subtitle1" sx={{ color: grey[600], pb: 1 }}>Email</Typography>
+                    <Typography variant="subtitle1" sx={{ color: grey[600], pb: 1 }}>Email (Đăng nhập)</Typography>
                     <TextField
                         { ...signupForm.register('email') }
                         autoComplete="true"
@@ -314,82 +318,6 @@ function LogupPage() {
                             }
                         }}
                     />
-                    <Typography variant="subtitle1" sx={{ color: grey[600], pb: 1 }}>Số điện thoại</Typography>
-                    <TextField
-                        { ...signupForm.register('phone') }
-                        autoComplete="true"
-                        fullWidth
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start"
-                                    sx={{
-                                        display: {
-                                            xs: 'none',
-                                            sm: 'flex'
-                                        }
-                                    }}
-                                >
-                                    <Phone />
-                                </InputAdornment>
-                            )
-                        }}
-                        spellCheck="false"
-                        placeholder="Nhập tài khoản"
-                        name="phone"
-                        type="number"
-                        error={!!signupForm.formState.errors.phone}
-                        helperText={signupForm.formState.errors.phone?.message ?? ''}
-                        sx={{
-                            pb: 1,
-                            '.Mui-focused': { border: 'none', outline: 'none' },
-                            '& ::placeholder': { fontSize: 18, color: grey[700] },
-                            '& svg': { pr: 1 },
-                            '& input': {
-                                color: grey[700],
-                                pl: 1
-                             },
-                            '& .MuiOutlinedInput-root': {
-                                '& fieldset': {
-                                    borderColor: grey[300]
-                                },
-                                '&:hover fieldset': {
-                                    borderColor: blue[500]
-                                },
-                                '&.Mui-focused fieldset': {
-                                    borderColor: blue[500]
-                                }
-                            }
-                        }}
-                    />
-                    {/* <Box sx={{
-                        width: '100%',
-                        display: 'block',
-                        mt: 1,
-                        mb: 1
-                    }}>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    name="read"
-                                    { ...signupForm.register('read') }
-                                    defaultChecked
-                                    sx={{
-                                        color: blue[600],
-                                        '&.Mui-checked': {
-                                            color: blue[600]
-                                        }
-                                    }}
-                                />
-                            }
-                            label={<Typography sx={{ color: grey[600] }}>Tôi đã đọc và chấp nhận điều khoản sử dụng của website</Typography>}
-                            spellCheck="false"
-                        />
-                        {signupForm.formState.errors.read?.message && <FormHelperText sx={{
-                            ml: 2, color: red[700]
-                        }}>
-                            {signupForm.formState.errors.read?.message}
-                        </FormHelperText>}
-                    </Box> */}
                     <Button
                         type="submit"
                         fullWidth
@@ -399,10 +327,12 @@ function LogupPage() {
                         sx={{
                             height: 50,
                             fontSize: 18,
-                            mt: 2
+                            mt: 2,
+                            bgcolor: `${blue[600]}!important`,
+                            color: '#fff'
                         }}
                     >
-                        { !isSubmitting ? 'Đăng nhập' : 'Đang đăng nhập' }
+                        { !isSubmitting ? 'Đăng ký' : 'Đang đăng ký' }
                     </Button>
                 </Box>
             </Box>

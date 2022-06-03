@@ -5,7 +5,7 @@ import { Box } from '@mui/system';
 import { userData } from 'assets/dataset/users';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AdminSearchBar from '../components/AdminSearchBar';
+import AdminSearchBar from '../../components/AdminSearchBar';
 
 function AdminUserTable() {
     const [anchorEl, setAnchorEl] = useState(null);

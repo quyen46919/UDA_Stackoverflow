@@ -1,5 +1,4 @@
 import { Switch, Typography } from '@mui/material';
-import { grey } from '@mui/material/colors';
 import { Box } from '@mui/system';
 import React from 'react';
 
@@ -13,7 +12,7 @@ function ProfilePrivacyPage() {
             boxSizing: 'border-box',
             '& > p': {
                 mb: 1,
-                color: grey[500],
+                color: 'text.primary',
                 pl: 2,
                 boxSizing: 'border-box'
             },
@@ -25,7 +24,7 @@ function ProfilePrivacyPage() {
                 // borderRadius: 3
             },
             '& > div > div > p': {
-                color: grey[600]
+                color: 'text.secondary'
             }
         }}>
             <Typography>Thiết lập trang cá nhân</Typography>
@@ -34,19 +33,20 @@ function ProfilePrivacyPage() {
                 overflow: 'hidden',
                 pt: 1, pb: 2,
                 boxSizing: 'border-box',
-                bgcolor: '#fff'
+                bgcolor: 'secondary.main'
             }}>
                 <Box>
                     <Typography>Hiển thị các câu hỏi tại trang cá nhân</Typography>
-                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked />
+                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked color="default"
+                    />
                 </Box>
                 <Box>
                     <Typography>Hiển thị các thông số hoạt động tại trang cá nhân</Typography>
-                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked />
+                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked color="default"/>
                 </Box>
                 <Box>
                     <Typography>Hiển thị ngày tham gia</Typography>
-                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked />
+                    <Switch inputProps={{ 'aria-label': 'Switch demo' }} defaultChecked color="default"/>
                 </Box>
             </Box>
         </Box>

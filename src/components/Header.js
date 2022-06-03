@@ -1,7 +1,9 @@
-import { Brightness4, Campaign, ExpandLess, ExpandMore, Home, LibraryBooks, LightMode, ListAlt, Logout, ModeNight, School } from '@mui/icons-material';
+import { Campaign, ExpandLess, ExpandMore, Home, LibraryBooks, LightMode, ListAlt, Logout, ModeNight, School } from '@mui/icons-material';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import BlockIcon from '@mui/icons-material/Block';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LanguageIcon from '@mui/icons-material/Language';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -21,9 +23,13 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/styles';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+import { toggleThemeMode } from 'redux/globalSlice';
+import { logout } from 'redux/userSlice';
 import NotificationPopover from './NotificationPopover';
 
 
@@ -64,7 +70,7 @@ const POPOVER_STYLES = {
         boxShadow: 0
     },
     '& .MuiPopover-paper li': {
-        pt: 1.2, pb: 1.2, color: grey[600]
+        pt: 1.2, pb: 1.2, color: 'text.secondary'
     },
     '& .MuiPopover-paper li svg': {
         mr: 2, color: blue[600]
@@ -74,6 +80,7 @@ const POPOVER_STYLES = {
 export default function Header() {
     const [popupAnchorEl2, setPopupAnchorEl2] = useState(null);
     const [notificationEl, setNotificationEl] = useState(null);
+    const { user } = useSelector(state => state.user.current);
 
     const handleOpenNotificationPopover = (event) => {
         setNotificationEl(event.currentTarget);
@@ -115,6 +122,8 @@ export default function Header() {
     const [openSystemCollapse, setOpenSystemCollap] = useState(false);
     const [showAccountCollapse, setShowAccountCollapse] = useState(false);
     const history = useHistory();
+    const dispatch = useDispatch();
+    const theme = useTheme();
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -149,6 +158,14 @@ export default function Header() {
         history.push(`/${url}`);
     };
 
+    const handleLogout = () => {
+        const action = logout();
+        dispatch(action);
+        history.push('/login');
+    };
+
+    const handleToggleThemeMode = () => dispatch(toggleThemeMode());
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -166,7 +183,7 @@ export default function Header() {
             open={isMenuOpen}
             onClose={handleMenuClose}
             PaperProps={PAPERSTYLES}
-            sx={{ '& svg, & p': { color: grey[500] } }}
+            sx={{ '& svg': { color: 'text.primary' } }}
         >
             <Typography
                 sx={{
@@ -174,7 +191,7 @@ export default function Header() {
                     fontWeight: 600,
                     pl: 2.2,
                     pt: 0.8,
-                    color: `${grey[700]}!important`
+                    color: 'text.primary'
                 }}>
                     Thông tin của tôi
             </Typography>
@@ -185,7 +202,7 @@ export default function Header() {
                 <ListItemIcon>
                     <AccountBoxIcon sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
                 </ListItemIcon>
-                <ListItemText sx={{ color: grey[600], p6: 1, pl: 0, '& span': { fontSize: 16 } }}>
+                <ListItemText sx={{ color: 'text.secondary', p6: 1, pl: 0, '& span': { fontSize: 16 } }}>
                     Trang cá nhân
                 </ListItemText>
             </MenuItem>
@@ -196,7 +213,7 @@ export default function Header() {
                 <ListItemIcon>
                     <ListAlt sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
                 </ListItemIcon>
-                <ListItemText sx={{ color: grey[600], p6: 1, pl: 0, '& span': { fontSize: 16 } }}>
+                <ListItemText sx={{ color: 'text.secondary', p6: 1, pl: 0, '& span': { fontSize: 16 } }}>
                     Tất cả thông báo
                 </ListItemText>
             </MenuItem>
@@ -207,7 +224,7 @@ export default function Header() {
                 <ListItemIcon>
                     <Campaign sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
                 </ListItemIcon>
-                <ListItemText sx={{ color: grey[600], p6: 1, pl: 0, '& span': { fontSize: 16 } }}>
+                <ListItemText sx={{ color: 'text.secondary', p6: 1, pl: 0, '& span': { fontSize: 16 } }}>
                     Thiết lập thông báo
                 </ListItemText>
             </MenuItem>
@@ -218,7 +235,7 @@ export default function Header() {
                 <ListItemIcon>
                     <LockIcon sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
                 </ListItemIcon>
-                <ListItemText sx={{ color: grey[600], pr: 1, '& span': { fontSize: 16 } }}>
+                <ListItemText sx={{ color: 'text.secondary', pr: 1, '& span': { fontSize: 16 } }}>
                     Thiết lập quyền riêng tư
                 </ListItemText>
             </MenuItem>
@@ -229,7 +246,7 @@ export default function Header() {
                 <ListItemIcon>
                     <BlockIcon sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
                 </ListItemIcon>
-                <ListItemText sx={{ color: grey[600], pr: 1, '& span': { fontSize: 16 } }}>
+                <ListItemText sx={{ color: 'text.secondary', pr: 1, '& span': { fontSize: 16 } }}>
                     Quản lý danh sách chặn
                 </ListItemText>
             </MenuItem>
@@ -238,7 +255,7 @@ export default function Header() {
                     fontSize: '16px',
                     fontWeight: 600,
                     pl: 2.2,
-                    color: `${grey[700]}!important`,
+                    color: 'text.primary',
                     pt: 1.8
                 }}>
                     Thiết lập hệ thống
@@ -248,7 +265,7 @@ export default function Header() {
                     <LanguageIcon sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
                 </ListItemIcon>
                 <ListItemText
-                    sx={{ color: grey[600], pr: 1, '& span': { fontSize: 16 } }}
+                    sx={{ color: 'text.secondary', pr: 1, '& span': { fontSize: 16 } }}
                 >
                     Đổi ngôn ngữ
                 </ListItemText>
@@ -287,7 +304,7 @@ export default function Header() {
                     <LightModeIcon sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
                 </ListItemIcon>
                 <ListItemText
-                    sx={{ color: grey[600], pr: 3, '& span': { fontSize: 16 } }}
+                    sx={{ color: 'text.secondary', pr: 3, '& span': { fontSize: 16 } }}
                 >
                     Cài đặt hiển thị
                 </ListItemText>
@@ -309,7 +326,7 @@ export default function Header() {
                     horizontal: 'right'
                 }}
             >
-                <MenuItem sx={{ minWidth: 200 }} onClick={() => setPopupAnchorEl2(null)}>
+                {/* <MenuItem sx={{ minWidth: 200 }} onClick={() => setPopupAnchorEl2(null)}>
                     <Brightness4/>
                     <Typography>Mặc định</Typography>
                 </MenuItem>
@@ -320,6 +337,22 @@ export default function Header() {
                 <MenuItem onClick={() => setPopupAnchorEl2(null)}>
                     <LightMode/>
                     <Typography>Ngày</Typography>
+                </MenuItem> */}
+                <MenuItem
+                    onClick={handleToggleThemeMode}
+                    sx={{ minWidth: 200 }}
+                    disabled={theme.palette.mode === 'light'}
+                >
+                    <LightMode/>
+                    <Typography>Chuyển sang chế độ sáng</Typography>
+                </MenuItem>
+                <MenuItem
+                    onClick={handleToggleThemeMode}
+                    sx={{ minWidth: 200 }}
+                    disabled={theme.palette.mode === 'dark'}
+                >
+                    <ModeNight/>
+                    <Typography>Chuyển sang chế độ tối</Typography>
                 </MenuItem>
             </Popover>
             <MenuItem sx={{ pt: 1.2, pb: 1.2 }} onClick={() => handleLinktoUrlClick('login')}>
@@ -327,8 +360,9 @@ export default function Header() {
                     <Logout sx={{ color: `${blue[600]}!important`, fontSize: 20 }}/>
                 </ListItemIcon>
                 <ListItemText
+                    onClick={handleLogout}
                     sx={{
-                        color: grey[700],
+                        color: 'text.primary',
                         pr: 1,
                         '& span': { fontSize: 16 },
                         '& a': {
@@ -363,7 +397,7 @@ export default function Header() {
             sx={{
                 '& svg': { color: blue[600] },
                 '& ul li': { pb: 1, minWidth: 260 },
-                '& ul li p': { pl: 1, color: grey[600] }
+                '& ul li p': { pl: 1, color: 'text.secondary' }
             }}
         >
             <MenuItem onClick={() => handleLinktoUrlClick('home')}>
@@ -406,30 +440,30 @@ export default function Header() {
                             textDecoration: 'none',
                             color: 'inherit'
                         },
-                        color: grey[600]
+                        color: 'text.secondary'
                     }}
                 >
                     <ListItemButton sx={{ p: 0.7, pl: 3 }} onClick={() => handleLinktoUrlClick('profile')}>
                         <AccountBoxIcon sx={{ color: `${blue[600]}!important`, fontSize: '17px', pl: 1 }}/>
-                        <ListItemText sx={{ color: grey[600], pl: 1, '& span': { fontSize: 16 } }}>
+                        <ListItemText sx={{ color: 'text.secondary', pl: 1, '& span': { fontSize: 16 } }}>
                             Trang cá nhân
                         </ListItemText>
                     </ListItemButton>
                     <ListItemButton sx={{ p: 0.7, pl: 3 }} onClick={() => handleLinktoUrlClick('profile/notificationList')}>
                         <ListAlt sx={{ color: `${blue[600]}!important`, fontSize: '17px', pl: 1 }}/>
-                        <ListItemText sx={{ color: grey[600], pl: 1, '& span': { fontSize: 16 } }}>
+                        <ListItemText sx={{ color: 'text.secondary', pl: 1, '& span': { fontSize: 16 } }}>
                             Tất cả thông báo
                         </ListItemText>
                     </ListItemButton>
                     <ListItemButton sx={{ p: 0.7, pl: 3 }} onClick={() => handleLinktoUrlClick('profile/privacy')}>
                         <LockIcon sx={{ color: `${blue[600]}!important`, fontSize: '17px', pl: 1 }}/>
-                        <ListItemText sx={{ color: grey[600], pl: 1, '& span': { fontSize: 16 } }}>
+                        <ListItemText sx={{ color: 'text.secondary', pl: 1, '& span': { fontSize: 16 } }}>
                             Thiết lập quyền riêng tư
                         </ListItemText>
                     </ListItemButton>
                     <ListItemButton sx={{ p: 0.7, pl: 3 }} onClick={() => handleLinktoUrlClick('profile/blacklist')}>
                         <BlockIcon sx={{ color: `${blue[600]}!important`, fontSize: '17px', pl: 1 }}/>
-                        <ListItemText sx={{ color: grey[600], pl: 1, '& span': { fontSize: 16 } }}>
+                        <ListItemText sx={{ color: 'text.secondary', pl: 1, '& span': { fontSize: 16 } }}>
                             Danh sách chặn
                         </ListItemText>
                     </ListItemButton>
@@ -468,19 +502,19 @@ export default function Header() {
                             textDecoration: 'none',
                             color: 'inherit'
                         },
-                        color: grey[600]
+                        color: 'text.secondary'
                     }}
                 >
                     <ListItemButton sx={{ p: 0.7, pl: 3 }} onClick={() => handleLinktoUrlClick('profile/system')}>
                         <LanguageIcon sx={{ color: `${blue[600]}!important`, fontSize: '17px', pl: 1 }}/>
-                        <ListItemText sx={{ color: grey[600], pl: 1, '& span': { fontSize: 16 } }}>
+                        <ListItemText sx={{ color: 'text.secondary', pl: 1, '& span': { fontSize: 16 } }}>
                             Đổi ngôn ngữ
                         </ListItemText>
                         <ChevronRightIcon/>
                     </ListItemButton>
                     <ListItemButton sx={{ p: 0.7, pl: 3 }} onClick={() => handleLinktoUrlClick('profile/system')}>
                         <LightModeIcon sx={{ color: `${blue[600]}!important`, fontSize: '17px', pl: 1 }}/>
-                        <ListItemText sx={{ color: grey[600], pl: 1, '& span': { fontSize: 16 } }}>
+                        <ListItemText sx={{ color: 'text.secondary', pl: 1, '& span': { fontSize: 16 } }}>
                             Chế độ hiển thị
                         </ListItemText>
                         <ChevronRightIcon/>
@@ -500,6 +534,7 @@ export default function Header() {
                     <Logout sx={{ color: `${blue[600]}!important`, fontSize: 20, ml: '0!important' }}/>
                 </ListItemIcon>
                 <ListItemText
+                    onClick={handleLogout}
                     sx={{
                         color: grey[700],
                         '& span': { fontSize: 17,
@@ -531,11 +566,11 @@ export default function Header() {
         >
             <AppBar position="static"
                 sx={{
-                    backgroundColor: '#fff',
+                    backgroundColor: 'secondary.main',
                     boxShadow: 'none',
                     borderBottom: `1px solid ${grey[200]}`,
-                    height: 70
-
+                    height: 70,
+                    backgroundImage: 'none'
                 }}
             >
                 <Toolbar sx={{
@@ -640,14 +675,23 @@ export default function Header() {
                     </Box>
                     {
                         <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                            <IconButton sx={{ ml: 1, '& svg': { color: grey[500] } }} onClick={handleToggleThemeMode}>
+                                {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                            </IconButton>
                             <IconButton
                                 size="large"
                                 aria-describedby={idNotificationPopover}
                                 color="inherit"
                                 onClick={handleOpenNotificationPopover}
                             >
-                                <Badge badgeContent={17} sx={{ '& span': { backgroundColor: blue[400] } }}>
-                                    <NotificationsIcon sx={{ color: grey[400] }}/>
+                                <Badge badgeContent={17} sx={{
+                                    '& span': {
+                                        backgroundColor: blue[400]
+                                    },
+                                    color: '#fff'
+                                }}
+                                >
+                                    <NotificationsIcon sx={{ color: grey[500] }}/>
                                 </Badge>
                             </IconButton>
                             { openNotificationPopover && <NotificationPopover
@@ -666,7 +710,7 @@ export default function Header() {
                                 sx={{ color: grey[400] }}
                             >
                                 <Avatar alt="Remy Sharp" sx={{ width: 30, height: 30 }}
-                                    src="https://www.mammal.org.uk/wp-content/uploads/2021/09/red-fox-300x300.jpg" />
+                                    src={user?.avatar} />
                             </IconButton>
                         </Box>
                     }

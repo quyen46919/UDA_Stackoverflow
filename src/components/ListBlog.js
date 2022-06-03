@@ -97,7 +97,7 @@ export default function ListBlog(props) {
                             </Typography>
                         </Box>
                     </Box>
-                    <Box className='blog-list-hastag' sx={{
+                    <Box sx={{
                         height: '100%',
                         width: '190px',
                         display: 'flex',
@@ -108,7 +108,7 @@ export default function ListBlog(props) {
                             width: '120px'
                         }
                     }}>
-                        <img className='blog-list-hastag__img' src={hashtag} />
+                        <img src={hashtag} />
                     </Box>
                 </Box>
             </Box>

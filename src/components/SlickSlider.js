@@ -1,4 +1,3 @@
-import { useTheme } from '@emotion/react';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import { donateUser } from 'assets/dataset/donateUser';
@@ -40,8 +39,7 @@ import 'slick-carousel/slick/slick.css';
 // }
 
 function SlickSlider() {
-    const theme = useTheme();
-    const belowSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const belowSM = useMediaQuery('max-width(600px)');
 
     const settings = {
         dots: true,

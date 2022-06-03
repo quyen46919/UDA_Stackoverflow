@@ -1,22 +1,24 @@
 /* eslint-disable indent */
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Email, Google, Lock, School } from '@mui/icons-material';
+import { Email, Lock } from '@mui/icons-material';
 import {
+    Alert,
     Box,
     Button,
-    Checkbox,
-    Divider,
-    FormControlLabel,
+    Checkbox, FormControlLabel,
     InputAdornment,
     TextField,
     Typography
 } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
+import { unwrapResult } from '@reduxjs/toolkit';
 import bg from 'assets/images/login-banner.jpg';
 import NotificateDialog from 'components/NotificationDialog';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import { login } from 'redux/userSlice';
 import * as Yup from 'yup';
 
 function LoginPage() {
@@ -24,12 +26,12 @@ function LoginPage() {
     // eslint-disable-next-line no-unused-vars
     const [isSubmitting, setIsSubmitting] = useState(false);
     const history = useHistory();
-    // const { enqueueSnackbar } = useSnackbar();
     const [showDialog, setShowDialog] = useState(false);
-    // const { dispatch } = useContext(AuthContext);
+    const dispatch = useDispatch();
+    const [errorMessage, setErrorMessage] = useState('');
 
     const signinSchema = Yup.object().shape({
-        username: Yup.string()
+        email: Yup.string()
             .required('Thông tin này là bắt buộc')
             .min(6, 'Tên đăng nhập quá ngắn'),
         password: Yup.string()
@@ -40,7 +42,7 @@ function LoginPage() {
 
     const signinForm = useForm({
         defaultValues: {
-            username: '',
+            email: '',
             password: ''
         },
         resolver: yupResolver(signinSchema)
@@ -58,31 +60,23 @@ function LoginPage() {
         setShowDialog(false);
     };
 
-    const handleSubmit = async () => {
-        history.push('/home');
-        // try {
-        //     setIsSubmitting(true);
-        //     const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/v1/auth/login`, values);
-        //     // dispatch({ type: 'LOGIN_SUCCESS', payload: res.data });
-        //     // enqueueSnackbar('Đăng nhập thành công', {
-        //     //     variant: 'success'
-        //     // });
-        //     history.push('/');
-        // } catch (err) {
-        //     // dispatch({ type: 'LOGIN_FAILURE' });
-        //     // enqueueSnackbar(err?.response.data.message, {
-        //     //     variant: 'error'
-        //     // });
-        // } finally {
-        //     setIsSubmitting(false);
-        // }
+    const handleSubmit = async (values) => {
+        try {
+            const action = login(values);
+            const resultAction = await dispatch(action);
+            unwrapResult(resultAction);
+            history.push('/home');
+        } catch (error) {
+            setErrorMessage(error?.data?.message);
+        }
     };
 
     return (
         <Box sx={{
             width: '100%',
             height: 'auto',
-            display: 'flex'
+            display: 'flex',
+            bgcolor: 'secondary.main'
         }}>
             <Box sx={{
                 width: {
@@ -145,63 +139,20 @@ function LoginPage() {
                         </Link>
                     </Typography>
                 </Box>
-                <Box sx={{
-                    width: '100%',
-                    display: 'flex',
-                    gap: 1
-                }}>
-                    <Button
-                        variant="contained"
-                        startIcon={<Google />}
-                        disableElevation
-                        fullWidth
-                        sx={{
-                            height: 50,
-                            fontSize: 18,
-                            color: 'white',
-                            '& svg': {
-                                color: 'white'
-                            }
-                        }}
-                        onClick={handleShowDialog}
-                    >
-                        Google
-                    </Button>
-                    <Button
-                        variant="contained"
-                        disableElevation
-                        startIcon={<School />}
-                        fullWidth
-                        onClick={handleShowDialog}
-                        sx={{
-                            height: 50,
-                            fontSize: {
-                                xs: 16,
-                                sm: 18
-                            },
-                            color: 'white',
-                            '& svg': {
-                                color: 'white'
-                            }
-                        }}
-                    >
-                        Đông Á
-                    </Button>
-                </Box>
-                <Box sx={{ width: '100%', pt: 1 }}>
-                    <Divider>
-                        Hoặc
-                    </Divider>
-                </Box>
                 <Box
                     component="form"
                     className="account__text-fields"
                     onSubmit={signinForm.handleSubmit(handleSubmit)}
-                    sx={{ width: '100%' }}
+                    sx={{ width: '100%', boxSizing: 'border-box' }}
                 >
+                    {
+                        errorMessage && <Alert severity="error" sx={{ my: 1 }}>
+                            {errorMessage}
+                        </Alert>
+                    }
                     <Typography variant="subtitle1" sx={{ color: grey[500], pb: 1 }}>Email</Typography>
                     <TextField
-                        { ...signinForm.register('username') }
+                        { ...signinForm.register('email') }
                         autoComplete="true"
                         fullWidth
                         InputProps={{
@@ -220,10 +171,10 @@ function LoginPage() {
                         }}
                         spellCheck="false"
                         placeholder="Nhập tài khoản"
-                        name="username"
+                        name="email"
                         type="text"
-                        error={!!signinForm.formState.errors.username}
-                        helperText={signinForm.formState.errors.username?.message ?? ''}
+                        error={!!signinForm.formState.errors.email}
+                        helperText={signinForm.formState.errors.email?.message ?? ''}
                         sx={{
                             pb: 2,
                             '.Mui-focused': { border: 'none', outline: 'none' },
@@ -344,7 +295,10 @@ function LoginPage() {
                         disabled={!isSubmitting ? false : true}
                         sx={{
                             height: 50,
-                            fontSize: 18
+                            fontSize: 18,
+                            color: '#fff',
+                            textTransform: 'initial',
+                            bgcolor: `${blue[600]}!important`
                         }}
                     >
                         { !isSubmitting ? 'Đăng nhập' : 'Đang đăng nhập' }

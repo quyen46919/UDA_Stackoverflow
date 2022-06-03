@@ -1,23 +1,72 @@
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
-import { Box, Container, Divider, Typography } from '@mui/material';
+import { Box, Button, Container, Divider, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import { grey } from '@mui/material/colors';
+import { blue, grey } from '@mui/material/colors';
 import Stack from '@mui/material/Stack';
-import user3 from 'assets/images/intro-ChauQuyen.jpg';
+import AnswerAPI from 'api/answer.api';
+import QuestionAPI from 'api/question.api';
 import TextEditor from 'components/TextEditor';
-import React, { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import parse from 'html-react-parser';
+import moment from 'moment';
+import { useSnackbar } from 'notistack';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-function QuestionDetailPage() {
+function QuestionDetailPage({ match }) {
+    const { questionId } = match.params;
+    const [question, setQuestion] = useState({});
+    const [answerList, setAnswerList] = useState([]);
+    const [answerContent, setAnswerContent] = useState('');
+    const { enqueueSnackbar } = useSnackbar();
+    const { user } = useSelector(state => state.user.current);
     const ref = useRef();
     useEffect(() => {
         ref.current.scrollIntoView();
     }, []);
 
+    useEffect(() => {
+        const loadQuestion = async () => {
+            try {
+                const response = await QuestionAPI.fetchQuestionDetail(questionId);
+                // console.log(response.data);
+                setQuestion(response.data.question);
+                setAnswerList(response.data.answerList || []);
+            } catch (err) {
+                // console.log(err.message);
+            }
+        };
+        loadQuestion();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [questionId]);
+
+    const handleContentChange = (newContent) => {
+        setAnswerContent(newContent);
+    };
+
+    const handleSubmitForm = async () => {
+        const formValues = {
+            content: answerContent,
+            question_id: question?.id,
+            user_id: user?.id
+        };
+
+        try {
+            const response = await AnswerAPI.createNewAnswer(formValues);
+            enqueueSnackbar(`${response?.data?.message}, trang web sẽ reload trong 2 giây`, { variant: 'success' });
+
+            setTimeout(() => {
+                window.location.reload();
+            }, [2000]);
+        } catch (err) {
+            enqueueSnackbar('Đăng tải thất bại', { variant: 'error' });
+        }
+    };
+
     return (
         <>
-            <Box ref={ref}/>
+            <Box ref={ref} sx={{ mt: -100 }}/>
             <Container
                 maxWidth="xl"
                 sx= {{
@@ -35,8 +84,7 @@ function QuestionDetailPage() {
                     mt: { xs: 0, lg: 1 },
                     ml: { xs: 0, lg: 3 },
                     mr: { xs: 0, md: 3 },
-                    backgroundColor: 'white',
-                    transition: '0.2s',
+                    backgroundColor: 'secondary.main',
                     borderRadius: 2
                 }}
             >
@@ -61,10 +109,10 @@ function QuestionDetailPage() {
                         sx={{
                             fontSize: 24,
                             fontWeight: 700,
-                            color: grey[700]
+                            color: 'text.primary'
                         }}
                     >
-                        Tôi không cách nào có thể sử dụng useRef React Hook để lấy chiều dài của một component được
+                        {question?.title}
                     </Typography>
                     <Box
                         sx={{
@@ -93,7 +141,7 @@ function QuestionDetailPage() {
                             <Stack direction="row">
                                 <Avatar
                                     alt="Avatar"
-                                    src= {user3} />
+                                    src= {question?.avatar} />
                             </Stack>
                             <Box
                                 sx={{
@@ -111,7 +159,7 @@ function QuestionDetailPage() {
                                         fontSize: 16
                                     }}
                                 >
-                                    Nguyễn Châu Quyền
+                                    {question?.username}
                                 </Typography>
                                 <Typography
                                     sx={{
@@ -120,7 +168,7 @@ function QuestionDetailPage() {
                                         fontSize: 14
                                     }}
                                 >
-                                    4 days ago
+                                    {moment(question?.created_at).format('DD-MM-YYYY h:mm:ss a')}
                                 </Typography>
                             </Box>
                         </Box>
@@ -128,9 +176,7 @@ function QuestionDetailPage() {
                             sx={{
                                 m: 0
                             }}>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro distinctio quisquam ea quibusdam commodi quas! Qui, vel itaque culpa pariatur ex ea inventore natus tenetur nam repellendus, quasi saepe eius.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro distinctio quisquam ea quibusdam commodi quas! Qui, vel itaque culpa pariatur ex ea inventore natus tenetur nam repellendus, quasi saepe eius.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro distinctio quisquam ea quibusdam commodi quas! Qui, vel itaque culpa pariatur ex ea inventore natus tenetur nam repellendus, quasi saepe eius.
+                            {question?.content && parse(question?.content)}
                         </Typography>
                         <Box
                             sx={{
@@ -159,7 +205,7 @@ function QuestionDetailPage() {
                                     }}
                                     variant="subtitle1"
                                     gutterBottom component="div">
-                            4 Likes
+                                        4 Likes
                                 </Typography>
                             </Box>
                             <Box
@@ -202,103 +248,87 @@ function QuestionDetailPage() {
                                 width: '100%',
                                 pb: 1
                             }}>
-                            12 Câu trả lời
+                            {answerList.length} Câu trả lời
                         </Typography>
-                        <Divider sx={{ width: '100%' }}/>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                justifyContent: 'flex-start',
-                                alignItems: 'center',
-                                pt: 1,
-                                gap: 2
-                            }}
-                        >
-                            <Stack direction="row">
-                                <Avatar
-                                    alt="Avatar"
-                                    src="https://yt3.ggpht.com/ytc/AKedOLSwsClUG1GFkusyX93-K9XTaDva7Mkw8huSIykH=s68-c-k-c0x00ffffff-no-rj"/>
-                            </Stack>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'space-around',
-                                    alignItems: 'flex-start',
-                                    height: '50px!important'
-                                }}
-                            >
+                        <Box sx={{
+                            width: '100%',
+                            display: 'flex',
+                            flexDirection: 'column'
+                        }}>
+                            {answerList.map((answer) => (
                                 <Box
+                                    key={answer.id}
                                     sx={{
                                         display: 'flex',
                                         flexDirection: 'column',
-                                        justifyContent: 'space-around',
-                                        alignItems: 'flex-start'
+                                        justifyContent: 'flex-start',
+                                        alignItems: 'center',
+                                        pb: 3,
+                                        gap: 2
                                     }}
                                 >
+                                    <Divider sx={{ width: '100%' }}/>
+                                    <Box sx={{
+                                        width: '100%',
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'flex-start',
+                                        alignItems: 'center',
+                                        pt: 1,
+                                        gap: 2
+                                    }}>
+                                        <Stack direction="row">
+                                            <Avatar
+                                                alt={answer?.username}
+                                                src={answer?.user_avatar}/>
+                                        </Stack>
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                justifyContent: 'space-around',
+                                                alignItems: 'flex-start',
+                                                height: '50px!important'
+                                            }}
+                                        >
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    justifyContent: 'space-around',
+                                                    alignItems: 'flex-start'
+                                                }}
+                                            >
+                                                <Typography
+                                                    sx={{
+                                                        fontWeight: 600,
+                                                        color: grey[600],
+                                                        m: 0,
+                                                        fontSize: 16
+                                                    }}
+                                                >
+                                                    {answer?.username}
+                                                </Typography>
+                                                <Typography
+                                                    sx={{
+                                                        color: grey[500],
+                                                        m: 0,
+                                                        fontSize: 14
+                                                    }}
+                                                >
+                                                    {moment(answer?.created_at).format('DD-MM-YYYY h:mm:ss a')}
+                                                </Typography>
+                                            </Box>
+                                        </Box>
+                                    </Box>
                                     <Typography
                                         sx={{
-                                            fontWeight: 600,
-                                            color: grey[600],
-                                            m: 0,
-                                            fontSize: 16
-                                        }}
-                                    >
-                                    Hoàng Hữu Tài
-                                    </Typography>
-                                    <Typography
-                                        sx={{
-                                            color: grey[500],
-                                            m: 0,
-                                            fontSize: 14
-                                        }}
-                                    >
-                                    4 ngày trước
+                                            m: 0
+                                        }}>
+                                        {answer?.content && parse(answer?.content)}
                                     </Typography>
                                 </Box>
-                            </Box>
-                        </Box>
-                        <Box>
-                            <Typography>
-                            Tôi chưa dùng thư viện này bao giờ, nhưng tôi có thể giúp bạn bằng một số dòng code dưới đây:
-                            </Typography>
-                            <Typography>
-                            Dưới đây là phần code mẫu cho bạn:
-                            </Typography>
-                        </Box>
-                        <Box
-                            sx={{
-                                width: '100%',
-                                boxSizing: 'border-box',
-                                p: 2.5,
-                                backgroundColor: '#f0f4f5'
-                            }}
-                        >
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores repudiandae, optio at non eligendi error dolore quibusdam est minima consequatur, cupiditate explicabo totam assumenda repellat? Itaque hic molestias nobis dicta.
-                        </Box>
-                        <Box>
-                            <Typography>
-                            Hoặc bạn có thể thử cách khác dưới đây:
-                            </Typography>
-                        </Box>
-                        <Box
-                            sx={{
-                                width: '100%',
-                                boxSizing: 'border-box',
-                                p: 2.5,
-                                backgroundColor: '#f0f4f5'
-                            }}
-                        >
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores repudiandae, optio at non eligendi error dolore quibusdam est minima consequatur, cupiditate explicabo totam assumenda repellat? Itaque hic molestias nobis dicta.
-                        </Box>
-                        <Box>
-                            <Typography>
-                            Bạn có thể tham khảo thêm tại: &nbsp;
-                                <Link to="https://github.com/quyen46919/UDA_Stackoverflow">
-                                https://github.com/quyen46919/UDA_Stackoverflow
-                                </Link>
-                            </Typography>
+                            ))}
                         </Box>
                     </Box>
                     <Divider sx={{ width: '100%' }}/>
@@ -309,8 +339,20 @@ function QuestionDetailPage() {
                         <Typography sx={{ color: grey[700], mb: 1.5 }}>
                             Nhập câu trả lời của bạn
                         </Typography>
-                        <TextEditor/>
                     </Box>
+                    <TextEditor handleContentChange={handleContentChange}/>
+                    <Button sx={{
+                        width: 300,
+                        bgcolor: `${blue[50]}!important`,
+                        color: blue[600],
+                        textTransform: 'initial',
+                        px: 4, py: 1,
+                        mt: 3
+                    }}
+                    onClick={handleSubmitForm}
+                    >
+                        Đăng tải câu hỏi
+                    </Button>
                 </Box>
             </Container>
         </>

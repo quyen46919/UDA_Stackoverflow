@@ -1,12 +1,15 @@
-import { LocalOffer, Tour } from '@mui/icons-material';
+import { Check, LocalOffer, Tour } from '@mui/icons-material';
 import Comment from '@mui/icons-material/Comment';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { Avatar, Box, IconButton } from '@mui/material';
-import { blue, grey } from '@mui/material/colors';
+import { Avatar, Box, IconButton, Chip } from '@mui/material';
+import { blue, grey, green, red } from '@mui/material/colors';
 import Typography from '@mui/material/Typography';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import parse from 'html-react-parser';
+import { useSelector } from 'react-redux';
 
 QuestionBox.propTypes = {
     item: PropTypes.object.isRequired,
@@ -19,7 +22,9 @@ QuestionBox.propTypes = {
 
 function QuestionBox(props) {
     const { item, isAdminBox, handleOpenMenu, isLine } = props;
-    const { content, title, owner, ownerAvatar, tags, label, commentCount, createAt } = item;
+    const { id, avatar, content, created_at, is_resolved, tag_list, title, username, status } = item;
+    const { user } = useSelector(state => state.user.current);
+
     return (
         <Box sx={{ width: '100%', height: '100%' }}>
             <Box
@@ -35,7 +40,7 @@ function QuestionBox(props) {
                     justifyContent: 'flex-start',
                     alignItems: 'flex-start',
                     gap: 1,
-                    backgroundColor: 'white',
+                    backgroundColor: 'secondary.main',
                     borderRadius: 2,
                     boxShadow: isAdminBox ? 'rgba(149, 157, 165, 0.2) 0px 8px 24px' : ''
                 }}
@@ -61,12 +66,32 @@ function QuestionBox(props) {
                     >
                         <LocalOffer sx={{ fontSize: '19px', color: blue[500] }}/>
                         <Typography
-                            sx={{ margin: 0, fontWeight: 500, color: grey[500], fontSize: 16 }}
+                            sx={{ margin: 0, fontWeight: 700, fontSize: 16, color: blue[600] }}
                             variant="subtitle1"
                             gutterBottom
                         >
-                        Câu hỏi #{label}
+                        Câu hỏi #{id}
                         </Typography>
+                        {
+                            is_resolved ? <Chip icon={<Check fontSize='small'/>} sx={{
+                                bgcolor: green[100],
+                                fontWeight: 500,
+                                height: 28,
+                                ml: 1,
+                                p: 0,
+                                '& span': { pl: 0 },
+                                '& .MuiChip-icon': { color: `${green[600]}!important` }
+                            }}/> : ''
+                        }
+                        {
+                            status === 0 && <Chip label="Chưa được phê duyệt" sx={{
+                                borderRadius: 1,
+                                bgcolor: red[50],
+                                color: red[500],
+                                height: 28,
+                                ml: 2
+                            }}/>
+                        }
                     </Box>
                     <Box
                         sx={{
@@ -78,7 +103,7 @@ function QuestionBox(props) {
                         }}
                     >
                         <Typography sx={{ margin: 0, mr: -1.6, fontWeight: 600, color: grey[400], fontSize: 14 }}>
-                            {createAt}
+                            {moment(created_at).format('DD-MM-YYYY h:mm:ss a')}
                         </Typography>
                         { isAdminBox && <IconButton onClick={handleOpenMenu}>
                             <MoreHorizIcon sx={{ fontSize: 18, color: grey[400] }}/>
@@ -87,7 +112,7 @@ function QuestionBox(props) {
                 </Box>
                 <Box
                     sx={{
-                        width: '87%',
+                        width: '100%',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'flex-start',
@@ -96,7 +121,7 @@ function QuestionBox(props) {
                         pr: 5.5
                     }}
                 >
-                    <Link to="/home/question/questionId">
+                    <Link to={status === 1 ? `/home/question/${id}` : '#'}>
                         <Typography
                             sx ={{
                                 width: '100%',
@@ -109,11 +134,11 @@ function QuestionBox(props) {
                                 WebkitBoxOrient: 'vertical',
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
-                                fontSize: 18,
+                                fontSize: 16,
                                 pl: 1,
                                 fontWeight: 700,
-                                color: grey[800],
-                                'lineHeight': 'normal',
+                                color: 'text.primary',
+                                lineHeight: 'normal',
                                 marginBottom: '3px',
                                 textDecoration: 'none'
                             }}
@@ -130,13 +155,13 @@ function QuestionBox(props) {
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             marginBottom: '10px',
-                            fontSize: 16,
+                            fontSize: 14,
                             pl: 1,
-                            color: grey[600]
+                            color: 'text.secondary'
                         }}
                         gutterBottom
                     >
-                        {content}
+                        {parse(content)}
                     </Typography>
                 </Box>
                 <Box
@@ -160,9 +185,9 @@ function QuestionBox(props) {
                             alignItems: 'center'
                         }}
                     >
-                        <Avatar sx={{ height: 30, width: 30 }} alt="User" src={ownerAvatar} />
-                        <Typography sx={{ margin: 0, fontWeight: 500, color: grey[700] }}>
-                            {owner}
+                        <Avatar sx={{ height: 30, width: 30 }} alt="User" src={avatar} />
+                        <Typography sx={{ margin: 0, fontWeight: 500, color: grey[400], fontSize: 14 }}>
+                            {username || user?.username}
                         </Typography>
                     </Box>
                     <Box
@@ -181,18 +206,19 @@ function QuestionBox(props) {
                         <Tour sx={{ fontSize: 16 }}/>
                         <Typography
                             sx={{
+                                maxWidth: 300,
                                 margin: 0,
                                 color: grey[400],
                                 fontSize: 14
                             }}
                             noWrap
                         >
-                            { tags.join(', ') }
+                            { tag_list ? tag_list.split(',').join(', ') : 'Không liên quan đến ngành CNTT' }
                         </Typography>
                         <Comment sx={{ fontSize: 16 }}/>
-                        <Typography sx={{ margin: 0, color: grey[400], fontSize: 14 }}>
+                        {/* <Typography sx={{ margin: 0, color: grey[400], fontSize: 14 }}>
                             {commentCount}
-                        </Typography>
+                        </Typography> */}
                     </Box>
                 </Box>
             </Box></Box>

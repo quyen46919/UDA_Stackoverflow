@@ -25,7 +25,7 @@ function AllNotificationPage() {
                         width: '100%',
                         display: 'flex',
                         alignItems: { xs: 'flex-start', md: 'center' },
-                        bgcolor: '#fff',
+                        bgcolor: 'secondary.main',
                         p: 2,
                         boxSizing: 'border-box',
                         borderRadius: 2,
@@ -50,7 +50,7 @@ function AllNotificationPage() {
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'break-spaces!important',
-                                color: grey[700],
+                                color: 'text.secondary',
                                 fontSize: 16
                             }}>
                                 {noti.title}

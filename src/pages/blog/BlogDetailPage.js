@@ -82,7 +82,7 @@ function BlogDetailPage() {
                                 pr: {
                                     sm: '30px',
                                     xs: '30px'
-                                },
+                                }
                             }}>
                             Share
                         </Typography>

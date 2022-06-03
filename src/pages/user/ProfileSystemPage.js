@@ -23,8 +23,8 @@ function ProfileSystemPage() {
                 justifyContent: 'space-between',
                 pr: 2, pl: 2, pt: 1
             },
-            '& > div > div > p': {
-                color: grey[600]
+            '& .MuiTypography-root': {
+                color: 'text.secondary'
             }
         }}>
             <Typography>Thiết lập hệ thống</Typography>
@@ -33,7 +33,10 @@ function ProfileSystemPage() {
                 overflow: 'hidden',
                 pt: 1, pb: 2,
                 boxSizing: 'border-box',
-                bgcolor: '#fff'
+                bgcolor: 'secondary.main',
+                '& div': {
+                    color: 'text.primary'
+                }
             }}>
                 <Box sx={{
                     display: 'flex',

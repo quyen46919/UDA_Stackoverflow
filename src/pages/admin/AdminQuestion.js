@@ -4,8 +4,8 @@ import { blue, grey } from '@mui/material/colors';
 import { questionSeedData } from 'assets/dataset/questionSeedData';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AdminSearchBar from '../components/AdminSearchBar';
-import QuestionBox from '../components/QuestionBox';
+import AdminSearchBar from '../../components/AdminSearchBar';
+import QuestionBox from '../../components/QuestionBox';
 
 function AdminQuestion() {
     const [anchorEl, setAnchorEl] = useState(null);

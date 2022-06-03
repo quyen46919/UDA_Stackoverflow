@@ -1,12 +1,11 @@
-import { useTheme } from '@emotion/react';
 import { Home, Login } from '@mui/icons-material';
 import { Button, Container, Divider, Grid, Typography, useMediaQuery } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import { Box } from '@mui/system';
 import { coreValues } from 'assets/dataset/coreValues';
-import banner from 'assets/images/intro-introduce-img.png';
 import { programmingLanguges } from 'assets/dataset/programinglanguages';
 import { userComment } from 'assets/dataset/userComment';
+import banner from 'assets/images/intro-introduce-img.png';
 import Footer from 'components/Footer';
 import SlickSlider from 'components/SlickSlider';
 import StyledScript from 'components/StyledScript';
@@ -33,14 +32,15 @@ const DIVIDER_STYLES = {
 };
 
 function IntroPage() {
-    const theme = useTheme();
-    const belowSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const belowSM = useMediaQuery('max-width(600px)');
 
     return (
         <Container maxWidth="xl" sx={{
             pt: { xs: 0, md: 4 },
             pl: { xs: 0, md: 2 },
-            pr: { xs: 0, md: 2 } }}
+            pr: { xs: 0, md: 2 },
+            bgcolor: 'primary.main'
+        }}
         >
             <Box sx={{
                 width: '80%',
@@ -156,7 +156,7 @@ function IntroPage() {
                                 fontSize: 18,
                                 pl: 2, pr: 2, pt: 1, pb: 1
                             }}>
-                            Đi tới đăng nhập <Login sx={{ ml: 1 }}/>
+                            Đi tới đăng ký <Login sx={{ ml: 1 }}/>
                             </Button>
                         </Link>
                     </Box>

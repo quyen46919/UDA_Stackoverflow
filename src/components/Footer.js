@@ -1,23 +1,27 @@
+import { useTheme } from '@emotion/react';
 import { FacebookOutlined, School, ShopOutlined, SubscriptionsOutlined } from '@mui/icons-material';
 import { Box, Container, Grid, IconButton, ListItem, ListItemText, Typography } from '@mui/material';
-import { blue, grey } from '@mui/material/colors';
+import { blue } from '@mui/material/colors';
 import footerBg from 'assets/images/footer-bg.png';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Footer() {
+    const theme = useTheme();
     return (
         <Container maxWidth="xl"
             sx={{
                 height: 'auto',
                 minHeight: 320,
-                backgroundImage: `url('${footerBg}')`,
+                bgcolor: 'primary.main',
+                backgroundImage: theme.palette.mode !== 'light' ? '' : `url('${footerBg}')`,
                 backgroundSize: 'cover',
-                mt: 3,
+                pt: 10,
                 pb: {
-                    xs: 3,
-                    sm: 3
-                }
+                    xs: 4,
+                    sm: 10
+                },
+                borderTop: theme.palette.mode !== 'light' ? '1px solid grey': ''
             }}
         >
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -36,7 +40,7 @@ function Footer() {
                         UDA Stackoverflow
                         </Typography>
                     </Box>
-                    <Typography>
+                    <Typography sx={{ color: 'text.secondary', fontSize: 16 }}>
                         UDA Stackoverflow là website trao đổi học tập của sinh viên khoa công nghệ thông tin đại học Đông Á - Đà Nẵng, hoạt động vào tháng 4 / 2022
                         <br/>
                         Mọi hoạt động của chúng tôi hiện tại được quản lí bởi khoa công nghệ thông tin đại học Đông Á - Đà Nẵng
@@ -47,9 +51,10 @@ function Footer() {
                         <ListItemText
                             primary={
                                 <Typography sx={{
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     fontWeight: 500,
-                                    color: grey[500]
+                                    color: 'text.secondary',
+                                    pb: 1
                                 }}>
                                     Số điện thoại
                                 </Typography>
@@ -73,7 +78,8 @@ function Footer() {
                                 <Typography sx={{
                                     fontSize: 18,
                                     fontWeight: 500,
-                                    color: grey[500]
+                                    color: 'text.secondary',
+                                    pb: 1
                                 }}>
                                     Email
                                 </Typography>}
@@ -97,7 +103,8 @@ function Footer() {
                                 <Typography sx={{
                                     fontSize: 18,
                                     fontWeight: 500,
-                                    color: grey[500]
+                                    color: 'text.secondary',
+                                    pb: 1
                                 }}>
                                     Theo dõi chúng tôi tại
                                 </Typography>
@@ -135,7 +142,7 @@ function Footer() {
                     <Typography sx={{
                         fontSize: 18,
                         fontWeight: 500,
-                        color: grey[500],
+                        color: 'text.secondary',
                         mb: 1
                     }}>
                         Mục khác
@@ -160,7 +167,7 @@ function Footer() {
                     <Typography sx={{
                         fontSize: 18,
                         fontWeight: 500,
-                        color: grey[500],
+                        color: 'text.secondary',
                         mb: 1
                     }}>
                         Bản quyền

@@ -1,10 +1,12 @@
 import { blue, grey, orange } from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { AuthContextProvider } from 'context/AuthContext';
 import { SnackbarProvider } from 'notistack';
 import FallBackScreen from 'pages/FallBackScreen';
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import store, { persistor } from 'redux/store';
 import App from './App';
 import './index.scss';
 
@@ -37,8 +39,9 @@ const theme = createTheme({
 ReactDOM.render(
     <React.StrictMode>
         <Suspense fallback={<FallBackScreen/>}>
-            <ThemeProvider theme={theme}>
-                <AuthContextProvider>
+            {/* <ThemeProvider theme={theme}> */}
+            <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
                     <SnackbarProvider
                         maxSnack={3}
                         anchorOrigin={{
@@ -49,8 +52,9 @@ ReactDOM.render(
                     >
                         <App />
                     </SnackbarProvider>
-                </AuthContextProvider>
-            </ThemeProvider>
+                </PersistGate>
+            </Provider>
+            {/* </ThemeProvider> */}
         </Suspense>
     </React.StrictMode>
     ,

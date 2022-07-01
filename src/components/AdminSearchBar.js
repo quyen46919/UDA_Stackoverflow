@@ -1,57 +1,20 @@
-import { Apps, Search, ViewList } from '@mui/icons-material';
-import { IconButton, InputAdornment, MenuItem, TextField } from '@mui/material';
+import { Search } from '@mui/icons-material';
+import { InputAdornment, MenuItem, TextField } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
+import ToggleDisplayButton from './ToggleDisplayButton';
 
 function AdminSearchBar() {
     const [showOption, setShowOption] = useState(10);
-    // const [open, setOpen] = useState(false);
-    const [showInBlock, setShowInBlock] = useState(true);
     const theme = useTheme();
     const matchXSScreen = useMediaQuery(theme.breakpoints.up('sm'));
 
     const handleChange = (event) => {
         setShowOption(event.target.value);
     };
-
-    const renderMenuOption = (
-        <Box sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 1,
-            ml: 'auto'
-        }}>
-            <IconButton
-                sx={{
-                    borderRadius: '5px!important',
-                    color: showInBlock ? blue[600] : grey[600],
-                    bgcolor: showInBlock ? `${blue[50]}!important` : 'initial',
-                    '& span': {
-                        borderRadius: '5px!important'
-                    }
-                }}
-                onClick={() => setShowInBlock(true)}
-            >
-                <Apps/>
-            </IconButton>
-            <IconButton
-                sx={{
-                    borderRadius: '5px!important',
-                    color: !showInBlock ? blue[600] : grey[600],
-                    bgcolor: !showInBlock ? `${blue[50]}!important` : 'initial',
-                    '& span': {
-                        borderRadius: '5px!important'
-                    }
-                }}
-                onClick={() => setShowInBlock(false)}
-            >
-                <ViewList/>
-            </IconButton>
-        </Box>
-    );
 
     return (
         <Box sx={{
@@ -126,9 +89,9 @@ function AdminSearchBar() {
                     <MenuItem value={10}>A -&gt; Z</MenuItem>
                     <MenuItem value={20}>Z -&gt; A</MenuItem>
                 </TextField>
-                {!matchXSScreen && renderMenuOption}
+                {!matchXSScreen && <ToggleDisplayButton/>}
             </Box>
-            {matchXSScreen && renderMenuOption}
+            {matchXSScreen && <ToggleDisplayButton/>}
         </Box>
     );
 }
